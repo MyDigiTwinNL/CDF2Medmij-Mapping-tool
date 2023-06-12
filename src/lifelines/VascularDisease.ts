@@ -47,7 +47,7 @@ export const code = ():object => {
  *   
  * 
  * 
- *   @pairingrule
+ *  @pairingrule
  *     if any of the following variables (if collected on any of the assessments) has a 'yes' value, return 'active':
  *                  heartattack_presence_adu_q_1 
  *                  heartattack_followup_adu_q_1 
@@ -58,6 +58,8 @@ export const code = ():object => {
  *                  cvd_followup_adu_q_1
  *     else
  *          Empty result (there is no such thing as an  inactive' CVD)
+ * 
+ * 
  */
 export const clinicalStatus = ():object => { 
     
@@ -148,17 +150,8 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  *   heartattack_followup_adu_q_1:      [  ][X ][X ][X ][X ][X ]    
  *   carotid_stenosis_adu_q_1:          [X ][  ][  ][  ][  ][  ]    
  *   claudication_followup_adu_q_1:     [  ][  ][  ][X ][X ][X ]    
- *   cvd_followup_adu_q_1:              [  ][X ][X ][X ][X ][X ]    
- *   
- * atherosclerosis_presence_adu_q_1 - 'could you indicate which of the following disorders you have (had)?', of which 'atherosclerosis' is one answer, but also f.e. 'heart valve problems'
- *
- * cvd_followup_adu_q_1 - did the health problems listed below start since the last time you filled in the lifelines questionnaire?
- * 
- *   - heart infarction
- *   - stroke (brain infarction, brain haemorrhage)
- *   - heart failure/heart muscle disorder
- *   - clogged arteries in the legs (intermittent claudication)
- * 
+ *   cvd_followup_adu_q_1:              [  ][X ][X ][X ][X ][X ] did the health problems listed below start since the last time you filled in the lifelines questionnaire?   
+ *    
  * 
  * @pairingrule
  *  (Original pairing rule) First non-NaN date of heartattack_startage_adu_q_1, angioplasty_bypass_adu_q_1a if available, else NaN
@@ -174,9 +167,8 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  *  - Problem is 'active'
  * 
  * @Questions
- *  - 
+ *  
  *  - Some variables have no question regarding onset of disease, which would lead to an imperfect description of 'onset'
- *  - Should atherosclerosis_presence_adu_q_1 be considered?
  *  - As far I can tell The following variables do not have a related age/date. Can (and should) we do imputation based on the assessment date?
  *          heartattack_followup_adu_q_1:      [  ][X ][X ][X ][X ][X ]    
  *          carotid_stenosis_adu_q_1:          [X ][  ][  ][  ][  ][  ]    
