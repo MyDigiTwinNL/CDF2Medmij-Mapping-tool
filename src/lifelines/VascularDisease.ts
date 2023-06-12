@@ -166,13 +166,12 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  *      if heartattack_presence_adu_q_1 in 1A = yes => year when participant was the age given in heartattack_startage_adu_q_1
  *      else if angioplasty_bypass_adu_q_1 in 1A, 3A or 3B => year when participant was the age given in the corresponding angioplasty_bypass_adu_q_1a
  *      else
- *          *TO BE DEFINED*
+ *          *TO BE DEFINED* (See questions below)
  * 
  * 
  * 
  * @Precondition
  *  - Problem is 'active'
- *  - Are cvd_followup_adu_q_1 values binary? (1=yes,2=no)
  * 
  * @Questions
  *  - 
