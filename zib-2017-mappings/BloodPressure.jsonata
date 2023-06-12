@@ -1,0 +1,159 @@
+(
+    $map($BloodPressure_results(), function($result) { 
+
+        {
+            "resourceType": "Observation",
+            "id": $waveSpecificResourceId('zib-bloodpressure',$result.assessment),    
+            "meta": {
+                "profile": [
+                    "http://nictiz.nl/fhir/StructureDefinition/zib-BloodPressure"
+                ]
+            },
+            "text": {
+                "status": "extensions",
+                "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Empty</div>"
+            },
+            "status": "final",
+            "category": [
+                {
+                    "coding": [
+                        {
+                            "system": "http://hl7.org/fhir/observation-category",
+                            "code": "vital-signs",
+                            "display": "Vital Signs"
+                        }
+                    ]
+                }
+            ],
+            "code": {
+                "coding": [
+                    {
+                        "system": "http://loinc.org",
+                        "code": "85354-9",
+                        "display": "Blood pressure panel with all children optional"
+                    }
+                ]
+            },
+            "subject": {
+                "reference": $idToUUID($resourceId('nl-core-patient')),
+                "display": "Anonymized-"&$resourceId('nl-core-patient')
+            },
+            "effectiveDateTime": $result.collectedDateTime,
+            "bodySite": {
+                "coding": [
+                    {
+                        "system": $result.measuringLocation.system,
+                        "code": $result.measuringLocation.code,
+                        "display": $result.measuringLocation.display
+                    }
+                ]
+            },
+            "method": {
+                "coding": [
+                    {
+                        "system": "http://snomed.info/sct",
+                        "code": "22762002",
+                        "display": "Non-invasive"
+                    }
+                ]
+            },
+            "component": [
+                {
+                    "code": {
+                    "coding": [
+                        {
+                        "system": "http://loinc.org",
+                        "code": "8478-0",
+                        "display": "Mean blood pressure"
+                        }
+                    ]
+                    },
+                    "valueQuantity": {
+                    "value": $result.arterialBloodPressure,
+                    "unit": "mm[Hg]",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mm[Hg]"
+                    }
+                },
+                {
+                    "code": {
+                        "coding": [
+                            {
+                                "system": "http://loinc.org",
+                                "code": "8480-6",
+                                "display": "Systolic blood pressure"
+                            }
+                        ]
+                    },
+                    "valueQuantity": {
+                        "value": $result.SystolicBloodPressure,
+                        "unit": "mmHg",
+                        "system": "http://unitsofmeasure.org",
+                        "code": "mm[Hg]"
+                    }
+                },
+                {
+                    "code": {
+                        "coding": [
+                            {
+                                "system": "http://loinc.org",
+                                "code": "8462-4",
+                                "display": "Diastolic blood pressure"
+                            }
+                        ]
+                    },
+                    "valueQuantity": {
+                        "value": $result.diastolicBloodPressure,
+                        "unit": "mmHg",
+                        "system": "http://unitsofmeasure.org",
+                        "code": "mm[Hg]"
+                    }
+                },
+                {
+                    "code": {
+                        "coding": [
+                            {
+                                "system": "http://loinc.org",
+                                "code": "8358-4",
+                                "display": "Blood pressure device Cuff size"
+                            }
+                        ]
+                    },
+                    "valueCodeableConcept": {
+                        "coding": [
+                            {
+                                "system": $result.cuffType.system,
+                                "code": $result.cuffType.code,
+                                "display": $result.cuffType.display
+                            }
+                        ]
+                    }
+                },
+                {
+                    "code": {
+                        "coding": [
+                            {
+                                "system": "http://loinc.org",
+                                "code": "8361-8",
+                                "display": "Body position with respect to gravity"
+                            }
+                        ]
+                    },
+                    "valueCodeableConcept": {
+                        "coding": [
+                            {
+                                "system": "http://snomed.info/sct",
+                                "code": "33586001",
+                                "display": "Sitting position"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+
+    }
+
+)
+
+)
