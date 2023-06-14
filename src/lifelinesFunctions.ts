@@ -1,6 +1,8 @@
 import {inputValue} from './functionsCatalog';
 
+
 export const resourceId = (resourceName:string):string => `${resourceName}-${inputValue('PROJECT_PSEUDO_ID')["1A"]}`
+
 export const waveSpecificResourceId = (resourceName:string,wave:string):string => `${resourceName}-${wave}-${inputValue('PROJECT_PSEUDO_ID')["1A"]}`
 
 

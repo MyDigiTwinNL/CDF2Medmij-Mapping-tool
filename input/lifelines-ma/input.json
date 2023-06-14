@@ -9,6 +9,11 @@
     "hypertension_startage_adu_q_1":{"1A":"","3A":"23","3B":"23"},
     "hypertension_presence_adu_q_1":{"1A":"2","3A":"1","3B":"1"},
 
+    "stroke_startage_adu_q_1":{ "1A": "12" },
+    "stroke_presence_adu_q_1": { "1A": "1" },
+    "stroke_followup_adu_q_1":{"2A":"2","3A":"2","3B":"2"},
+
+
     "diabetes_presence_adu_q_1":    {"1A":"2"},
     "diabetes_startage_adu_q_1":    {"1A":"28"},
     "diabetes_followup_adu_q_1":        {"1B":"2","1C":"2","2A":"2","3A":"2","3B":"2"},

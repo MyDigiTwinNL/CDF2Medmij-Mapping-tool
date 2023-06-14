@@ -6,7 +6,8 @@ export const conditionsSNOMEDCodeList = {
     "diabetes_mellitus_type_1": { "system": "http://snomed.info/sct", "code": "46635009", "display": "Diabetes mellitus type 1 (disorder)" },
     "diabetes_mellitus_type_2": { "system": "http://snomed.info/sct", "code": "44054006", "display": "Diabetes mellitus type 2 (disorder)" },
     "hypertensive_disorder":{"system":"http://snomed.info/sct","code":"59621000","display":"Essential hypertension (disorder)"},
-    "peripheral_vascular_disease":{"system":"http://snomed.info/sct","code":"400047006","display":"Peripheral vascular disease (disorder)"}           
+    "peripheral_vascular_disease":{"system":"http://snomed.info/sct","code":"400047006","display":"Peripheral vascular disease (disorder)"},
+    "cerebrovascular_accident":{"system":"http://snomed.info/sct","code":"230690007","display":"Cerebrovascular accident (disorder)"}                      
 };
 
 
