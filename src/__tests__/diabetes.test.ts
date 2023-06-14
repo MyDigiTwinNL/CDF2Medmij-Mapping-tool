@@ -142,6 +142,7 @@ test('Diabates resource generation when not reported', () => {
     "diabetes_startage_adu_q_1": { "1A": "" },
     "DATE": { "1A": "5/1992" },
     "AGE": { "1A": "22" },
+    "PROJECT_PSEUDO_ID": { "1A": "520681571" }
   }
 
   const targets: MappingTarget[] = [

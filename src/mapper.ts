@@ -47,10 +47,10 @@ async function setup(targets: MappingTarget[]): Promise<jsonata.Expression[]> {
       expression.registerFunction(libfunc.name, libfunc);
     }
 
-    //register resource-specific functions
+    //register resource-specific functions, set the modulename as a prefix
     await import(target.module).then(      
       (rfuncs) => registerFunctions(rfuncs, target.module.split('/').pop() || "", expression)
-    ).then(() => {
+    ).then(() => {      
       resourceExpressions.push(expression);
     })
   }
@@ -78,10 +78,9 @@ export async function processInput(input: object, mappings:MappingTarget[]): Pro
 
   await Promise.all(
     resourceExpressions.map(
-      async (expression) => {
-
-        try {
-          const output = await expression.evaluate(input)
+      async (expression) => {        
+        try {          
+          const output = await expression.evaluate(input)          
           //the output can be an array of resources (e.g., lab results involve multiple linked resources)
           if (Array.isArray(output)) {
             output.forEach((resource) => resources.push(resource))
@@ -91,8 +90,8 @@ export async function processInput(input: object, mappings:MappingTarget[]): Pro
             resources.push(output)
           }
         }
-        catch (error) {
-          throw new Error(`Error while transforming a JSonata expression:${expression}`, { cause: error })
+        catch (error) {                    
+          throw new Error(`Error while transforming a JSonata expression [${JSON.stringify(expression.ast())}]`, { cause: error })
         }
 
       }
