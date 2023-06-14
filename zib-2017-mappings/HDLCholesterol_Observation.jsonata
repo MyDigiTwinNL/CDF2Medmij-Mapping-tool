@@ -1,7 +1,7 @@
 (
 
 
-$map($LDLCholesterol_results(), function($result) {
+$map($HDLCholesterol_results(), function($result) {
 
         {
         "resourceType": "Observation",        
@@ -58,7 +58,7 @@ $map($LDLCholesterol_results(), function($result) {
         },
         
         
-        "interpretation": ($result.isLDLAboveReferenceRange)?{
+        "interpretation": ($result.isHDLBelowReferenceRange)?{
             "coding": [                                    
                     {
                         "system": $result.resultFlags.system,
@@ -76,7 +76,7 @@ $map($LDLCholesterol_results(), function($result) {
         "referenceRange": [
             {
                 "low": {
-                    "value": $LDLCholesterol_referenceRangeUpperLimit(),
+                    "value": $HDLCholesterol_referenceRangeLowerLimit(),
                     "unit": "mmol/l",
                     "system": "http://unitsofmeasure.org",
                     "code": "mmol/L"

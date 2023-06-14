@@ -3,11 +3,11 @@
 
 (
 
-$map($LDLCholesterol_results(), function($result) {
+$map($HDLCholesterol_results(), function($result) {
         
     {
     "resourceType": "DiagnosticReport",
-    "id": $waveSpecificResourceId('zib-laboratorytestresult-diagnosticreport-ldl',$result.assessment),
+    "id": $waveSpecificResourceId('zib-laboratorytestresult-diagnosticreport-hdl',$result.assessment),
     "meta": {
         "profile": [
             "http://nictiz.nl/fhir/StructureDefinition/zib-LaboratoryTestResult-DiagnosticReport"
@@ -52,16 +52,16 @@ $map($LDLCholesterol_results(), function($result) {
         "coding": [
             {
                 "system": "http://loinc.org",
-                "code": "69419-0",
-                "display": "LDLc SerPl Direct Assay-sCnc"
+                "code": "14646-4",
+                "display": "HDLc SerPl-sCnc"
             }
         ],
-        "text": "Cholesterol in LDL Direct assay [Moles/Vol]"
+        "text": "Cholesterol in HDL [Moles/Vol]"
     },
     "subject": {
         "reference": $idToUUID($resourceId('nl-core-patient')),
         "display": "Anonymized-"&$resourceId('nl-core-patient')
-    },    
+    },
     "effectiveDateTime": $result.collectedDateTime,
     "specimen": [
         {
