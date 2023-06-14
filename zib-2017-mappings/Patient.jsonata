@@ -1,15 +1,5 @@
 (
 
-    $genderFHIRV3Codes:={
-        "male":{"display":"male","code":"M", "system":"http://hl7.org/fhir/v3/AdministrativeGender"},
-        "female":{"display":"female","code":"F", "system":"http://hl7.org/fhir/v3/AdministrativeGender"},
-        "undifferentiated":{"display":"undifferentiated","code":"UN", "system":"http://hl7.org/fhir/v3/AdministrativeGender"},
-        "unknown":{"display":"unknown","code":"UNK", "system":"http://hl7.org/fhir/v3/AdministrativeGender"}
-    };
-
-    $gender:=function(){
-        GENDER="male"?$genderFHIRV3Codes.male:GENDER="female"?$genderFHIRV3Codes.female:$genderFHIRV3Codes.unknown
-    };    
 
     {
         "resourceType": "Patient",
@@ -24,7 +14,7 @@
             "status": "extensions",
             "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Undefined</div>"
         },
-        "gender": $gender().display,
+        "gender": $Patient_gender().display,
         "_gender": {
             "extension": [
                 {
@@ -33,15 +23,15 @@
                         "coding": [
                             {
                                 "system": "http://hl7.org/fhir/v3/AdministrativeGender",
-                                "code": $gender().code,
-                                "display": $gender().display
+                                "code": $Patient_gender().code,
+                                "display": $Patient_gender().display
                             }
                         ]
                     }
                 }
             ]
-        }
-        /*,"birthDate": $birthDate(), - No birthdate in lifelines*/
+        },
+        "birthDate": $Patient_birthDate()
     }
 
 )

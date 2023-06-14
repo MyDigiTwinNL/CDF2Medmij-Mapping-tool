@@ -65,13 +65,13 @@ $map($HDLCholesterol_results(), function($result) {
     "effectiveDateTime": $result.collectedDateTime,
     "specimen": [
         {
-            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-ldl',$result.assessment)),
+            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-hdl',$result.assessment)),
             "display": "Blood"
         }
     ],
     "result": [
         {
-            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-observation-ldl',$result.assessment)),
+            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-observation-hdl',$result.assessment)),
             "display": "Laboratory test finding"
         }
     ]

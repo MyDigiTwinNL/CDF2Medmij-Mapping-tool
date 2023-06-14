@@ -4,7 +4,6 @@ import moize from 'moize'
 import {testResultFlagsSNOMEDCodelist} from '../snomedCodeLists';
 
 
-
 export const referenceRangeLowerLimit = function():number{
     return 1
 };
@@ -37,14 +36,14 @@ export const results=function():object[]{
             "assessment":"1A",
             "isHDLBelowReferenceRange": isHDLBelowReferenceRange("1A"),
             "resultFlags": resultFlags("1A"),
-            "ldlResults": ldlResults("1A"),
+            "hdlResults": hdlResults("1A"),
             "collectedDateTime": collectedDateTime("1A")
         },
         {
             "assessment":"2A",
             "isHDLBelowReferenceRange": isHDLBelowReferenceRange("2A"),
             "resultFlags": resultFlags("2A"),
-            "ldlResults": ldlResults("2A"),
+            "hdlResults": hdlResults("2A"),
             "collectedDateTime": collectedDateTime("2A")
         },
     
@@ -60,7 +59,7 @@ const resultFlags = function(wave:string):object{
     return isHDLBelowReferenceRange(wave)?testResultFlagsSNOMEDCodelist.below_reference_range:{}
 };
 
-const ldlResults=function(wave:string):number{
+const hdlResults=function(wave:string):number{
     return Number(inputValue("hdlchol_result_all_m_1")[wave])
 };
 

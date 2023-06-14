@@ -51,7 +51,7 @@ $map($HDLCholesterol_results(), function($result) {
         },
         "effectiveDateTime": $result.collectedDateTime,
         "valueQuantity": {
-            "value": $result.ldlResults,
+            "value": $result.hdlResults,
             "unit": "mmol/l",
             "system": "http://unitsofmeasure.org",
             "code": "mmol/L"
