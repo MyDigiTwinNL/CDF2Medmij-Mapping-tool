@@ -5,7 +5,7 @@ $map($HDLCholesterol_results(), function($result) {
 
         {
         "resourceType": "Observation",        
-        "id": $waveSpecificResourceId('zib-laboratorytestresult-observation-ldl',$result.assessment),    
+        "id": $waveSpecificResourceId('zib-laboratorytestresult-observation-hdl',$result.assessment),    
         "meta": {
             "profile": [
                 "http://nictiz.nl/fhir/StructureDefinition/zib-LaboratoryTestResult-Observation"
