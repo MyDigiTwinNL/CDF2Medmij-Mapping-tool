@@ -86,7 +86,12 @@ test('Stroke resource generation when not reported', () => {
 
 
 
-
+/**
+ * Case intended only for testing that the template and the module, together, do not fail
+ * when generating a FHIR resource with a given input. More specific validations on this
+ * output are performed through the HL7 validator.
+ * 
+ */
 test('Stroke resource generation when reported', () => {
 
   const input = {

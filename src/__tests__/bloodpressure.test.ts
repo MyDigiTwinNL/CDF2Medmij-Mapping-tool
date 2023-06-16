@@ -4,14 +4,14 @@ import {testResultFlagsSNOMEDCodelist} from '../snomedCodeLists';
 import { MappingTarget, processInput } from '../mapper'
 
 
-/*type BloodPressureReadingEntry = {
+type BloodPressureReadingEntry = {
     "cuffType": object,
     "measuringLocation": object,
     "systolicBloodPressure": number,
     "diastolicBloodPressure": number,
     "arterialBloodPressure": number,
     "bloodPressureDateTime": string
-}*/
+}
 
 
 

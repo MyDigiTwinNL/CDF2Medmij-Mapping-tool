@@ -1,6 +1,25 @@
 
 
 
+export const typeOfTobaccoUsedSNOMEDCodelist = {
+    "cigarrette":{"system": "http://snomed.info/sct","display":"Cigarette smoker (finding)","code":"65568007"},        
+    "cigar":{"system": "http://snomed.info/sct","display":"Cigar smoker (finding)","code":"59978006"},
+    "pipe":{"system": "http://snomed.info/sct","display":"Pipe smoker (finding)","code":"82302008"},
+    "rolls_own_cigarrettes":{"system": "http://snomed.info/sct","display":"Rolls own cigarettes (finding)","code":"160619003"},
+    "other":{"system": "http://snomed.info/sct","display":"Other","code":"OTH"}    
+}
+
+export const tobaccoUseStatusSNOMEDCodelist = {
+    "daily":{"system": "http://snomed.info/sct","display":"Smokes tobacco daily (finding)","code":"449868002"},
+    "occasional":{"system": "http://snomed.info/sct","display":"Occasional cigarette smoker (finding)","code":"230059006"},
+    "passive":{"system": "http://snomed.info/sct","display":"Passive smoker (finding)","code":"43381005"},
+    "ex_smoker":{"system": "http://snomed.info/sct","display":"Ex-smoker (finding)","code":"8517006"},
+    "past_smoking_hist":{"system": "http://snomed.info/sct","display":"Current non smoker but past smoking history unknown (finding)","code":"405746006"},
+    "non_smoker":{"system": "http://snomed.info/sct","display":"Never smoked tobacco (finding)","code":"266919005"},
+    "other":{"system": "http://snomed.info/sct","display":"Other","code":"OTH"}
+};
+
+
 export const conditionsSNOMEDCodeList = {
     "diabetes_mellitus": { "system": "http://snomed.info/sct", "code": "73211009", "display": "Diabetes mellitus (disorder)" },
     "diabetes_mellitus_type_1": { "system": "http://snomed.info/sct", "code": "46635009", "display": "Diabetes mellitus type 1 (disorder)" },
