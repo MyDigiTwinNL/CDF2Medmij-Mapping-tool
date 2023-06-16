@@ -1,6 +1,7 @@
 (
 
-    $map($TobbacoUse_results(), function($result) {
+    $map($TobaccoUse_results(), function($result) {
+        {
         "resourceType": "Observation",
         "id": $waveSpecificResourceId('zib-tobaccouse',$result.assessment),    
         "meta": {
@@ -69,7 +70,7 @@
                     ]
                 },
                 "valueQuantity": {
-                    "value": $result.packYears
+                    "value": $result.packYears,
                     "unit": "PackYears",
                     "system": "http://unitsofmeasure.org",
                     "code": "{PackYears}"
@@ -77,5 +78,7 @@
             }
         ]
     }
+    
+    })
     
 )

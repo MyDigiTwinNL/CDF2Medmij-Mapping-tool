@@ -76,7 +76,7 @@ test('participant started smoking before the baseline assessment and in the last
 
 });
 
-/*
+
 test('Resource generation', () => {
 
   const input = {
@@ -103,7 +103,7 @@ test('Resource generation', () => {
 });
 
 
-*/
+
 
 
 

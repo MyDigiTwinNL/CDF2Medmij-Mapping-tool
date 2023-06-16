@@ -56,8 +56,8 @@ export type TobaccoUseProperties = {
     "packYears":string,
     "smokingStartDate":string,
     "smokingEndDate":string
-    "everSmoker":string
-    "currentSmoker":string  
+    "everSmoker":boolean
+    "currentSmoker":boolean
 }
   
 
