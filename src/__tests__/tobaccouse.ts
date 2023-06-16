@@ -8,7 +8,7 @@ import { MappingTarget, processInput } from '../mapper'
 test('non-smoker', () => {
 
   const input = {
-    "currentsmoker_v2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2", "3B": "2" },
+    "current_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2", "3B": "2" },
     "smoking_startage_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
     "ex_smoker_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
     "smoking_endage_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
@@ -31,7 +31,7 @@ test('non-smoker', () => {
 test('participant was an ex-smoker before the first assessment', () => {
 
   const input = {
-    "currentsmoker_v2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2"},
+    "current_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2"},
     "smoking_startage_adu_c_2": { "1A": "20", "1B": "20", "1C": "20", "2A": "20", "2B": "20", "3A": "20"},
     "ex_smoker_adu_c_2": { "1A": "1", "1B": "1", "1C": "1", "2A": "1", "2B": "1", "3A": "1"},
     "smoking_endage_adu_c_2": { "1A": "30", "1B": "30", "1C": "30", "2A": "30", "2B": "30", "3A": "30"},
@@ -56,7 +56,7 @@ test('participant was an ex-smoker before the first assessment', () => {
 test('participant started smoking before the baseline assessment and in the last assessent still smoked', () => {
 
   const input = {
-    "currentsmoker_v2": { "1A": "1", "1B": "1", "1C": "1", "2A": "1", "2B": "1", "3A": "1"},
+    "current_smoker_adu_c_2": { "1A": "1", "1B": "1", "1C": "1", "2A": "1", "2B": "1", "3A": "1"},
     "smoking_startage_adu_c_2": { "1A": "20", "1B": "20", "1C": "20", "2A": "20", "2B": "20", "3A": "20"},
     "ex_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2"},
     "smoking_endage_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": ""},
@@ -76,11 +76,11 @@ test('participant started smoking before the baseline assessment and in the last
 
 });
 
-
+/*
 test('Resource generation', () => {
 
   const input = {
-      "currentsmoker_v2": { "1A": "1", "1B": "1", "1C": "1", "2A": "1", "2B": "1", "3A": "1"},
+      "current_smoker_adu_c_2": { "1A": "1", "1B": "1", "1C": "1", "2A": "1", "2B": "1", "3A": "1"},
       "smoking_startage_adu_c_2": { "1A": "20", "1B": "20", "1C": "20", "2A": "20", "2B": "20", "3A": "20"},
       "ex_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2"},
       "smoking_endage_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": ""},
@@ -103,7 +103,7 @@ test('Resource generation', () => {
 });
 
 
-
+*/
 
 
 

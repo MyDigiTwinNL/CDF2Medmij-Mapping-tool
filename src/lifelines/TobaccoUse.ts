@@ -70,7 +70,7 @@ export const results=function():object[]{
             "amountPerDay":amountPerDay("1A"),
             "packYears":packYears("1A"),
             "smokingStartDate":smokingStart("1A"),
-            "smokingEndDate":smokingStart("1A"),
+            "smokingEndDate":smokingEnd("1A"),
             "everSmoker":everSmoker("1A"),
             "currentSmoker":currentSmoker("1A")
         },
@@ -80,26 +80,27 @@ export const results=function():object[]{
 
 
 const everSmoker = function(wave:string){
-    return inputValue("eversmoker_v2")[wave]===1
+    return inputValue("ever_smoker_adu_c_2")[wave]==="1"
 }
 
 const currentSmoker = function(wave:string){
-    return inputValue("currentsmoker_v2")[wave]===1
+    return inputValue("current_smoker_adu_c_2")[wave]==="1"
 }
 
 const  smokingStart = function(wave:string){
     const surveyDateParts = inputValue("DATE")[wave].split("/");        
     const surveyYear= Number(surveyDateParts[1]);
-    const startAge = Number(inputValue("smoking_startage_adu_c_2"));
-    const surveyAge = Number(inputValue("AGE"));                
+    const startAge = Number(inputValue("smoking_startage_adu_c_2")[wave]);
+    //Age is only on baseline assessment 1A
+    const surveyAge = Number(inputValue("AGE")['1A']);                
     return (surveyYear - surveyAge + startAge).toString()
 };
 
 const  smokingEnd = function(wave:string){
     const surveyDateParts = inputValue("DATE")[wave].split("/");        
     const surveyYear= Number(surveyDateParts[1]);
-    const endAge = Number(inputValue("smoking_endage_adu_c_2"));
-    const surveyAge = Number(inputValue("AGE"));                
+    const endAge = Number(inputValue("smoking_endage_adu_c_2")[wave]);
+    const surveyAge = Number(inputValue("AGE")['1A']);                
     return (surveyYear - surveyAge + endAge).toString()
 };
 
@@ -120,18 +121,18 @@ const typeOfTobaccoUsed = (wave:string):object|undefined =>{
  * @question is there a way to tell if it is daily or ocasional smoker?
  * @param wave 
  */
-const tobaccoUseStatus = (wave:string) => {    
-    if (inputValue("ever_smoker_adu_c_2")[wave]=="2"){
-        tobaccoUseStatusSNOMEDCodelist.non_smoker;
+const tobaccoUseStatus = (wave:string):object => {    
+    if (inputValue("ever_smoker_adu_c_2")[wave]==="2"){
+        return tobaccoUseStatusSNOMEDCodelist.non_smoker;
     }
-    else if (inputValue("ex_smoker_adu_c_2")[wave]=="1"){
-        tobaccoUseStatusSNOMEDCodelist.ex_smoker;
+    else if (inputValue("ex_smoker_adu_c_2")[wave]==="1"){
+        return tobaccoUseStatusSNOMEDCodelist.ex_smoker;
     }
-    else if (inputValue("current_smoker_c_2")[wave]=="1"){
-        tobaccoUseStatusSNOMEDCodelist.occasional;
+    else if (inputValue("current_smoker_adu_c_2")[wave]==="1"){
+        return tobaccoUseStatusSNOMEDCodelist.occasional;
     }
     else{
-        tobaccoUseStatusSNOMEDCodelist.other;
+        return tobaccoUseStatusSNOMEDCodelist.other;
     }
 }
 
