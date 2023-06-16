@@ -77,7 +77,7 @@ test('participant started smoking before the baseline assessment and in the last
 });
 
 
-test('Diabates resource generation when not reported', () => {
+test('Resource generation', () => {
 
   const input = {
       "currentsmoker_v2": { "1A": "1", "1B": "1", "1C": "1", "2A": "1", "2B": "1", "3A": "1"},
@@ -93,7 +93,7 @@ test('Diabates resource generation when not reported', () => {
   }
 
   const targets: MappingTarget[] = [
-    { "template": './zib-2017-mappings/TobbacoUse.jsonata', "module": './lifelines/TobbacoUse' },
+    { "template": './zib-2017-mappings/TobaccoUse.jsonata', "module": './lifelines/TobaccoUse' },
   ]
 
   processInput(input, targets).then((output: object[]) => {
