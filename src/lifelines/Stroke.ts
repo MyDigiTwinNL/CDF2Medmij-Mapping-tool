@@ -37,7 +37,7 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  * ------------------------------------------------------------------
  *                                [1A][1B][1C][2A][3A][3B]
  * stroke_presence_adu_q_1        [X ][  ][  ][  ][  ][  ]
- * stroke_followup_adu_q_1        [  ][  ][  ][X ][X ][X ]
+ * stroke_followup_adu_q_1        [  ][X ][X ][X ][X ][X ]
  * ------------------------------------------------------------------
  * 
  * @precondition
@@ -85,7 +85,7 @@ const _clinicalStatus = moize((stroke_presence:string,followup_assessments:objec
  *                                [1A][1B][1C][2A][3A][3B]
  * stroke_startage_adu_q_1        [X ][  ][  ][  ][  ][  ]
  * stroke_presence_adu_q_1        [X ][  ][  ][  ][  ][  ]
- * stroke_followup_adu_q_1        [  ][  ][  ][X ][X ][X ]
+ * stroke_followup_adu_q_1        [  ][X ][X ][X ][X ][X ]
  * DATE                           [X ][X ][X ][X ][X ][X ]
  * ------------------------------------------------------------------
  * 
@@ -140,8 +140,7 @@ export const onsetDateTime = ():string => {
  */
 function findDatesBetweenStrokePresenceReport(): [string,string]|undefined{
     const strokeFollowUp=inputValues('stroke_followup_adu_q_1')      
-
-    const waves = ['1A','2A', '3A', '3B'];
+    const waves = ['1A','1B','1C','2A', '3A', '3B'];
     let previousWave = waves[0];
   
     for (let i = 1; i < waves.length; i++) {
@@ -169,10 +168,6 @@ export const verificationStatus = ():object => {
 
 
 /**
- *                              [1A][1B][1C][2A][3A][3B]
- * stroke_startage_adu_q_1        [X ][  ][  ][  ][  ][  ]
- * stroke_presence_adu_q_1        [X ][  ][  ][  ][  ][  ]
- * stroke_followup_adu_q_1        [  ][  ][  ][X ][X ][X ]
  * 
  * @precondition
  *      - no missing values

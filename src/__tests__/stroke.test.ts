@@ -9,7 +9,7 @@ test('stroke, when reported positive in 1A', () => {
   const input = {
     "stroke_startage_adu_q_1":{ "1A": "12" },
     "stroke_presence_adu_q_1": { "1A": "1" },
-    "stroke_followup_adu_q_1":{"2A":"2","3A":"2","3B":"2"},
+    "stroke_followup_adu_q_1":{"1B":"2","1C":"2","2A":"2","3A":"2","3B":"2"},
     "DATE": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
     "AGE": { "1A": "22" }
   }
@@ -23,13 +23,13 @@ test('stroke, when reported positive in 1A', () => {
 });
 
 
-test('stroke, when reported positive in 2A', () => {
+test('stroke, when reported in 2A', () => {
 
   const input = {
     "stroke_startage_adu_q_1":{ "1A": "12" },
     "stroke_presence_adu_q_1": { "1A": "2" },
-    "stroke_followup_adu_q_1":{"2A":"1","3A":"2","3B":"2"},
-    "DATE": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2002","3A":"5/2003","3B":"5/2005"},
+    "stroke_followup_adu_q_1":{"1B":"2","1C":"2","2A":"1","3A":"2","3B":"2"},    
+    "DATE": {"1A":"5/1992","1B":"5/1995","1C":"5/1996","2A":"5/2002","3A":"5/2003","3B":"5/2005"},
     "AGE": { "1A": "22" }
   }
 
@@ -37,11 +37,28 @@ test('stroke, when reported positive in 2A', () => {
   expect(strokemf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
   expect(strokemf.isPresent()).toBe(true);
   expect(strokemf.code()).toBe(conditionsSNOMEDCodeList.cerebrovascular_accident);
-  expect(strokemf.onsetDateTime()).toBe("1997-05");
+  expect(strokemf.onsetDateTime()).toBe("1999-05");
   
 });
 
 
+test('stroke, when reported right after baseline (1B)', () => {
+
+  const input = {
+    "stroke_startage_adu_q_1":{ "1A": "12" },
+    "stroke_presence_adu_q_1": { "1A": "2" },
+    "stroke_followup_adu_q_1":{"1B":"1","1C":"2","2A":"2","3A":"2","3B":"2"},    
+    "DATE": {"1A":"5/1993","1B":"5/1995","1C":"5/1996","2A":"5/2002","3A":"5/2003","3B":"5/2005"},
+    "AGE": { "1A": "22" }
+  }
+
+  InputSingleton.getInstance().setInput(input);
+  expect(strokemf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
+  expect(strokemf.isPresent()).toBe(true);
+  expect(strokemf.code()).toBe(conditionsSNOMEDCodeList.cerebrovascular_accident);
+  expect(strokemf.onsetDateTime()).toBe("1994-05");
+  
+});
 
 test('stroke, when no reported', () => {
 
