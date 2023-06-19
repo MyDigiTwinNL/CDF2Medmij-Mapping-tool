@@ -54,7 +54,7 @@ export const results=function():object[]{
 
 
 const isLDLAboveReferenceRange = function(wave:string):boolean{
-    return Number(inputValue("ldlchol_result_all_m_1")[wave]) > referenceRangeUpperLimit()
+    return Number(inputValue("ldlchol_result_all_m_1",wave)) > referenceRangeUpperLimit()
 };
 
 const resultFlags = function(wave:string):object{
@@ -62,9 +62,9 @@ const resultFlags = function(wave:string):object{
 };
 
 const ldlResults=function(wave:string):number{
-    return Number(inputValue("ldlchol_result_all_m_1")[wave])
+    return Number(inputValue("ldlchol_result_all_m_1",wave))
 };
 
 const collectedDateTime=function(wave:string):string{
-    return lifelinesDateToISO(inputValue("DATE")[wave])
+    return lifelinesDateToISO(inputValue("DATE",wave))
 };

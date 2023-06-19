@@ -1,4 +1,4 @@
-import {inputValue} from '../functionsCatalog';
+import {inputValue,inputValues} from '../functionsCatalog';
 import moize from 'moize'
 import {lifelinesDateToISO, lifelinesMeanDate} from '../lifelinesFunctions'
 import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../snomedCodeLists';
@@ -79,13 +79,13 @@ export const clinicalStatus = ():object => {
 
 
 const cvdRelatedVariables = {
-    "heartattack_presence_adu_q_1":inputValue("heartattack_presence_adu_q_1"),
-    "heartattack_followup_adu_q_1":inputValue("heartattack_followup_adu_q_1"),
-    "angioplasty_bypass_adu_q_1" :inputValue("angioplasty_bypass_adu_q_1"),
-    "carotid_stenosis_adu_q_1" :inputValue("carotid_stenosis_adu_q_1"),
-    "atherosclerosis_presence_adu_q_1":inputValue("atherosclerosis_presence_adu_q_1"),
-    "claudication_followup_adu_q_1":inputValue("claudication_followup_adu_q_1"),
-    "cvd_followup_adu_q_1":inputValue("cvd_followup_adu_q_1")
+    "heartattack_presence_adu_q_1":inputValues("heartattack_presence_adu_q_1"),
+    "heartattack_followup_adu_q_1":inputValues("heartattack_followup_adu_q_1"),
+    "angioplasty_bypass_adu_q_1" :inputValues("angioplasty_bypass_adu_q_1"),
+    "carotid_stenosis_adu_q_1" :inputValues("carotid_stenosis_adu_q_1"),
+    "atherosclerosis_presence_adu_q_1":inputValues("atherosclerosis_presence_adu_q_1"),
+    "claudication_followup_adu_q_1":inputValues("claudication_followup_adu_q_1"),
+    "cvd_followup_adu_q_1":inputValues("cvd_followup_adu_q_1")
 }
 
 

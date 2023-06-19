@@ -14,11 +14,21 @@ export const idToUUID = (id: string) => `urn:uuid:${uuidv5(id, parameters.privat
  * @param name of the variable
  * @returns value of the given variable
  */
-export const inputValue = (name:string) => {    
-    const value = InputSingleton.getInstance().getInput()[name];
-    if (value===undefined) throw Error(`Variable ${name} not provided in the input`)
-    else return value
+export const inputValue = (name:string,wave:string): string => {    
+    const assessmentValues = InputSingleton.getInstance().getInput()[name];
+    if (assessmentValues===undefined) throw Error(`Variable ${name} not provided in the input`)
+    if (!(wave in assessmentValues)) throw Error(`Assessment ${wave} not available for variable ${name}`)
+    return assessmentValues[wave]
 }
+
+export const inputValues = (name:string):{[key:string]:string} => {    
+    const assessmentValues = InputSingleton.getInstance().getInput()[name];
+    if (assessmentValues===undefined) throw Error(`Variable ${name} not provided in the input`)    
+    return assessmentValues
+}
+
+
+
 
 /**
  * Function for echoing strings within a JSONata expression (for debugging purposes)

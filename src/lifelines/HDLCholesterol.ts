@@ -52,7 +52,7 @@ export const results=function():object[]{
 }
 
 const isHDLBelowReferenceRange = function(wave:string):boolean{
-    return Number(inputValue("hdlchol_result_all_m_1")[wave]) < referenceRangeLowerLimit()
+    return Number(inputValue("hdlchol_result_all_m_1",wave)) < referenceRangeLowerLimit()
 };
 
 const resultFlags = function(wave:string):object{
@@ -60,9 +60,9 @@ const resultFlags = function(wave:string):object{
 };
 
 const hdlResults=function(wave:string):number{
-    return Number(inputValue("hdlchol_result_all_m_1")[wave])
+    return Number(inputValue("hdlchol_result_all_m_1",wave))
 };
 
 const collectedDateTime=function(wave:string):string{
-    return lifelinesDateToISO(inputValue("DATE")[wave])
+    return lifelinesDateToISO(inputValue("DATE",wave))
 };

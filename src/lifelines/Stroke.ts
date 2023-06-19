@@ -1,4 +1,4 @@
-import {inputValue} from '../functionsCatalog';
+import {inputValue, inputValues} from '../functionsCatalog';
 import moize from 'moize'
 import {lifelinesDateToISO, lifelinesMeanDate} from '../lifelinesFunctions'
 import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../snomedCodeLists';
@@ -55,7 +55,7 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  * 
  */
 export const clinicalStatus = ():object => { 
-    return _clinicalStatus(inputValue("stroke_presence_adu_q_1")["1A"],inputValue("stroke_followup_adu_q_1"));
+    return _clinicalStatus(inputValue("stroke_presence_adu_q_1","1A"),inputValues("stroke_followup_adu_q_1"));
 }
 
 /**
@@ -110,11 +110,11 @@ const _clinicalStatus = moize((stroke_presence:string,followup_assessments:objec
  *          
  */
 export const onsetDateTime = ():string => {
-    if (inputValue("stroke_presence_adu_q_1")["1A"]==='1'){
-        const surveyDateParts = inputValue("DATE")["1A"].split("/");
+    if (inputValue("stroke_presence_adu_q_1","1A")==='1'){
+        const surveyDateParts = inputValue("DATE","1A").split("/");
         const surveyYear = Number(surveyDateParts[1]);
-        const strokeStartAge = Number (inputValue("stroke_startage_adu_q_1")["1A"]);
-        const surveyAge = Number(inputValue("AGE")["1A"]);      
+        const strokeStartAge = Number (inputValue("stroke_startage_adu_q_1","1A"));
+        const surveyAge = Number(inputValue("AGE","1A"));      
         return (surveyYear - surveyAge + strokeStartAge).toString();
     }
     else{
@@ -139,7 +139,7 @@ export const onsetDateTime = ():string => {
  * @returns 
  */
 function findDatesBetweenStrokePresenceReport(): [string,string]|undefined{
-    const strokeFollowUp=inputValue('stroke_followup_adu_q_1')      
+    const strokeFollowUp=inputValues('stroke_followup_adu_q_1')      
 
     const waves = ['1A','2A', '3A', '3B'];
     let previousWave = waves[0];
@@ -148,7 +148,7 @@ function findDatesBetweenStrokePresenceReport(): [string,string]|undefined{
       const wave = waves[i];
       const value = strokeFollowUp[wave];
       if (value === '1') {
-        return [inputValue("DATE")[previousWave],inputValue("DATE")[wave]];        
+        return [inputValue("DATE",previousWave),inputValue("DATE",wave)];        
       }
   
       previousWave = wave;

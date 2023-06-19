@@ -1,4 +1,4 @@
-import {inputValue} from '../functionsCatalog';
+import {inputValue, inputValues} from '../functionsCatalog';
 import moize from 'moize'
 import {lifelinesDateToISO, lifelinesMeanDate} from '../lifelinesFunctions'
 import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../snomedCodeLists';
@@ -55,7 +55,7 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  * 
  */
 export const clinicalStatus = ():object => { 
-    return _clinicalStatus(inputValue("diabetes_presence_adu_q_1")["1A"],inputValue("diabetes_followup_adu_q_1"));
+    return _clinicalStatus(inputValue("diabetes_presence_adu_q_1","1A"),inputValues("diabetes_followup_adu_q_1"));
 }
 
 /**
@@ -103,11 +103,11 @@ const _clinicalStatus = moize((diab_presence:string,followup_assessments:object)
  *              
  */
 export const onsetDateTime = ():string => {
-    if (inputValue("diabetes_presence_adu_q_1")["1A"]==='1'){
-        const surveyDateParts = inputValue("DATE")["1A"].split("/");
+    if (inputValue("diabetes_presence_adu_q_1","1A")==='1'){
+        const surveyDateParts = inputValue("DATE","1A").split("/");
         const surveyYear = Number(surveyDateParts[1]);
-        const diabetesStartAge = Number (inputValue("diabetes_startage_adu_q_1")["1A"]);
-        const surveyAge = Number(inputValue("AGE")["1A"]);      
+        const diabetesStartAge = Number (inputValue("diabetes_startage_adu_q_1","1A"));
+        const surveyAge = Number(inputValue("AGE","1A"));      
         return (surveyYear - surveyAge + diabetesStartAge).toString();
     }
     else{
@@ -132,7 +132,7 @@ export const onsetDateTime = ():string => {
  * @returns 
  */
 function findDatesBetweenDiabetesPresenceReport(): [string,string]|undefined{
-    const diabFollowUp=inputValue('diabetes_followup_adu_q_1')      
+    const diabFollowUp=inputValues('diabetes_followup_adu_q_1')      
     const waves = ['1A','1B','1C','2A', '3A', '3B'];
     let previousWave = waves[0];
   
@@ -140,7 +140,7 @@ function findDatesBetweenDiabetesPresenceReport(): [string,string]|undefined{
       const wave = waves[i];
       const value = diabFollowUp[wave];
       if (value === '1') {
-        return [inputValue("DATE")[previousWave],inputValue("DATE")[wave]];        
+        return [inputValue("DATE",previousWave),inputValue("DATE",wave)];        
       }
   
       previousWave = wave;
@@ -192,19 +192,19 @@ export const verificationStatus = ():object => {
  */
 export const code = ():object => {
 
-    if (inputValue('diabetes_presence_adu_q_1')["1A"]==='1'){
-        if (inputValue('diabetes_type_adu_q_1')["1A"]==='1') return conditionsSNOMEDCodeList.diabetes_mellitus_type_1;
-        else if (inputValue('diabetes_type_adu_q_1')["1A"]==='2') return conditionsSNOMEDCodeList.diabetes_mellitus_type_2
+    if (inputValue('diabetes_presence_adu_q_1',"1A")==='1'){
+        if (inputValue('diabetes_type_adu_q_1',"1A")==='1') return conditionsSNOMEDCodeList.diabetes_mellitus_type_1;
+        else if (inputValue('diabetes_type_adu_q_1',"1A")==='2') return conditionsSNOMEDCodeList.diabetes_mellitus_type_2
         else throw Error("Undefined mapping case")
     }
     else{
-        const t1dfollowup = inputValue("t1d_followup_adu_q_1")
+        const t1dfollowup = inputValues("t1d_followup_adu_q_1")
 
         if (Object.values(t1dfollowup).some((wavereading) => wavereading === "1")){
             return conditionsSNOMEDCodeList.diabetes_mellitus_type_1;
         }
         else{
-            const t2dfollowup = inputValue("t2d_followup_adu_q_1")
+            const t2dfollowup = inputValues("t2d_followup_adu_q_1")
             if (Object.values(t2dfollowup).some((wavereading) => wavereading === "1")){
                 return conditionsSNOMEDCodeList.diabetes_mellitus_type_2;
             }

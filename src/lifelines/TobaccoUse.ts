@@ -52,17 +52,18 @@ import { tobaccoUseStatusSNOMEDCodelist,typeOfTobaccoUsedSNOMEDCodelist} from '.
 export type TobaccoUseProperties = {
     "assessment":string,
     "useStatus":object,
-    "amountPerDay":string,
-    "packYears":string,
+    "amountPerDay":number,
+    "packYears":number,
     "smokingStartDate":string,
-    "smokingEndDate":string
-    "everSmoker":boolean
-    "currentSmoker":boolean
+    "smokingEndDate":string,
+    "everSmoker":boolean,
+    "currentSmoker":boolean,
+    "exSmoker":boolean
 }
   
 
 
-export const results=function():object[]{
+export const results=function():TobaccoUseProperties[]{
     return [
         {
             "assessment":"1A",
@@ -72,35 +73,41 @@ export const results=function():object[]{
             "smokingStartDate":smokingStart("1A"),
             "smokingEndDate":smokingEnd("1A"),
             "everSmoker":everSmoker("1A"),
-            "currentSmoker":currentSmoker("1A")
+            "currentSmoker":currentSmoker("1A"),
+            "exSmoker":exSmoker("1A")
         },
     ]
 
 }
 
 
-const everSmoker = function(wave:string){
-    return inputValue("ever_smoker_adu_c_2")[wave]==="1"
+const everSmoker = function(wave:string):boolean{
+    return inputValue("ever_smoker_adu_c_2",wave)==="1"
 }
 
-const currentSmoker = function(wave:string){
-    return inputValue("current_smoker_adu_c_2")[wave]==="1"
+const currentSmoker = function(wave:string):boolean{
+    return inputValue("current_smoker_adu_c_2",wave)==="1"
 }
+
+const exSmoker = function(wave:string):boolean{
+    return inputValue("ex_smoker_adu_c_2",wave)==="1"
+}
+
 
 const  smokingStart = function(wave:string){
-    const surveyDateParts = inputValue("DATE")[wave].split("/");        
+    const surveyDateParts = inputValue("DATE",wave).split("/");        
     const surveyYear= Number(surveyDateParts[1]);
-    const startAge = Number(inputValue("smoking_startage_adu_c_2")[wave]);
+    const startAge = Number(inputValue("smoking_startage_adu_c_2",wave));
     //Age is only on baseline assessment 1A
-    const surveyAge = Number(inputValue("AGE")['1A']);                
+    const surveyAge = Number(inputValue("AGE","1A"));                
     return (surveyYear - surveyAge + startAge).toString()
 };
 
 const  smokingEnd = function(wave:string){
-    const surveyDateParts = inputValue("DATE")[wave].split("/");        
+    const surveyDateParts = inputValue("DATE",wave).split("/");        
     const surveyYear= Number(surveyDateParts[1]);
-    const endAge = Number(inputValue("smoking_endage_adu_c_2")[wave]);
-    const surveyAge = Number(inputValue("AGE")['1A']);                
+    const endAge = Number(inputValue("smoking_endage_adu_c_2",wave));
+    const surveyAge = Number(inputValue("AGE","1A"));                
     return (surveyYear - surveyAge + endAge).toString()
 };
 
@@ -122,13 +129,13 @@ const typeOfTobaccoUsed = (wave:string):object|undefined =>{
  * @param wave 
  */
 const tobaccoUseStatus = (wave:string):object => {    
-    if (inputValue("ever_smoker_adu_c_2")[wave]==="2"){
+    if (inputValue("ever_smoker_adu_c_2",wave)==="2"){
         return tobaccoUseStatusSNOMEDCodelist.non_smoker;
     }
-    else if (inputValue("ex_smoker_adu_c_2")[wave]==="1"){
+    else if (inputValue("ex_smoker_adu_c_2",wave)==="1"){
         return tobaccoUseStatusSNOMEDCodelist.ex_smoker;
     }
-    else if (inputValue("current_smoker_adu_c_2")[wave]==="1"){
+    else if (inputValue("current_smoker_adu_c_2",wave)==="1"){
         return tobaccoUseStatusSNOMEDCodelist.occasional;
     }
     else{
@@ -141,13 +148,13 @@ const tobaccoUseStatus = (wave:string):object => {
  * 
  * 
  */
-const amountPerDay = (wave:string) =>{
-    return inputValue("total_frequency_adu_c_1")[wave]
+const amountPerDay = (wave:string):number =>{
+    return Number(inputValue("total_frequency_adu_c_1",wave))
 }
 
 /**
  * packyears_cumulative_adu_c_2 - packyears (cumuative smoking history)
  */
-const packYears = (wave:string) => {
-    return inputValue("packyears_cumulative_adu_c_2")[wave]
+const packYears = (wave:string):number => {
+    return Number(inputValue("packyears_cumulative_adu_c_2",wave))
 }

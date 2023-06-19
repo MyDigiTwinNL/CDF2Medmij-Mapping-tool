@@ -99,30 +99,30 @@ const bp_bandsize_all_m_1_codeMapping: { [key: string]: object } = {
 
 
 export const cuffType = function (wave: string): object {
-    const bandsize: string = inputValue("bp_bandsize_all_m_1")[wave]
+    const bandsize: string = inputValue("bp_bandsize_all_m_1",wave)
     return bp_bandsize_all_m_1_codeMapping[bandsize];
 };
 
 
 export const measuringLocation = function (wave: string): object {
-    const lifelinesBpArmAll = inputValue("bp_arm_all_m_1")[wave]
+    const lifelinesBpArmAll = inputValue("bp_arm_all_m_1",wave)
     return measuring_location_codeMapping[lifelinesBpArmAll]
 };
 
 
 export const systolicBloodPressure = function (wave: string): number {
-    return Number(inputValue("bpavg_systolic_all_m_1"))
+    return Number(inputValue("bpavg_systolic_all_m_1",wave))
 };
 
 export const diastolicBloodPressure = function (wave: string): number {
-    return Number(inputValue("bpavg_diastolic_all_m_1"))
+    return Number(inputValue("bpavg_diastolic_all_m_1",wave))
 };
 
 export const arterialBloodPressure = function (wave: string): number {
-    return Number(inputValue("bpavg_arterial_all_m_1"))
+    return Number(inputValue("bpavg_arterial_all_m_1",wave))
 };
 
 export const collectedDateTime = function (wave: string): string {
-    return lifelinesDateToISO(inputValue("DATE")[wave]);
+    return lifelinesDateToISO(inputValue("DATE",wave));
 }
 
