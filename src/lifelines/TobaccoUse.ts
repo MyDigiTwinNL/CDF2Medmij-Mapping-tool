@@ -8,17 +8,6 @@ import { tobaccoUseStatusSNOMEDCodelist,typeOfTobaccoUsedSNOMEDCodelist} from '.
  * Based on Lifelines smoking derivatives http://wiki.lifelines.nl/doku.php?id=smoking_derivatives_v2
  */
 
-/**
- * Using derivatives: 
- * 
- * MedMij model expect a detailed entry for each type of tobacco
- * 
- * 
- * Age at stop smoking
- * 
- * 
- * 
- */
 
 /**
  * 
@@ -30,11 +19,11 @@ import { tobaccoUseStatusSNOMEDCodelist,typeOfTobaccoUsedSNOMEDCodelist} from '.
  * smoking_startage_adu_c_2       [X ][X ][X ][X ][X ][X ][  ]      how old were you when you started smoking? (xx years)
  * ex_smoker_adu_c_2              [X ][X ][X ][X ][X ][X ][  ]
  * smoking_endage_adu_c_2         [X ][X ][X ][X ][X ][X ][  ]   
- * eversmoker_v2  
- * total_frequency_adu_c_1
- * packyears_cumulative_adu_c_2
+ * eversmoker_v2                  [X ][X ][X ][X ][X ][X ][  ]   
+ * total_frequency_adu_c_1        [X ][X ][X ][X ][X ][X ][  ]   
+ * packyears_cumulative_adu_c_2   [X ][X ][X ][X ][X ][X ][  ]   
  * 
- *  
+ * 
  * cigarettes_frequency_adu_c_2   [X ][X ][X ][X ][X ][X ][  ]
  * cigarillos_frequency_adu_c_2   [X ][X ][X ][X ][X ][X ][  ]
  * cigars_frequency_adu_c_2       [X ][X ][X ][X ][X ][X ][  ] 
@@ -114,19 +103,33 @@ const  smokingEnd = function(wave:string){
 
 
 /**
- * Type won't be used. Using it would require having one entry for each type of tobbaco, with its
- * specific consuption. Consuption per type is not available in the derivatives. (only on the baseline assessment)
- * @param wave 
+ * Type of toboacco is reported as undefined. Using it would require creating a FHIR resource for each type of tobbaco, 
+ * with its specific consuption. Consuption per type is not available in the smoking_derivatives. 
+ * (only on the baseline assessment), so 
+ * 
+ * @param wave assessment for which the type of tobacco would be reported
  */
 const typeOfTobaccoUsed = (wave:string):object|undefined =>{
     return undefined
 }
 
 /**
+ * Related variables:
+ * ------------------------------------------------------------------
+ *                                [1A][1B][1C][2A][2B][3A][3B]
+ * ex_smoker_adu_c_2              [X ][X ][X ][X ][X ][X ][  ]
+ * eversmoker_v2                  [X ][X ][X ][X ][X ][X ][  ]   
+ * current_smoker_adu_c_2         [X ][X ][X ][X ][X ][X ][  ]   
+ * ------------------------------------------------------------------
  * 
+ * The status of the result value.
+ * 
+ * @precondition the three variables have no missing values in the given 'wave'
+ * 
+ * @param wave the code of the assessment for which the tobacco use status will be evaluated
  * 
  * @question is there a way to tell if it is daily or ocasional smoker?
- * @param wave 
+ * 
  */
 const tobaccoUseStatus = (wave:string):object => {    
     if (inputValue("ever_smoker_adu_c_2",wave)==="2"){
