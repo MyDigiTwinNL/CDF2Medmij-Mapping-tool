@@ -39,7 +39,7 @@
                 "display": "Anonymized-"&$resourceId('nl-core-patient')
             },
             "effectiveDateTime": $result.collectedDateTime,
-            "bodySite": {
+            "bodySite": (($result.measuringLocation!=Undefined))?{
                 "coding": [
                     {
                         "system": $result.measuringLocation.system,

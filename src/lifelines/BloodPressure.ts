@@ -36,23 +36,26 @@ http://wiki.lifelines.nl/doku.php?id=blood_pressure
  * @mappingrules
  *      - Two blood pressure measurements based on the systolic, diastolic and arterial readings from 1A and 2A
  *           "cuffType": Manchet code for bp_bandsize_all_m_1 value, in the corresponding assessment
- *           "measuringLocation": SNOMED code for bp_arm_all_m_1 from ("3A") *See question below
+ *           "measuringLocation": undefined *See question below
  *           "systolicBloodPressure": bpavg_systolic_all_m_1 value in the corresponding assesment
  *           "diastolicBloodPressure": bpavg_diastolic_all_m_1 value in the corresponding assesment
  *           "arterialBloodPressure": bpavg_arterial_all_m_1 value in the corresponding assesment
  *           "collectedDateTime": Date of the corresponding assessment
  * @question
  *      - The bp_arm_all_m_1 variable (Left or right arm?) was collected only in 3A. The blood pressure measurements 
- *          were collected in 1A and 2A. How to interpret this? Which 'measuring location' should we use in this case?
- *          
- *      
+ *          were collected in 1A and 2A. How to interpret this? Which 'measuring location' should we use in this case?:
+ *          The SOP states that blood pressure is measured on the right upper arm, barring any contra-indications. 
+ *          In case of a contra-indication, the left upper arm is used. Unfortunately, we don't know in which patients 
+ *          there is a contra-indication. Best practice might be to omit the measurement location in the wave we are 
+ *          uncertain about the location.
+ *                
  */
 export const results = function (): object[] {
     return [
         {
             "assessment":"1A",
             "cuffType": cuffType("1A"),
-            "measuringLocation": measuringLocation("3A"),
+            "measuringLocation": undefined,
             "systolicBloodPressure": systolicBloodPressure("1A"),
             "diastolicBloodPressure": diastolicBloodPressure("1A"),
             "arterialBloodPressure": arterialBloodPressure("1A"),
@@ -61,7 +64,7 @@ export const results = function (): object[] {
         {
             "assessment":"2A",
             "cuffType": cuffType("2A"),
-            "measuringLocation": measuringLocation("3A"),
+            "measuringLocation": undefined,
             "systolicBloodPressure": systolicBloodPressure("2A"),
             "diastolicBloodPressure": diastolicBloodPressure("2A"),
             "arterialBloodPressure": arterialBloodPressure("2A"),
