@@ -105,7 +105,6 @@ const  smokingEnd = function(wave:string){
 /**
  * Type of toboacco is reported as undefined. Using it would require creating a FHIR resource for each type of tobbaco, 
  * with its specific consuption. Consuption per type is not available in the smoking_derivatives. 
- * (only on the baseline assessment), so 
  * 
  * @param wave assessment for which the type of tobacco would be reported
  */
