@@ -2,13 +2,13 @@ import express from 'express';
 import WebSocket from 'ws';
 import path from 'path'
 import fs from 'fs'
-import {processInput} from '../mapper'
-import {targets} from './serversettings'
+import { processInput } from '../mapper'
+import { targets } from './serversettings'
 
 const app = express();
 app.use(express.static(path.resolve('../../viewer/public')));
 
-interface Message {
+interface ServerRequest {
     command: string;
     payload: string;
 }
@@ -22,39 +22,38 @@ const wss = new WebSocket.Server({ server });
 wss.on('connection', (ws: WebSocket) => {
     console.log('Client connected');
 
-    ws.on('message', (data) => {        
+    ws.on('message', (data) => {
         try {
-            const message:Message = JSON.parse(data.toString());
-            if (message.command === 'transform'){
-                const input=JSON.parse(message.payload);
+            const message: ServerRequest = JSON.parse(data.toString());
+            if (message.command === 'transform') {
+                const input = JSON.parse(message.payload);
+                processInput(input, targets).then(
+                    (output) => {                    
+                        ws.send(JSON.stringify({"responsetype":"output","payload":output}));
+                    }
 
-                try{
-                    processInput(input,targets).then(
-                        (output)=>{
-                            ws.send(JSON.stringify(output));
-                        }
-    
-                    );
+                ).catch((error) => {
+                    console.info("Error:"+error.cause);
+                    ws.send(JSON.stringify({"responsetype":"error","payload":error.cause.toString()}));
                 }
-                catch(e){
-                    console.info(JSON.stringify(e));
-                }
-                
-            }            
-
-        } catch (error) {
+                )
+            }
+        }
+        catch (error) {
+            ws.send(JSON.stringify({"responsetype":"error","payload":`Error parsing input:${error}`}));
             console.error('Error parsing message:', error);
         }
-    });
 
-});
-
+    })
+})
 
 type transformationOutput = {
     source: string;
     output: string;
 }
 
+/*
+For real-time update
 fs.watchFile(`/tmp/out.json`, { interval: 500 }, (curr, prev) => {
     if (curr.mtime > prev.mtime) {
         console.log(`File modified.`);
@@ -69,4 +68,4 @@ fs.watchFile(`/tmp/out.json`, { interval: 500 }, (curr, prev) => {
         //ws.send(JSON.stringify(payload));
     }
 });
-
+*/

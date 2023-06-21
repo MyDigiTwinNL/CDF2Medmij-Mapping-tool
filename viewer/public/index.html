@@ -47,12 +47,6 @@
         flex-direction: column;
       }
 
-      .container {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
-
       .editor2 {
         flex-basis: 50%;
         height: 100%;
@@ -237,12 +231,22 @@
       socket.onmessage = (event) => {
         const message = event.data;
         console.log("Received message:", message);
-        const obj = JSON.parse(message);
+        const msgobject = JSON.parse(message);
 
-        $("#outputtree").empty();
-        const outputtree = jsonview.create(obj);
-        jsonview.render(outputtree, document.querySelector("#outputtree"));
-        jsonview.expand(outputtree);
+        if (msgobject.responsetype==="output"){
+          $("#outputtree").empty();
+          const outputtree = jsonview.create(msgobject.payload);
+          jsonview.render(outputtree, document.querySelector("#outputtree"));
+          jsonview.expand(outputtree);
+        }
+        else if(msgobject.responsetype==="error"){
+          $("#outputtree").empty();
+          const outputtree = jsonview.create({"ERROR":msgobject.payload});
+          jsonview.render(outputtree, document.querySelector("#outputtree"));
+          jsonview.expand(outputtree);          
+        }
+
+        
       };
 
       function sendCommand() {
