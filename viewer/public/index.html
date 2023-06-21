@@ -41,15 +41,26 @@
         box-sizing: border-box;
       }
 
+      .container-fluid {
+        height: 100vh; /* Set the container height to 100% of the viewport height */
+        display: flex;
+        flex-direction: column;
+      }
+
       .container {
         display: flex;
         flex-direction: column;
         height: 100%;
       }
 
-      .editor {
+      .editor2 {
         flex-basis: 50%;
         height: 100%;
+      }
+
+      .editor {
+        flex: 1; /* Use flex: 1 to fill the remaining height of the container */
+        height: 100%; /* Set the height of the editor to fill its container */
       }
 
       .file-input {
@@ -102,7 +113,7 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
       <div class="top-bar">
         <input type="file" id="file-input" class="file-input" accept=".json" />
         <!-- Content of the top bar goes here -->
@@ -125,7 +136,7 @@
       </div>
 
       <div class="bottom-bar">
-        <!-- Content of the bottom bar goes here -->        
+        <!-- Content of the bottom bar goes here -->
       </div>
     </div>
 
