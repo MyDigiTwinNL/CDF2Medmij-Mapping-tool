@@ -29,7 +29,7 @@ test('BloodPressure resource generation', () => {
     "PROJECT_PSEUDO_ID": { "1A": "520681571" },
   }
 
-  let targets: MappingTarget[] = [
+  const targets: MappingTarget[] = [
     { "template": './zib-2017-mappings/BloodPressure.jsonata', "module": './lifelines/BloodPressure'},
   ]
   

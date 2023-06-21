@@ -31,7 +31,7 @@ test('Patient resource generation', () => {
         "GENDER": {"1A":"male"}
       }  
       
-    let targets: MappingTarget[] = [
+    const targets: MappingTarget[] = [
       { "template": './zib-2017-mappings/Patient.jsonata', "module": './lifelines/Patient'},
     ]
     

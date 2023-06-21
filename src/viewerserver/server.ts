@@ -28,12 +28,18 @@ wss.on('connection', (ws: WebSocket) => {
             if (message.command === 'transform'){
                 const input=JSON.parse(message.payload);
 
-                processInput(input,targets).then(
-                    (output)=>{
-                        ws.send(JSON.stringify(output));
-                    }
-
-                );
+                try{
+                    processInput(input,targets).then(
+                        (output)=>{
+                            ws.send(JSON.stringify(output));
+                        }
+    
+                    );
+                }
+                catch(e){
+                    console.info(JSON.stringify(e));
+                }
+                
             }            
 
         } catch (error) {

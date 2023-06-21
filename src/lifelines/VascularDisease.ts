@@ -136,7 +136,7 @@ const findFirstAssessmentWithPositiveValue = (variables: {
     
 
     for (const element of wavesSequence) {
-        if (Object.values(variables).some((props) => props.hasOwnProperty(element) && props[element] === '1')) {
+        if (Object.values(variables).some((props) => Object.prototype.hasOwnProperty.call(props,element) && props[element] === '1')){
             return element;
         }
     }
