@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ace Editors</title>
+    <style>
+        /* Style for split areas */
+        .split-container {
+            display: flex;
+            flex-direction: row;
+            height: calc(100% - 50px);
+        }
+
+        .split {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .split:first-child {
+            margin-right: 10px;
+        }
+
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .top-bar,
+        .bottom-bar {
+            flex-basis: 10%;
+            background-color: #f5f5f5;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .editor {
+            flex-basis: 50%;
+            height: 100%;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .json-container {
+            height: 100%;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="top-bar">
+            <input type="file" id="file-input" class="file-input" accept=".json">
+            <!-- Content of the top bar goes here -->
+            <button onclick="handleFile()">Open File</button>
+            <button onclick="sendCommand()">Transform</button>
+        </div>
+
+        <div class="split-container">
+            <div id="editor1" class="editor"></div>
+            <div class="split">
+                <div id="outputtree" class="json-container"></div>                
+            </div>
+        </div>
+
+        <div class="bottom-bar">
+            <!-- Content of the bottom bar goes here -->
+            <h2>Bottom Bar</h2>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script type="text/javascript" src="./libs/jsonview.js"></script>
+
+    <script>
+
+
+        // Create Ace editors
+        var editor1 = ace.edit("editor1");
+        editor1.setTheme("ace/theme/chrome");
+        editor1.setOption("showInvisibles", true)
+        editor1.session.setMode("ace/mode/json");
+
+        
+        outputtree = jsonview.create(undefined);
+        jsonview.render(outputtree, document.querySelector('#outputtree'));
+
+        editor1.setOptions({
+            displayIndentGuides: true,
+            fontSize: "14px",
+            //wrap: true,
+            scrollPastEnd: 0.5
+        });
+
+
+        // Update editor height on window resize
+        window.addEventListener("resize", function () {
+            editor1.resize();
+        });
+
+        function handleFile() {
+            var fileInput = document.getElementById("file-input");
+
+            fileInput.addEventListener("change", function (event) {
+                var file = event.target.files[0];
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var contents = e.target.result;
+                    console.info("File content:" + contents)
+                    editor1.session.setValue(contents);
+                };
+
+                reader.readAsText(file);
+            });
+
+            fileInput.click();
+        }
+
+        const socket = new WebSocket('ws://localhost:3000');
+
+        socket.onopen = () => {
+            console.log('Connected to server');
+        };
+
+        socket.onmessage = (event) => {
+            const message = event.data;
+            console.log('Received message:', message);
+            const obj = JSON.parse(message)
+
+            $('#outputtree').empty();
+            const outputtree = jsonview.create(obj);
+            jsonview.render(outputtree, document.querySelector('#outputtree'));
+        };
+
+        function sendCommand() {
+            const input = editor1.getSession().getValue();
+            const msg = {"command":"transform", "payload":input}
+            socket.send(JSON.stringify(msg));
+            console.log('Sent message:', msg);
+        }
+
+    </script>
+</body>
+
+</html>
