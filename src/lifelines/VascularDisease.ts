@@ -23,7 +23,12 @@ http://wiki.lifelines.nl/doku.php?id=cardiovascular_diseases
  *   angioplasty_bypass_adu_q_1:        [X ][  ][  ][  ][X ][X ]    
  *   carotid_stenosis_adu_q_1:          [X ][  ][  ][  ][  ][  ]    
  *   claudication_followup_adu_q_1:     [  ][  ][  ][X ][X ][X ]    
- *   cvd_followup_adu_q_1:              [  ][X ][X ][X ][X ][X ]    
+ *   cvd_followup_adu_q_1:              [  ][  ][  ][X ][X ][X ]    
+ * 
+ *   heartattack_followup_adu_q_1
+ *   stroke_followup_adu_q_1
+ * 
+ * 
  *
  *   @precondition
  *      clinical status is active
@@ -36,13 +41,12 @@ export const code = ():object => {
 /**
  * 
  *                                      [1A][1B][1C][2A][3A][3B]
- *   heartattack_startage_adu_q_1:      [X ][  ][  ][  ][  ][  ]    
- *   angioplasty_bypass_adu_q_1a:       [X ][  ][  ][  ][X ][X ]    
  *   heartattack_presence_adu_q_1:      [X ][  ][  ][  ][  ][  ]    
- *   heartattack_followup_adu_q_1:      [  ][X ][X ][X ][X ][X ]    
- *   angioplasty_bypass_adu_q_1:        [X ][  ][  ][  ][X ][X ]    
+ *   heartattack_followup_adu_q_1:      [  ][X ][X ][X ][X ][X ]
+ *   angioplasty_bypass_adu_q_1:        [X ][  ][  ][  ][X ][X ]     
+ *   angioplasty_bypass_adu_q_1a:       [X ][  ][  ][  ][X ][X ]  how old were you when you had the (first) balloon angioplasty/bypass surgery?       
  *   carotid_stenosis_adu_q_1:          [X ][  ][  ][  ][  ][  ]    
- *   claudication_followup_adu_q_1:     [  ][  ][  ][X ][X ][X ]    
+ *   claudication_followup_adu_q_1:     [  ][X ][X ][X ][X ][X ]    
  *   cvd_followup_adu_q_1:              [  ][X ][X ][X ][X ][X ]    
  *   
  * 
@@ -53,17 +57,43 @@ export const code = ():object => {
  *                  heartattack_followup_adu_q_1 
  *                  angioplasty_bypass_adu_q_1 
  *                  carotid_stenosis_adu_q_1 
- *                  atherosclerosis_presence_adu_q_1 
  *                  claudication_followup_adu_q_1 
- *                  cvd_followup_adu_q_1
+ *                  cvd_followup_adu_q_1 (Myocardial infarction, Stroke (both ischemic and hemorrhagic, Heart failure / cardiomyopathy, Intermittent claudication)
+ *     or atherosclerosis_presence_adu_q_1 (Myocardial infarction, Intermittent claudication)
  *     else
  *          Empty result (there is no such thing as an  inactive' CVD)
+ * 
+ * @question
+ *      	
+ * - 
+ * - atherosclerosis_presence_adu_q_1 is a categorical variable, but in the data catalogue only "atherosclerosis (arteriosclerosis)"
+ * category is shown. 
+ * Not sure what are the values, in this categorical variable, for: 
+ *  Myocardial infarction, Stroke (both ischemic and hemorrhagic), Heart failure / cardiomyopathy, Intermittent claudication
+ * 
+ * 
+ * These options are part of the cvd_followup (it covers all three as far I understand). Given your comment, 
+ * Myocardial infarction
+ * Stroke (both ischemic and hemorrhagic)
+ * Heart failure / cardiomyopathy
+ * Intermittent claudication
  * 
  * 
  */
 export const clinicalStatus = ():object => { 
     
     /*atherosclerosis_presence_adu_q_1: is categorical*/
+
+    const cvdRelatedVariables = {
+        "heartattack_presence_adu_q_1":inputValues("heartattack_presence_adu_q_1"),
+        "heartattack_followup_adu_q_1":inputValues("heartattack_followup_adu_q_1"),
+        "angioplasty_bypass_adu_q_1" :inputValues("angioplasty_bypass_adu_q_1"),
+        "carotid_stenosis_adu_q_1" :inputValues("carotid_stenosis_adu_q_1"),        
+        "claudication_followup_adu_q_1":inputValues("claudication_followup_adu_q_1"),
+        "cvd_followup_adu_q_1":inputValues("cvd_followup_adu_q_1"),
+        "atherosclerosis_presence_adu_q_1":inputValues("atherosclerosis_presence_adu_q_1"),
+    }
+
 
     const firstAssessmentWithPositiveCVD: string | null = findFirstAssessmentWithPositiveValue(cvdRelatedVariables);
 
@@ -78,15 +108,7 @@ export const clinicalStatus = ():object => {
 }
 
 
-const cvdRelatedVariables = {
-    "heartattack_presence_adu_q_1":inputValues("heartattack_presence_adu_q_1"),
-    "heartattack_followup_adu_q_1":inputValues("heartattack_followup_adu_q_1"),
-    "angioplasty_bypass_adu_q_1" :inputValues("angioplasty_bypass_adu_q_1"),
-    "carotid_stenosis_adu_q_1" :inputValues("carotid_stenosis_adu_q_1"),
-    "atherosclerosis_presence_adu_q_1":inputValues("atherosclerosis_presence_adu_q_1"),
-    "claudication_followup_adu_q_1":inputValues("claudication_followup_adu_q_1"),
-    "cvd_followup_adu_q_1":inputValues("cvd_followup_adu_q_1")
-}
+
 
 
 type ObjectWithProperties = 
@@ -132,7 +154,7 @@ const findFirstAssessmentWithPositiveValue = (variables: {
  * clinicalStatus()
  * 
  * ------------------------------------------------------------------
- * There us no such a thing as 'inactive' diabetes. Therefore, the Diabetes resource will be
+ * There us no such a thing as 'inactive' vascular disease. Therefore, the VD resource will be
  * generated only when the clinicalStatus() is active.
  * 
  */
@@ -149,32 +171,30 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  * 
  *   heartattack_followup_adu_q_1:      [  ][X ][X ][X ][X ][X ]    
  *   carotid_stenosis_adu_q_1:          [X ][  ][  ][  ][  ][  ]    
- *   claudication_followup_adu_q_1:     [  ][  ][  ][X ][X ][X ]    
- *   cvd_followup_adu_q_1:              [  ][X ][X ][X ][X ][X ] did the health problems listed below start since the last time you filled in the lifelines questionnaire?   
+ *   claudication_followup_adu_q_1:     [  ][X ][X ][X ][X ][X ]    
+ *   cvd_followup_adu_q_1:              [  ][  ][  ][X ][X ][X ] did the health problems listed below start since the last time you filled in the lifelines questionnaire?   
  *    
- * 
- * @pairingrule
- *  (Original pairing rule) First non-NaN date of heartattack_startage_adu_q_1, angioplasty_bypass_adu_q_1a if available, else NaN
- *  (Updated)
- *      if heartattack_presence_adu_q_1 in 1A = yes => year when participant was the age given in heartattack_startage_adu_q_1
- *      else if angioplasty_bypass_adu_q_1 in 1A, 3A or 3B => year when participant was the age given in the corresponding angioplasty_bypass_adu_q_1a
- *      else
- *          *TO BE DEFINED* (See questions below)
- * 
- * 
- * 
  * @Precondition
  *  - Problem is 'active'
+ *  - No missing values
+ * 
+ * @pairingrule
+ * 
+ *      if heartattack_presence_adu_q_1 in 1A = yes AND angioplasty_bypass_adu_q_1 in 1A = yes => earliest date calculated based on (heartattack_startage_adu_q_1, angioplasty_bypass_adu_q_1a)
+ *      else
+ *          if there is a 'yes' in any heartattack_followup_adu_q_1 => mean date between the date of the assessment 
+ *              where heartattack_followup_adu_q_1 = yes, and the date of the preceding one.
+ *          else if there is a 'yes' in any claudication_followup_adu_q_1 after 1B assessment => mean date between the date of the assessment 
+ *              where claudication_followup_adu_q_1 = yes, and the date of the preceding one.
+ *          else
+ *              NaN (no onset year would be reported)
  * 
  * @Questions
  *  
- *  - Some variables have no question regarding onset of disease, which would lead to an imperfect description of 'onset'
- *  - As far I can tell The following variables do not have a related age/date. Can (and should) we do imputation based on the assessment date?
- *          heartattack_followup_adu_q_1:      [  ][X ][X ][X ][X ][X ]    
- *          carotid_stenosis_adu_q_1:          [X ][  ][  ][  ][  ][  ]    
- *          claudication_followup_adu_q_1:     [  ][  ][  ][X ][X ][X ]    
- *          cvd_followup_adu_q_1:              [  ][X ][X ][X ][X ][X ]  
- * 
+ *    It is not clear whether cvd_followup_adu_q_1 is linked to other questions. According to the spreadsheets comments, a 'yes' value
+ *    on cvd_followup_adu_q_1 would imply any (one or more?) of the following:
+ *       Myocardial infarction, Stroke (both ischemic and hemorrhagic), Heart failure / cardiomyopathy and Intermittent claudication.
+ *    Should this variable be considered for the onset calculation, specially given that 'Stroke' is reported as a separate resource?
  */
 export const vascularDiseaseStartYear = function(){
 
