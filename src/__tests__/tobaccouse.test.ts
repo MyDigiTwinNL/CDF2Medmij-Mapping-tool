@@ -142,8 +142,11 @@ test('participant started smoking after the baseline assessment and quit smoking
 });
 
 
-/*
 
+/**
+ * The following tests are intended only for identifying problems between the TobaccoUse module with 
+ * its corresponding JSONata template, which would lead to a JSONata-library error (test failures).
+ */
 test('Resource generation - participant started smoking before the baseline assessment and was still a smoker in the last assessment', () => {
 
   const input = {
@@ -164,7 +167,7 @@ test('Resource generation - participant started smoking before the baseline asse
   ]
 
   processInput(input, targets).then((output: object[]) => {
-    expect(output.length).toBe(1);
+    expect(output.length).toBe(6);
   })
 
 });
@@ -190,12 +193,12 @@ test('Resource generation - non-smoker', () => {
   ]
 
   processInput(input, targets).then((output: object[]) => {
-    expect(output.length).toBe(1);
+    expect(output.length).toBe(6);
   })
 
 });
 
 
-*/
+
 
 
