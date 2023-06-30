@@ -1,5 +1,5 @@
 import fs from 'fs';
-
+import * as path from 'path';
 import {MappingTarget,transform} from './mapper'
 
 
@@ -20,6 +20,11 @@ const targets:MappingTarget[] = [
 
 
 const main = (inputPath:string) =>{
+
+  //To resolve all relative paths from the 'dist' folder.
+  const folderPath = path.resolve(__dirname);
+  process.chdir(folderPath);
+  
   const input = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
     transform(input,targets).then((output)=>{
       console.info(JSON.stringify(output));
@@ -45,10 +50,11 @@ const args: string[] = process.argv.slice(2);
 const fileName: string | undefined = args[0];
 
 if (fileName) {
-  if (validateFileExistence(fileName)) {
-    main(fileName);
+  const absFilePath=path.resolve(fileName)
+  if (validateFileExistence(absFilePath)) {
+    main(absFilePath);
   } else {
-    console.log(`File '${fileName}' does not exist.`);
+    console.log(`File '${absFilePath}' does not exist.`);
   }
 } else {
   console.log(`Expected input: node ${__filename.slice(__dirname.length + 1, -3)} <file-name>`);
