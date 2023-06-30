@@ -37,16 +37,19 @@ const tempInputFiles = files.map((file) => {
 
 // Execute the JAR command with the path to temporary input files
 const jarOutputFile = path.join(logsTempFolder, 'output.log.txt');
-const jarCommand = `java -jar ${process.env.fhirvpath}/validator_cli.jar ${outputTempFolder} -version 3.0.2 -ig nictiz.fhir.nl.stu3.zib2017#2.2.8 -sct nl -output-style compact > ${jarOutputFile}`;
+const jarCommand = `java -jar ${process.env.fhirvpath}/validator_cli.jar ${outputTempFolder} -version 3.0.2 -ig nictiz.fhir.nl.stu3.zib2017#2.2.8 -sct nl  -level error  -output-style compact > ${jarOutputFile}`;
+let output = ""
 try {
-  console.log(`Executing ${jarCommand}`)
-  execSync(jarCommand);
+  output = execSync(jarCommand);
   console.log(`Command exited with code 0. Log file path:${jarOutputFile}`);
 } catch (error) {
-  console.error('JAR command execution failed with non-zero exit code');
+  console.error('FHIR Resources validation failed (non-zero exit code) - Log file path:${jarOutputFile}');
   if (error.stderr) {
     console.error('Error output:');
-    console.error(error.stderr);
+    console.error(error.stderr.toString());
+    const outputContent = fs.readFileSync(jarOutputFile, 'utf8');
+    console.log(outputContent);
+    process.exit(1)
   }
 }
 
