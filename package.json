@@ -22,6 +22,8 @@
   },
   "scripts": {
     "test": "jest",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "validatesamples": "node fhirvalidation/validatesamples.js"
   }
 }
+

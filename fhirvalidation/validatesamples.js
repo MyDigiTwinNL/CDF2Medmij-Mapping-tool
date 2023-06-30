@@ -3,19 +3,31 @@ const path = require('path');
 const os = require('os');
 const { execSync } = require('child_process');
 
-// Directory containing the files
-const directoryPath = './sampleinputs';
+// Directory containing the sample input files
+const directoryPath = path.join(__dirname, './sampleinputs');
+
 
 // Generate a random folder name to store the temporary input files and the JAR output
 const outputTempFolder = fs.mkdtempSync(path.join(os.tmpdir(), Math.random().toString(36).substring(7)));
 const logsTempFolder = fs.mkdtempSync(path.join(os.tmpdir(), Math.random().toString(36).substring(7)));
 
-// Compile TypeScript code
 execSync('tsc');
 
-// Check if the environment variable is defined
-if (!process.env.fhirvpath) {
-  console.error('ERROR: The environment variable fhirvpath is not defined');
+const fhirvpath = process.env.fhirvpath;
+if (!fhirvpath) {
+
+
+  let errorMsg = `ERROR: The environment variable [fhirvpath] is not defined. 
+  This variable should have the path where the HL7 FHIR validator (validator_cli.jar) is located. 
+  The validator can be downloaded at https://github.com/hapifhir/org.hl7.fhir.core/releases/latest/download/validator_cli.jar
+  `
+  console.error(errorMsg);
+  process.exit(1);
+}
+
+const validatorCliPath = path.join(fhirvpath, 'validator_cli.jar');
+if (!fs.existsSync(validatorCliPath)) {
+  console.error('ERROR: The fhirvpath does not contain the validator_cli.jar file');
   process.exit(1);
 }
 
@@ -27,11 +39,11 @@ const tempInputFiles = files.map((file) => {
   const filePath = path.join(directoryPath, file);
   const randomFileName = Math.random().toString(36).substring(7) + '.json';
   const tempInputFile = path.join(outputTempFolder, randomFileName);
-  const tsCommand = `node ../dist/transform  ${filePath} > ${tempInputFile}`;
-
+  const tsCommand = `node ${path.join(__dirname, '..', 'dist', 'transform')}  ${filePath} > ${tempInputFile}`;  
   console.info(`Executing ${tsCommand}`)
+  
+  execSync(tsCommand, { cwd: `${path.join(__dirname, '..', 'dist')}` });
 
-  execSync(tsCommand);
   return tempInputFile;
 });
 
@@ -41,7 +53,7 @@ const jarCommand = `java -jar ${process.env.fhirvpath}/validator_cli.jar ${outpu
 let output = ""
 try {
   output = execSync(jarCommand);
-  console.log(`Command exited with code 0. Log file path:${jarOutputFile}`);
+  console.log(`FHIR validation successful (exited with code 0). Log file path:${jarOutputFile}`);
 } catch (error) {
   console.error('FHIR Resources validation failed (non-zero exit code) - Log file path:${jarOutputFile}');
   if (error.stderr) {
