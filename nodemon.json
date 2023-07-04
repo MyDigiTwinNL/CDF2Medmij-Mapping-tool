@@ -1,0 +1,5 @@
+{
+    "watch": ["dist/**/*.js", "zib-2017-mappings/**/*.jsonata"],
+    "ext": "js,jsonata",
+    "exec": "node server.js"
+}

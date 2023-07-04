@@ -8,65 +8,8 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
 
-    <style>
-      /* Style for split areas */
-      .split-container {
-        display: flex;
-        flex-direction: row;
-        height: calc(100% - 50px);
-      }
-
-      .split {
-        flex: 1;
-        padding: 20px;
-        border: 1px solid #ccc;
-      }
-
-      .split:first-child {
-        margin-right: 10px;
-      }
-
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-      }
-
-      .top-bar,
-      .bottom-bar {
-        flex-basis: 10%;
-        background-color: #f5f5f5;
-        padding: 10px;
-        box-sizing: border-box;
-      }
-
-      .container-fluid {
-        height: 100vh; /* Set the container height to 100% of the viewport height */
-        display: flex;
-        flex-direction: column;
-      }
-
-      .editor2 {
-        flex-basis: 50%;
-        height: 100%;
-      }
-
-      .editor {
-        flex: 1; /* Use flex: 1 to fill the remaining height of the container */
-        height: 100%; /* Set the height of the editor to fill its container */
-      }
-
-      .file-input {
-        display: none;
-      }
-
-      .json-container {
-        height: 100%;
-        overflow: auto;
-      }
-    </style>
-  </head>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+  </head> 
 
   <body>
     <!-- Bootstrap Modal Dialog -->
@@ -114,9 +57,9 @@
         <button onclick="handleFile()" class="btn btn-primary">
           Open input file
         </button>
-        <button onclick="showSelectionDialog()" class="btn btn-primary">
+        <!--<button onclick="showSelectionDialog()" class="btn btn-primary">
           Select mapping templates
-        </button>
+        </button>-->
         <button onclick="sendCommand()" class="btn btn-primary">
           Transform
         </button>
@@ -130,7 +73,8 @@
       </div>
 
       <div class="bottom-bar">
-        <!-- Content of the bottom bar goes here -->
+        <div id="status"></div>
+        <span id="status-text"></span>
       </div>
     </div>
 
@@ -139,122 +83,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
     <script type="text/javascript" src="./libs/jsonview.js"></script>
 
-    <script>
-      // Create Ace editors
-      var editor1 = ace.edit("editor1");
-      editor1.setTheme("ace/theme/chrome");
-      editor1.setOption("showInvisibles", true);
-      editor1.session.setMode("ace/mode/json");
-
-      outputtree = jsonview.create(undefined);
-      jsonview.render(outputtree, document.querySelector("#outputtree"));
-
-      editor1.setOptions({
-        displayIndentGuides: true,
-        fontSize: "14px",
-        //wrap: true,
-        scrollPastEnd: 0.5,
-      });
-
-      // Update editor height on window resize
-      window.addEventListener("resize", function () {
-        editor1.resize();
-      });
-
-      function handleFile() {
-        var fileInput = document.getElementById("file-input");
-
-        fileInput.addEventListener("change", function (event) {
-          var file = event.target.files[0];
-          var reader = new FileReader();
-
-          reader.onload = function (e) {
-            var contents = e.target.result;
-            console.info("File content:" + contents);
-            editor1.session.setValue(contents);
-          };
-
-          reader.readAsText(file);
-        });
-
-        fileInput.click();
-      }
-
-      var mappingTemplates = [
-        { name: "option one" },
-        { name: "option two" },
-        { name: "option one" },
-      ];
-
-      function showSelectionDialog() {
-        var modalBody = document.querySelector(".modal-body");
-        modalBody.innerHTML = "";
-
-        for (var i = 0; i < mappingTemplates.length; i++) {
-          var checkbox = document.createElement("input");
-          checkbox.type = "checkbox";
-          checkbox.name = "option";
-          checkbox.value = i;
-
-          var label = document.createElement("label");
-          label.appendChild(checkbox);
-          label.appendChild(document.createTextNode(mappingTemplates[i].name));
-
-          modalBody.appendChild(label);
-          modalBody.appendChild(document.createElement("br"));
-        }
-
-        // Show the modal dialog
-        $("#selectionModal").modal("show");
-      }
-
-      function getSelectedOptions() {
-        var selectedOptions = document.querySelectorAll(
-          "input[name=option]:checked"
-        );
-        var selectedIndices = Array.from(selectedOptions).map((option) =>
-          parseInt(option.value)
-        );
-
-        console.log("Selected indices:", selectedIndices);
-
-        // Hide the modal dialog
-        $("#selectionModal").modal("hide");
-      }
-
-      const socket = new WebSocket("ws://localhost:3000");
-
-      socket.onopen = () => {
-        console.log("Connected to server");
-      };
-
-      socket.onmessage = (event) => {
-        const message = event.data;
-        console.log("Received message:", message);
-        const msgobject = JSON.parse(message);
-
-        if (msgobject.responsetype==="output"){
-          $("#outputtree").empty();
-          const outputtree = jsonview.create(msgobject.payload);
-          jsonview.render(outputtree, document.querySelector("#outputtree"));
-          jsonview.expand(outputtree);
-        }
-        else if(msgobject.responsetype==="error"){
-          $("#outputtree").empty();
-          const outputtree = jsonview.create({"ERROR":msgobject.payload});
-          jsonview.render(outputtree, document.querySelector("#outputtree"));
-          jsonview.expand(outputtree);          
-        }
-
-        
-      };
-
-      function sendCommand() {
-        const input = editor1.getSession().getValue();
-        const msg = { command: "transform", payload: input };
-        socket.send(JSON.stringify(msg));
-        console.log("Sent message:", msg);
-      }
-    </script>
+    <script src="./scripts.js"></script>
+            
   </body>
 </html>

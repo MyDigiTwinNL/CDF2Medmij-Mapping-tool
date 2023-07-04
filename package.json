@@ -4,6 +4,7 @@
     "fs": "^0.0.1-security",
     "jsonata": "^2.0.2",
     "moize": "^6.1.6",
+    "nodemon": "^2.0.22",
     "object-hash": "^3.0.0",
     "uuid": "^9.0.0",
     "ws": "^8.13.0"
@@ -26,4 +27,3 @@
     "validatesamples": "node fhirvalidation/validatesamples.js"
   }
 }
-

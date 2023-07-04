@@ -1,0 +1,63 @@
+#status {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+.green {
+  background-color: green;
+}
+.red {
+  background-color: red;
+}
+
+/* Style for split areas */
+.split-container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100% - 50px);
+}
+
+.split {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.split:first-child {
+  margin-right: 10px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.top-bar,
+.bottom-bar {
+  flex-basis: 10%;
+  background-color: #f5f5f5;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.container-fluid {
+  height: 90vh; /* Set the container height to 100% of the viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+.editor {
+  flex: 1; /* Use flex: 1 to fill the remaining height of the container */
+  height: 100%; /* Set the height of the editor to fill its container */
+}
+
+.file-input {
+  display: none;
+}
+
+.json-container {
+  height: 100%;
+  overflow: auto;
+}
