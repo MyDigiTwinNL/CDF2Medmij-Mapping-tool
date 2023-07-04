@@ -79,7 +79,7 @@ function connectWebSocket() {
     socket.onclose = function () {
         statusDiv.classList.remove("green");
         statusDiv.classList.add("red");
-        statusText.textContent = "Disconnected (trying to reconnect)";
+        statusText.textContent = "Disconnected (source code update or server shut down) - trying to reconnect";
         // Attempt to reconnect after 5 seconds
         setTimeout(connectWebSocket, 5000);
     };

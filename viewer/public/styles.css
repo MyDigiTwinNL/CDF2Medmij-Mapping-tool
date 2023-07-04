@@ -43,7 +43,7 @@ body {
 }
 
 .container-fluid {
-  height: 90vh; /* Set the container height to 100% of the viewport height */
+  height: 90%; /* Set the container height to 100% of the viewport height */
   display: flex;
   flex-direction: column;
 }
@@ -51,6 +51,7 @@ body {
 .editor {
   flex: 1; /* Use flex: 1 to fill the remaining height of the container */
   height: 100%; /* Set the height of the editor to fill its container */
+  overflow: auto;
 }
 
 .file-input {
@@ -58,6 +59,7 @@ body {
 }
 
 .json-container {
+  flex: 1;
   height: 100%;
   overflow: auto;
 }

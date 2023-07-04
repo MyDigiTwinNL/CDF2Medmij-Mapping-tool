@@ -5,6 +5,10 @@ import fs from 'fs'
 import { processInput } from '../mapper'
 import { targets } from './serversettings'
 
+//To resolve all relative paths from the 'dist' folder.
+const folderPath = path.resolve(__dirname);
+process.chdir(folderPath);
+
 const app = express();
 app.use(express.static(path.resolve('../../viewer/public')));
 
@@ -14,7 +18,7 @@ interface ServerRequest {
 }
 
 const server = app.listen(3000, () => {
-    console.log('Server started on port 3000');
+    console.log('Server started on port 3000. Open http://localhost:3000 in a web browser');
 });
 
 const wss = new WebSocket.Server({ server });
@@ -33,8 +37,9 @@ wss.on('connection', (ws: WebSocket) => {
                     }
 
                 ).catch((error) => {
-                    console.info("Error:"+error.cause);
-                    ws.send(JSON.stringify({"responsetype":"error","payload":error.cause.toString()}));
+                    const errmsg = error.cause!=null?error.cause.toString():error
+                    console.info("Error:"+errmsg);
+                    ws.send(JSON.stringify({"responsetype":"error","payload":errmsg}));
                 }
                 )
             }

@@ -10,6 +10,7 @@ import { privateNameSpace } from './transformationParameters';
 
 import { InputSingleton } from './inputSingleton';
 
+
 /**
  * Registers a JS function into a JSONata expression
  * @param moduleObject an module whose functions will be registered on the expression

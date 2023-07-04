@@ -1,5 +1,5 @@
 {
-    "watch": ["dist/**/*.js", "zib-2017-mappings/**/*.jsonata"],
-    "ext": "js,jsonata",
-    "exec": "node server.js"
+    "watch": ["src/**/*.ts", "zib-2017-mappings/**/*.jsonata"],
+    "ext": "ts,jsonata",
+    "exec": "tsc && node dist/viewerserver/server"
 }

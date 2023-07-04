@@ -4,7 +4,6 @@
     "fs": "^0.0.1-security",
     "jsonata": "^2.0.2",
     "moize": "^6.1.6",
-    "nodemon": "^2.0.22",
     "object-hash": "^3.0.0",
     "uuid": "^9.0.0",
     "ws": "^8.13.0"
@@ -18,8 +17,9 @@
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "@typescript-eslint/parser": "^5.59.8",
     "eslint": "^8.41.0",
+    "nodemon": "^2.0.22",
     "ts-jest": "^29.1.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.6"
   },
   "scripts": {
     "test": "jest",
