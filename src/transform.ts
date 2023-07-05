@@ -1,6 +1,7 @@
 import fs from 'fs';
 import * as path from 'path';
 import { MappingTarget, transform } from './mapper'
+import {InputSingleton} from './inputSingleton'
 
 
 const targets: MappingTarget[] = [
@@ -13,73 +14,74 @@ const targets: MappingTarget[] = [
   { "template": '../zib-2017-mappings/HDLCholesterol_Diagnostic_Report.jsonata', "module": './lifelines/HDLCholesterol' },
   { "template": '../zib-2017-mappings/HDLCholesterol_Observation.jsonata', "module": './lifelines/HDLCholesterol' },
   { "template": '../zib-2017-mappings/HDLCholesterol_Specimen.jsonata', "module": './lifelines/HDLCholesterol' },
+  { "template": '../zib-2017-mappings/TobaccoUse.jsonata', "module": './lifelines/TobaccoUse' },
   { "template": '../zib-2017-mappings/Patient.jsonata', "module": './lifelines/Patient' },
-  { "template": '../zib-2017-mappings/TobaccoUse.jsonata', "module": './lifelines/TobaccoUse' }
-
 ]
 
-
-
-const inputFileToStdout = (filePath: string) => {
-  //To resolve all relative paths from the 'dist' folder.
+/**
+ * //To resolve all relative paths from the 'dist' folder.
+ */
+const resolveLocalPath = () => {
   const folderPath = path.resolve(__dirname);
   process.chdir(folderPath);
+}
 
-  const input = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+const inputFileToStdout = (filePath: string) => {
+  resolveLocalPath();
+
+  /*Transformation performed with a mutex to prevent async race conditions given the shared variable (InputSingletone)
+    between the mapping modules and the JSONata templates. The mutex is released after the transformation is performed
+    so the input cannot be changed in the process.*/
+  InputSingleton.getInstance().getMutex().acquire().then((releasemutex) => {
+    const input = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    transform(input, targets).then((output) => {
+      console.info(JSON.stringify(output));
+      releasemutex();
+    })
+
+  });
+
   
-  transform(input, targets).then((output) => {
-    console.info(JSON.stringify(output));
-  }
-  )
 }
 
 const inputFileToFolder = (filePath: string, outputFolder: string) => {
   //To resolve all relative paths from the 'dist' folder.
-  const folderPath = path.resolve(__dirname);
-  process.chdir(folderPath);
+  resolveLocalPath();
 
-  const input = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  transform(input, targets).then((output) => {
+  //See comment on inputFileToStdout
+  InputSingleton.getInstance().getMutex().acquire().then((releasemutex) => {
+    const input = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    transform(input, targets).then((output) => {
+  
+      const fileName = path.basename(filePath);
+      const fileExtension = path.extname(filePath);
+      const fileNameWithoutExtension = fileName.replace(fileExtension, '');
+      const fhirFileName = `${fileNameWithoutExtension}-fhir${fileExtension}`;
+      const outputFilePath = path.join(outputFolder, fhirFileName);
+  
+      fs.writeFileSync(outputFilePath, JSON.stringify(output));
+      console.info(`${filePath} ====> ${outputFilePath}`);      
+      releasemutex();
+    }
+    ).catch((error)=>{
+        console.info(`Transformation of file ${filePath} failed. Cause: ${error.cause}`);      
+    })
 
-    const fileName = path.basename(filePath);
-    const fileExtension = path.extname(filePath);
-    const fileNameWithoutExtension = fileName.replace(fileExtension, '');
-    const fhirFileName = `${fileNameWithoutExtension}-fhir${fileExtension}`;
-    const outputFilePath = path.join(outputFolder, fhirFileName);
+  });
 
-    fs.writeFileSync(outputFilePath, JSON.stringify(output));
-
-  }
-  )
+  
 }
 
 const inputFolderToOutputFolder = (inputFolder: string, outputFolder: string) => {
 
-  //const folderPath = path.resolve(__dirname);
-  //process.chdir(folderPath);
-  let fileCount = 0;
-
-
-  try {
-    const fileNames: string[] = fs.readdirSync(inputFolder);
-    fileNames.forEach((fileName) => {
-      const filePath: string = path.join(inputFolder, fileName);
-      const fileStats: fs.Stats = fs.statSync(filePath);
-      if (fileStats.isFile() && fileName.toLowerCase().endsWith(".json")) {
-        inputFileToFolder(filePath, outputFolder);
-        fileCount++;
-      }
-    });
-    console.info(
-      `${fileCount} files processed, ${fileCount} files created in ${outputFolder}`
-    );
-  } catch (error: any | Error) {
-    console.info(`Error while processing files:${error}. Cause:${error.cause}`);
-    console.info(
-      `Error ${fileCount} files processed, ${fileCount} files created in ${outputFolder}`
-    );
-  }
-
+  const fileNames: string[] = fs.readdirSync(inputFolder);
+  fileNames.forEach((fileName) => {
+    const filePath: string = path.join(inputFolder, fileName);
+    const fileStats: fs.Stats = fs.statSync(filePath);
+    if (fileStats.isFile() && fileName.toLowerCase().endsWith(".json")) {
+      inputFileToFolder(filePath, outputFolder);
+    }
+  });
 
 }
 
@@ -187,6 +189,8 @@ if (fileName) {
 
 
 
+
+//inputFileToStdout('/Users/hcadavid/temp/ainput/input-p1234.json');
 
 
 
