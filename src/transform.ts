@@ -1,56 +1,91 @@
 import fs from 'fs';
 import * as path from 'path';
-import {MappingTarget,transform} from './mapper'
+import { MappingTarget, transform } from './mapper'
 
 
-const targets:MappingTarget[] = [
-  { "template": '../zib-2017-mappings/Diabetes.jsonata', "module": './lifelines/Diabetes'},
-  { "template": '../zib-2017-mappings/BloodPressure.jsonata', "module": './lifelines/BloodPressure'},
-  { "template": '../zib-2017-mappings/LDLCholesterol_Diagnostic_Report.jsonata', "module": './lifelines/LDLCholesterol'},
-  { "template": '../zib-2017-mappings/LDLCholesterol_Observation.jsonata', "module": './lifelines/LDLCholesterol'},
+const targets: MappingTarget[] = [
+  { "template": '../zib-2017-mappings/Diabetes.jsonata', "module": './lifelines/Diabetes' },
+  { "template": '../zib-2017-mappings/BloodPressure.jsonata', "module": './lifelines/BloodPressure' },
+  { "template": '../zib-2017-mappings/LDLCholesterol_Diagnostic_Report.jsonata', "module": './lifelines/LDLCholesterol' },
+  { "template": '../zib-2017-mappings/LDLCholesterol_Observation.jsonata', "module": './lifelines/LDLCholesterol' },
   { "template": '../zib-2017-mappings/LDLCholesterol_Specimen.jsonata', "module": './lifelines/LDLCholesterol' },
   { "template": '../zib-2017-mappings/Hypertension.jsonata', "module": './lifelines/Hypertension' },
-  { "template": '../zib-2017-mappings/HDLCholesterol_Diagnostic_Report.jsonata', "module": './lifelines/HDLCholesterol'},
-  { "template": '../zib-2017-mappings/HDLCholesterol_Observation.jsonata', "module": './lifelines/HDLCholesterol'},
+  { "template": '../zib-2017-mappings/HDLCholesterol_Diagnostic_Report.jsonata', "module": './lifelines/HDLCholesterol' },
+  { "template": '../zib-2017-mappings/HDLCholesterol_Observation.jsonata', "module": './lifelines/HDLCholesterol' },
   { "template": '../zib-2017-mappings/HDLCholesterol_Specimen.jsonata', "module": './lifelines/HDLCholesterol' },
   { "template": '../zib-2017-mappings/Patient.jsonata', "module": './lifelines/Patient' },
   { "template": '../zib-2017-mappings/TobaccoUse.jsonata', "module": './lifelines/TobaccoUse' }
 
 ]
 
-//To resolve all relative paths from the 'dist' folder.
-const folderPath = path.resolve(__dirname);
-process.chdir(folderPath);
 
 
-const inputFileToStdout = (filePath:string) =>{
+const inputFileToStdout = (filePath: string) => {
+  //To resolve all relative paths from the 'dist' folder.
+  const folderPath = path.resolve(__dirname);
+  process.chdir(folderPath);
+
   const input = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    transform(input,targets).then((output)=>{
-      console.info(JSON.stringify(output));
-    }
-  )  
+  
+  transform(input, targets).then((output) => {
+    console.info(JSON.stringify(output));
+  }
+  )
 }
 
-const inputFileToFolder = (filePath:string,outputFolder:string) =>{
+const inputFileToFolder = (filePath: string, outputFolder: string) => {
+  //To resolve all relative paths from the 'dist' folder.
+  const folderPath = path.resolve(__dirname);
+  process.chdir(folderPath);
+
   const input = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    transform(input,targets).then((output)=>{
+  transform(input, targets).then((output) => {
 
-      const fileName = path.basename(filePath);
-      const fileExtension = path.extname(filePath);
-      const fileNameWithoutExtension = fileName.replace(fileExtension, '');
-      const fhirFileName = `${fileNameWithoutExtension}-fhir${fileExtension}`;
-      const outputFilePath = path.join(outputFolder, fhirFileName);
-    
-      fs.writeFileSync(outputFilePath, JSON.stringify(output));
+    const fileName = path.basename(filePath);
+    const fileExtension = path.extname(filePath);
+    const fileNameWithoutExtension = fileName.replace(fileExtension, '');
+    const fhirFileName = `${fileNameWithoutExtension}-fhir${fileExtension}`;
+    const outputFilePath = path.join(outputFolder, fhirFileName);
 
-    }
-  )  
+    fs.writeFileSync(outputFilePath, JSON.stringify(output));
+
+  }
+  )
 }
 
+const inputFolderToOutputFolder = (inputFolder: string, outputFolder: string) => {
+
+  //const folderPath = path.resolve(__dirname);
+  //process.chdir(folderPath);
+  let fileCount = 0;
+
+
+  try {
+    const fileNames: string[] = fs.readdirSync(inputFolder);
+    fileNames.forEach((fileName) => {
+      const filePath: string = path.join(inputFolder, fileName);
+      const fileStats: fs.Stats = fs.statSync(filePath);
+      if (fileStats.isFile() && fileName.toLowerCase().endsWith(".json")) {
+        inputFileToFolder(filePath, outputFolder);
+        fileCount++;
+      }
+    });
+    console.info(
+      `${fileCount} files processed, ${fileCount} files created in ${outputFolder}`
+    );
+  } catch (error: any | Error) {
+    console.info(`Error while processing files:${error}. Cause:${error.cause}`);
+    console.info(
+      `Error ${fileCount} files processed, ${fileCount} files created in ${outputFolder}`
+    );
+  }
+
+
+}
 
 
 // Check if a file exists
-const validateFileExistence = (filePath: string):boolean => {
+const validateFileExistence = (filePath: string): boolean => {
   try {
     fs.accessSync(filePath);
     return true;
@@ -95,30 +130,33 @@ function processArguments(args: string[]): void {
       console.error('Error: a folder path was given as an input, but the output folder is missing (-o option followed by the output folder)');
       return;
     } else if (validateFileExistence(arg)) {
-      inputFileToStdout(arg);
+      filePath = path.resolve(arg)
+      inputFileToStdout(filePath);
     } else {
       console.error(`Error: the path or folder given as an input does not exist: '${arg}'`);
       return;
     }
-  } 
+  }
   else if (args.length === 3) {
     const arg1 = args[0];
     const arg2 = args[1];
     const arg3 = args[2];
 
     if (arg2 === '-o') {
-      if (validateFolderExistence(arg1)) {
-        folderPath = arg1;
-        outputFolder = arg3;
-      } else if (validateFileExistence(arg1)) {
-        filePath = arg1;
-        outputFolder = arg3;
+      if (validateFolderExistence(arg1) && validateFolderExistence(arg3)) {
+        folderPath = path.resolve(arg1);
+        outputFolder = path.resolve(arg3);
+        inputFolderToOutputFolder(folderPath, outputFolder);
+      } else if (validateFileExistence(arg1) && validateFolderExistence(arg3)) {
+        filePath = path.resolve(arg1);
+        outputFolder = path.resolve(arg3);
+        inputFileToFolder(filePath, outputFolder);
       } else {
-        console.error(`Error: Invalid path '${arg1}'`);
+        console.error(`Error: Invalid or non existing input/output paths. Input: ${arg1}, Output: ${arg3}`);
         return;
       }
     } else {
-      console.error('Error: Invalid command');
+      console.error('Error: Invalid arguments');
       printCommandLineArguments();
       return;
     }
