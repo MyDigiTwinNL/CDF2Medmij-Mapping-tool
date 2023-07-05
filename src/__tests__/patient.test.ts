@@ -1,6 +1,6 @@
 import { InputSingleton } from '../inputSingleton';
 import * as patientmf from '../lifelines/Patient'
-import {genderFHIRV3Codes} from '../fhirv3codes'
+import {genderFHIRV3Codes} from '../codes/fhirv3codes'
 import { MappingTarget, processInput } from '../mapper'
 
 
