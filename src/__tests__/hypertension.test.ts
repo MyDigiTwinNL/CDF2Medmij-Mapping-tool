@@ -1,6 +1,6 @@
 import { InputSingleton } from '../inputSingleton';
 import * as hypertensionmf from '../lifelines/Hypertension'
-import { clinicalStatusSNOMEDCodeList, conditionsSNOMEDCodeList, verificationStatusSNOMEDCodeList } from '../snomedCodeLists';
+import { clinicalStatusSNOMEDCodeList, conditionsSNOMEDCodeList, verificationStatusSNOMEDCodeList } from '../codes/snomedCodeLists';
 import { MappingTarget, processInput } from '../mapper'
 
 test('hypertension reported on assessment 3A', () => {

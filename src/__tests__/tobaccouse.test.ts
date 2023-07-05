@@ -1,7 +1,7 @@
 import { InputSingleton } from '../inputSingleton';
 import { TobaccoUseProperties } from '../lifelines/TobaccoUse'
 import * as tobbacousemf from '../lifelines/TobaccoUse'
-import { tobaccoUseStatusSNOMEDCodelist } from '../snomedCodeLists';
+import { tobaccoUseStatusSNOMEDCodelist } from '../codes/snomedCodeLists';
 import { MappingTarget, processInput } from '../mapper'
 
 

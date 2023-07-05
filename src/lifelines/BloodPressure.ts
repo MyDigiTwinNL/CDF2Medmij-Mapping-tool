@@ -1,8 +1,8 @@
 import { inputValue } from '../functionsCatalog';
 import { lifelinesDateToISO } from '../lifelinesFunctions'
 import moize from 'moize'
-import { cuffTypeManchetTypeCodeList } from '../manchetCodeLists';
-import { measuringLocationSNOMEDCodelist } from '../snomedCodeLists';
+import { cuffTypeManchetTypeCodeList } from '../codes/manchetCodeLists';
+import { measuringLocationSNOMEDCodelist } from '../codes/snomedCodeLists';
 
 
 /*

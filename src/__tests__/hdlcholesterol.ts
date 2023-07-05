@@ -1,6 +1,6 @@
 import { InputSingleton } from '../inputSingleton';
 import * as hdlcholesterolmf from '../lifelines/HDLCholesterol'
-import {testResultFlagsSNOMEDCodelist} from '../snomedCodeLists';
+import {testResultFlagsSNOMEDCodelist} from '../codes/snomedCodeLists';
 import { MappingTarget, processInput } from '../mapper'
 
 type HDLCholesterolProperties = {

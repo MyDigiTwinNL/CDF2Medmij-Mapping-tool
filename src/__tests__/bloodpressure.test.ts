@@ -1,6 +1,6 @@
 import { InputSingleton } from '../inputSingleton';
 import * as bloodpressuremf from '../lifelines/BloodPressure'
-import {testResultFlagsSNOMEDCodelist} from '../snomedCodeLists';
+import {testResultFlagsSNOMEDCodelist} from '../codes/snomedCodeLists';
 import { MappingTarget, processInput } from '../mapper'
 
 

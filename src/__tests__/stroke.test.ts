@@ -1,6 +1,6 @@
 import { InputSingleton } from '../inputSingleton';
 import * as strokemf from '../lifelines/Stroke'
-import { clinicalStatusSNOMEDCodeList, conditionsSNOMEDCodeList, verificationStatusSNOMEDCodeList } from '../snomedCodeLists';
+import { clinicalStatusSNOMEDCodeList, conditionsSNOMEDCodeList, verificationStatusSNOMEDCodeList } from '../codes/snomedCodeLists';
 import { MappingTarget, processInput } from '../mapper'
 
 

@@ -1,7 +1,7 @@
 import {inputValue} from '../functionsCatalog';
 import {lifelinesDateToISO} from '../lifelinesFunctions'
 import moize from 'moize'
-import {testResultFlagsSNOMEDCodelist} from '../snomedCodeLists';
+import {testResultFlagsSNOMEDCodelist} from '../codes/snomedCodeLists';
 
 
 export const referenceRangeLowerLimit = function():number{

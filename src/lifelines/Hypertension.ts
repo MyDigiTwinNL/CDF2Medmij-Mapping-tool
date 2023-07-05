@@ -1,6 +1,6 @@
 import {inputValue,inputValues} from '../functionsCatalog';
 import moize from 'moize'
-import {clinicalStatusSNOMEDCodeList,verificationStatusSNOMEDCodeList,conditionsSNOMEDCodeList} from '../snomedCodeLists';
+import {clinicalStatusSNOMEDCodeList,verificationStatusSNOMEDCodeList,conditionsSNOMEDCodeList} from '../codes/snomedCodeLists';
 
 
 /*

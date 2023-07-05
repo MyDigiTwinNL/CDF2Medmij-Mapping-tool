@@ -1,7 +1,7 @@
 import {inputValue, inputValues} from '../functionsCatalog';
 import moize from 'moize'
 import {lifelinesDateToISO, lifelinesMeanDate} from '../lifelinesFunctions'
-import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../snomedCodeLists';
+import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../codes/snomedCodeLists';
 
 
 /*
