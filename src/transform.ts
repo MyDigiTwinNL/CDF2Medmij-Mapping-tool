@@ -29,7 +29,7 @@ const resolveLocalPath = () => {
 const inputFileToStdout = (filePath: string) => {
   resolveLocalPath();
 
-  /*Transformation performed with a mutex to prevent async race conditions given the shared variable (InputSingletone)
+  /*Transformation performed with a mutex to prevent async race conditions due to the shared variable (InputSingletone)
     between the mapping modules and the JSONata templates. The mutex is released after the transformation is performed
     so the input cannot be changed in the process.*/
   InputSingleton.getInstance().getMutex().acquire().then((releasemutex) => {

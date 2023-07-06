@@ -25,6 +25,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint . --ext .ts",
-    "validatesamples": "node fhirvalidation/validatesamples.js"
+    "validatesamples": "node fhirvalidation/validatesamples.js",
+    "transform": "node dist/transform"
   }
 }

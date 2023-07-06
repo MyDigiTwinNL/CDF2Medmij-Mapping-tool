@@ -1,46 +1,87 @@
-# Cohort-study to FHIR/MedMij mapping tool
+# FHIR Cohort Data Transformer
 
-
-
-## Table of Contents
-
-- [Cohort-study to FHIR/MedMij mapping tool](#cohort-study-to-fhirmedmij-mapping-tool)
-  - [Table of Contents](#table-of-contents)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Features](#features)
-  - [Contributing](#contributing)
-  - [License](#license)
-
-## Installation
-
-1. Clone the repository: `git clone https://github.com/username/project.git`
-2. Navigate to the project directory: `cd project`
-3. Install the dependencies: `npm install`
-
-## Usage
-
-1. Build the project: `npm run build`
-2. Start the application: `npm start`
+The FHIR Cohort Data Transformer is a TypeScript tool designed to transform cohort-study data into FHIR-compliant data. This tool allows you to specify and test the pairing rules between the cohort-study data and the properties of a given FHIR resource. Once you have defined these rules, you can link them to one or more FHIR-compliant templates.
 
 ## Features
 
-- Feature 1: Description of feature 1.
-- Feature 2: Description of feature 2.
-- Feature 3: Description of feature 3.
+- Transform cohort-study data into FHIR-compliant data
+- Allows the definition of pairing rules between cohort-study data and FHIR resource properties
+- Paring rules are specified in independent modules to make them testeable
 
-## Contributing
+## Prerequisites
 
-Contributions are welcome! Here's how you can contribute to the project:
+To use this tool, ensure you have the following installed:
 
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/your-feature-name`
-3. Make your changes and commit them: `git commit -m 'Add some feature'`
-4. Push the branch to your forked repository: `git push origin feature/your-feature-name`
-5. Submit a pull request detailing your changes.
+- Node.js (version 12 or higher)
+- npm (Node Package Manager)
+- TypeScript (installed globally)
 
-Please make sure to update tests as appropriate and ensure that your code follows the project's coding standards.
+## Installation
+
+1. Clone the repository from GitHub:
+
+```bash
+git clone https://github.com/your-username/fhir-cohort-data-transformer.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd fhir-cohort-data-transformer
+```
+
+3. Install the dependencies:
+
+```bash
+npm install
+```
+
+4. Compile
+
+```bash
+tsc
+```
+
+
+## Usage
+
+1. To create new pairing rules or JSON output-templates, refer to the developer manual. 
+
+* To run the unit tests :
+
+  ```bash
+  npm test
+  ```
+
+* To run the linter :
+
+  ```bash
+  npm run lint
+  ```
+* To transform the available input samples (./fhirvalidation/sampleinputs), and check the validity of their corresponding transformations against a FHIR profile:
+
+  ```bash  
+  npm run validatesamples
+  ```
+
+  
+1. Tp generate FHIR-compliant data based on the rules already defined, and the mapping configuration:
+
+```bash
+#Transform a single file, print the ouput to STDOUT
+npm run transform -- ./fhirvalidation/sampleinputs/input-p1234.json
+#Transform a single file, save the output on the given folder
+npm run transform -- ./fhirvalidation/sampleinputs/input-p1234.json -o /tmp/out
+#Transform all the .json files in a given folder, save the output on the given folder
+npm run transform -- ./fhirvalidation/sampleinputs -o /tmp/out
+```
+
+## Configuration
+
+To configure which pairing-rule modules will be used on which JSON output-templates, edit the file ...
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+
