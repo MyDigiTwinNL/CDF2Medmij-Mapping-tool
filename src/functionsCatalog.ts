@@ -21,10 +21,27 @@ export const inputValue = (name:string,wave:string): string => {
     return assessmentValues[wave]
 }
 
+/**
+ * Returns the map with all the assessments of a given variable.
+ * Access to properties not defined in a given variable will raise an error 
+ * (a Proxy with this behavior is returned)
+ * @param name 
+ * @returns 
+ */
 export const inputValues = (name:string):{[key:string]:string} => {    
     const assessmentValues = InputSingleton.getInstance().getInput()[name];
     if (assessmentValues===undefined) throw Error(`Variable ${name} not provided in the input`)    
-    return assessmentValues
+
+    return new Proxy(assessmentValues, {
+        get(target, property) {
+          if (!(property in target)) {
+            throw new Error(`Property ${String(property)} does not exist in the object ${String(JSON.stringify(target))}.`);
+          }
+          return target[property];
+        }
+      });
+
+    
 }
 
 
