@@ -64,8 +64,16 @@ tsc
   npm run validatesamples
   ```
 
+2. To preview a transformation of a given input
+
+   * Start the viewer server
+   ````
+   npm run dev-viewer
+   ````
+   * Open editor at [http://localhost:3000](http://localhost:3000)
+
   
-1. Tp generate FHIR-compliant data based on the rules already defined, and the mapping configuration:
+3. Tp generate FHIR-compliant data based on the rules already defined, and the mapping configuration:
 
 ```bash
 #Transform a single file, print the ouput to STDOUT
@@ -75,6 +83,8 @@ npm run transform -- ./fhirvalidation/sampleinputs/input-p1234.json -o /tmp/out
 #Transform all the .json files in a given folder, save the output on the given folder
 npm run transform -- ./fhirvalidation/sampleinputs -o /tmp/out
 ```
+
+
 
 ## Configuration
 

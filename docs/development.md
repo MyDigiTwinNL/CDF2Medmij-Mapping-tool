@@ -29,6 +29,24 @@ https://simplifier.net/packages/nictiz.fhir.nl.stu3.zib2017/2.2.12/files/2002637
 
 Create a file with .jsonata extension
 
+
+### Automatic generation/cross-reference of UUIDs
+
+#### FHIR resources (1 <-> 0..1)
+
+**$resourceId** function
+
+````
+$resourceId('zib-hypertension')
+````
+
+#### FHIR resources (1 <-> 0..N)
+
+**$waveSpecificResourceId** function
+
+````
+$waveSpecificResourceId('zib-laboratorytestresult-specimen-hdl',$result.assessment)
+````
 ## Defining a module
 
 
