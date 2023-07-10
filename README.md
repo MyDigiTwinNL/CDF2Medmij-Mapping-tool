@@ -80,6 +80,11 @@ npm run transform -- ./fhirvalidation/sampleinputs -o /tmp/out
 
 To configure which pairing-rule modules will be used on which JSON output-templates, edit the file ...
 
+## Developer documentation
+
+The developer documentation with the description of the tool design, and further details for creating new templates/pairing rules [can be found here](./docs/development.md).
+
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
