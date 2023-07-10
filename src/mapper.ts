@@ -117,12 +117,13 @@ function generateBundle(resources: any[]): object {
     type: "transaction"
   };
 
+
   resources.forEach((resource) => {
 
     if ('id' in resource) {
       //Using a fixed namespace to ensure the UUIDs are always the same given the resource id.
       const resourceUUID = uuidv5(resource.id, privateNameSpace);
-      const bundleEntry = { "fullUrl": `urn:uuid:${resourceUUID}`, "resource": resource };
+      const bundleEntry = { "fullUrl": `urn:uuid:${resourceUUID}`, "request":{"method": "POST"},"resource": resource };
       resourcesBundle.entry.push(bundleEntry);
     }
     else {
