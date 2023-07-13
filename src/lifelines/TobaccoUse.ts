@@ -149,9 +149,7 @@ const typeOfTobaccoUsed = (wave:string):object|undefined =>{
  * @precondition the three variables have no missing values in the given 'wave'
  * 
  * @param wave the code of the assessment for which the tobacco use status will be evaluated
- * 
- * @question is there a way to tell if it is daily or ocasional smoker?
- * 
+ *  
  */
 const tobaccoUseStatus = (wave:string):object => {    
     if (inputValue("ever_smoker_adu_c_2",wave)==="2"){
@@ -161,7 +159,7 @@ const tobaccoUseStatus = (wave:string):object => {
         return tobaccoUseStatusSNOMEDCodelist.ex_smoker;
     }
     else if (inputValue("current_smoker_adu_c_2",wave)==="1"){
-        return tobaccoUseStatusSNOMEDCodelist.occasional;
+        return tobaccoUseStatusSNOMEDCodelist.daily;
     }
     else{
         return tobaccoUseStatusSNOMEDCodelist.other;
