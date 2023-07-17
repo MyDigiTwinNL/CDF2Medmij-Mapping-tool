@@ -15,6 +15,7 @@ const targets: MappingTarget[] = [
   { "template": '../zib-2017-mappings/HDLCholesterol_Observation.jsonata', "module": './lifelines/HDLCholesterol' },
   { "template": '../zib-2017-mappings/HDLCholesterol_Specimen.jsonata', "module": './lifelines/HDLCholesterol' },
   { "template": '../zib-2017-mappings/TobaccoUse.jsonata', "module": './lifelines/TobaccoUse' },
+  { "template": '../zib-2017-mappings/Stroke.jsonata', "module": './lifelines/Stroke' },
   { "template": '../zib-2017-mappings/Patient.jsonata', "module": './lifelines/Patient' },
 ]
 

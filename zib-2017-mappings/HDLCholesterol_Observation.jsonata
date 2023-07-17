@@ -40,8 +40,8 @@ $map($HDLCholesterol_results(), function($result) {
             "coding": [
                 {
                     "system": "http://loinc.org",
-                    "code": "69419-0",
-                    "display": "LDLc SerPl Direct Assay-sCnc"
+                    "code": "14646-4",
+                    "display": "HDLc SerPl-sCnc"
                 }
             ]
         },
@@ -70,7 +70,7 @@ $map($HDLCholesterol_results(), function($result) {
         },
         
         "specimen": {
-            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-ldl',$result.assessment)),
+            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-hdl',$result.assessment)),
             "display": "Blood (substance)"
         },
         "referenceRange": [
