@@ -60,6 +60,9 @@ const inputFileToFolder = (filePath: string, outputFolder: string) => {
       const outputFilePath = path.join(outputFolder, fhirFileName);
   
       fs.writeFileSync(outputFilePath, JSON.stringify(output));
+      
+      console.info(`${filePath} ====> ${outputFilePath})`);      
+      
       releasemutex();
     }
     ).catch((error)=>{
@@ -74,17 +77,11 @@ const inputFileToFolder = (filePath: string, outputFolder: string) => {
 const inputFolderToOutputFolder = (inputFolder: string, outputFolder: string) => {
 
   const fileNames: string[] = fs.readdirSync(inputFolder);
-  let fileCount=0;
   fileNames.forEach((fileName) => {
     const filePath: string = path.join(inputFolder, fileName);
     const fileStats: fs.Stats = fs.statSync(filePath);
     if (fileStats.isFile() && fileName.toLowerCase().endsWith(".json")) {
-      inputFileToFolder(filePath, outputFolder);
-      fileCount++;
-      if (fileCount % 1000 == 0){
-        console.info(`${fileCount} files in ${filePath} processed (output saved on ${outputFolder})`);      
-      }
-      
+      inputFileToFolder(filePath, outputFolder);            
     }
   });
 
@@ -177,26 +174,6 @@ function processArguments(args: string[]): void {
 // Get command line arguments
 const args: string[] = process.argv.slice(2);
 processArguments(args);
-
-// Extract the file name
-/*const fileName: string | undefined = args[0];
-
-if (fileName) {
-  const absFilePath=path.resolve(fileName)
-  if (validateFileExistence(absFilePath)) {
-    main(absFilePath);
-  } else {
-    console.log(`File '${absFilePath}' does not exist.`);
-  }
-} else {
-  console.log(`Expected input: node ${__filename.slice(__dirname.length + 1, -3)} <file-name>`);
-}*/
-
-
-
-
-//inputFileToStdout('/Users/hcadavid/temp/ainput/input-p1234.json');
-
 
 
 
