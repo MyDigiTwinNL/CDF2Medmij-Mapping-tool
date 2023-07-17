@@ -70,7 +70,7 @@ test('participant started smoking before the baseline assessment and was still a
   InputSingleton.getInstance().setInput(input);
   const mappingResult = tobbacousemf.results();
 
-  expect((mappingResult[0] as TobaccoUseProperties).useStatus).toBe(tobaccoUseStatusSNOMEDCodelist.occasional);
+  expect((mappingResult[0] as TobaccoUseProperties).useStatus).toBe(tobaccoUseStatusSNOMEDCodelist.daily);
   expect((mappingResult[0] as TobaccoUseProperties).smokingStartDate).toBe("1972");
   expect((mappingResult[0] as TobaccoUseProperties).currentSmoker).toBe(true);
 
@@ -98,7 +98,7 @@ test('participant started smoking after the baseline assessment and was still a 
   expect((mappingResult[0] as TobaccoUseProperties).currentSmoker).toBe(false);
 
   expect((mappingResult[3] as TobaccoUseProperties).assessment).toBe("2A");
-  expect((mappingResult[3] as TobaccoUseProperties).useStatus).toBe(tobaccoUseStatusSNOMEDCodelist.occasional);
+  expect((mappingResult[3] as TobaccoUseProperties).useStatus).toBe(tobaccoUseStatusSNOMEDCodelist.daily);
   expect((mappingResult[3] as TobaccoUseProperties).smokingStartDate).toBe("1972");
   expect((mappingResult[3] as TobaccoUseProperties).currentSmoker).toBe(true);
 
@@ -128,7 +128,7 @@ test('participant started smoking after the baseline assessment and quit smoking
   expect((mappingResult[0] as TobaccoUseProperties).currentSmoker).toBe(false);
 
   expect((mappingResult[1] as TobaccoUseProperties).assessment).toBe("1B");
-  expect((mappingResult[1] as TobaccoUseProperties).useStatus).toBe(tobaccoUseStatusSNOMEDCodelist.occasional);  
+  expect((mappingResult[1] as TobaccoUseProperties).useStatus).toBe(tobaccoUseStatusSNOMEDCodelist.daily);  
   expect((mappingResult[1] as TobaccoUseProperties).smokingStartDate).toBe("1994");
   expect((mappingResult[1] as TobaccoUseProperties).currentSmoker).toBe(true);
   
