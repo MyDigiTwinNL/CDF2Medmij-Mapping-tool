@@ -60,7 +60,6 @@ const inputFileToFolder = (filePath: string, outputFolder: string) => {
       const outputFilePath = path.join(outputFolder, fhirFileName);
   
       fs.writeFileSync(outputFilePath, JSON.stringify(output));
-      console.info(`${filePath} ====> ${outputFilePath}`);      
       releasemutex();
     }
     ).catch((error)=>{
@@ -75,11 +74,17 @@ const inputFileToFolder = (filePath: string, outputFolder: string) => {
 const inputFolderToOutputFolder = (inputFolder: string, outputFolder: string) => {
 
   const fileNames: string[] = fs.readdirSync(inputFolder);
+  let fileCount=0;
   fileNames.forEach((fileName) => {
     const filePath: string = path.join(inputFolder, fileName);
     const fileStats: fs.Stats = fs.statSync(filePath);
     if (fileStats.isFile() && fileName.toLowerCase().endsWith(".json")) {
       inputFileToFolder(filePath, outputFolder);
+      fileCount++;
+      if (fileCount % 1000 == 0){
+        console.info(`${fileCount} files in ${filePath} processed (output saved on ${outputFolder})`);      
+      }
+      
     }
   });
 
@@ -109,11 +114,11 @@ const validateFolderExistence = (folderPath: string): boolean => {
 function printCommandLineArguments(): void {
   console.log('Program parameters details:');
   console.log('Process all the files in a folder (output folder is mandatory):');
-  console.log(`node ${__filename.slice(__dirname.length + 1, -3)} <input folder path> -o <output folder path>`);
+  console.log(`npm run transform -- <input folder path> -o <output folder path>`);
   console.log('Process a single file and generate a file with the output in a given folder:');
-  console.log(`node ${__filename.slice(__dirname.length + 1, -3)} <input file path> -o <output folder path>`);
+  console.log(`npm run transform -- <input file path> -o <output folder path>`);
   console.log('Process a single file and print the output on STDOUT:');
-  console.log(`node ${__filename.slice(__dirname.length + 1, -3)} <input file path>`);
+  console.log(`npm run transform -- <input file path>`);
 }
 
 function processArguments(args: string[]): void {
