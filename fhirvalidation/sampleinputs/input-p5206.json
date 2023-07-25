@@ -31,6 +31,7 @@
 
     "hdlchol_result_all_m_1":       {"1A":"0.31","2A":"0.32"},
     "ldlchol_result_all_m_1":       {"1A":"0.41","2A":"0.42"},
+    "cholesterol_result_all_m_1":   {"1A":"6","2A":"6"},
     
     "heartattack_startage_adu_q_1": {"1A":"33"},
     "angioplasty_bypass_adu_q_1a":  {"1A":"1","3A":"1","3B":"1"},
