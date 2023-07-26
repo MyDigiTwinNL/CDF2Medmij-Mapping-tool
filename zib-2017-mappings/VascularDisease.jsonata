@@ -28,7 +28,7 @@
 
     $vascularDiseaseStartAge := function(){(
         $age1:=heartattack_presence_adu_q_1="1"?$number(heartattack_startage_adu_q_1):null;
-        $age2:=angioplasty_bypass_adu_q_1="1"?$number(angioplasty_bypass_adu_q_1a):null;
+        $age2:=angioplasty_bypass_adu_q_1="1"?$number(angioplasty_bypass_adu_q_1_a):null;
         ($age1 = null and $age2 = null)? null : ($age1 = null ? $age2 : ($age2 = null ? $age1 : ($age1 < $age2 ? $age1 : $age2)))
     )
     };
@@ -41,10 +41,10 @@
     };
 
     $vascularDiseaseStartYear := function(){(
-        $surveyDateParts:=$split(DATE,"/");
+        $surveyDateParts:=$split(date,"/");
         $surveyYear:= $number($surveyDateParts[1]);
         $heartAttackStartAge := $number(heartattack_startage_adu_q_1);
-        $surveyAge := $number(AGE);                
+        $surveyAge := $number(age);                
         $string($surveyYear - $surveyAge + $vascularDiseaseStartAge())
     )};
 

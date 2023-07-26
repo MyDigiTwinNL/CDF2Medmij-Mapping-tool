@@ -35,10 +35,10 @@ function getValueAtPath<T>(obj: T, path: string): any {
 
 test('Linking between resources', () => {  
     const input = {
-        "PROJECT_PSEUDO_ID": {"1A":"520681571"},
-        "VARIANT_ID": {},
-        "DATE": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
-        "AGE": {"1A":"22"},            
+        "project_pseudo_id": {"1A":"520681571"},
+        "variant_id": {},
+        "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
+        "age": {"1A":"22"},            
         "hdlchol_result_all_m_1":       {"1A":"0.31","2A":"0.32"},
         "ldlchol_result_all_m_1":       {"1A":"0.41","2A":"0.42"},
     }

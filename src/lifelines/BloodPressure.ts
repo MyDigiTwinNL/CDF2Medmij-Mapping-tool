@@ -29,7 +29,7 @@ http://wiki.lifelines.nl/doku.php?id=blood_pressure
  * bp_entrytype_all_m_1           [X ][  ][  ][X ][  ][  ]
  * bp_bandsize_all_m_1            [X ][  ][  ][X ][X ][  ]
  * bp_arm_all_m_1                 [  ][  ][  ][  ][X ][  ]
- * DATE                           [X ][X ][X ][X ][X ][X ]
+ * date                           [X ][X ][X ][X ][X ][X ]
  * ------------------------------------------------------------------
  * 
  * 
@@ -126,6 +126,6 @@ export const arterialBloodPressure = function (wave: string): number {
 };
 
 export const collectedDateTime = function (wave: string): string {
-    return lifelinesDateToISO(inputValue("DATE",wave));
+    return lifelinesDateToISO(inputValue("date",wave));
 }
 

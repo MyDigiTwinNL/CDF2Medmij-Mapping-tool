@@ -17,7 +17,7 @@ test('Cholesterol reports, above reference range', () => {
   const input = {
 
     "ldlchol_result_all_m_1":  {"1A":(cholesterolmf.referenceRangeUpperLimit()+0.1).toString(),"2A":(cholesterolmf.referenceRangeUpperLimit()+0.1).toString()},
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
   }  
 
   InputSingleton.getInstance().setInput(input);
@@ -37,7 +37,7 @@ test('Cholesterol reports, mix of normal and above reference ranges', () => {
   const input = {
 
     "ldlchol_result_all_m_1":  {"1A":(cholesterolmf.referenceRangeUpperLimit()-0.1).toString(),"2A":(cholesterolmf.referenceRangeUpperLimit()+0.1).toString()},
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
   }  
 
   InputSingleton.getInstance().setInput(input);
@@ -57,7 +57,7 @@ test('Cholesterol reports, within normal levels', () => {
   const input = {
 
     "ldlchol_result_all_m_1":  {"1A":(cholesterolmf.referenceRangeUpperLimit()-1).toString(),"2A":(cholesterolmf.referenceRangeUpperLimit()-0.1).toString()},
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
   }  
 
   InputSingleton.getInstance().setInput(input);
@@ -78,9 +78,9 @@ test('LDLCholesteron resource generation', () => {
   
   const input = {
     "ldlchol_result_all_m_1":  {"1A":(cholesterolmf.referenceRangeUpperLimit()-1).toString(),"2A":(cholesterolmf.referenceRangeUpperLimit()-0.1).toString()},
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
-    "AGE": { "1A": "22" },
-    "PROJECT_PSEUDO_ID": { "1A": "520681571" },
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
+    "age": { "1A": "22" },
+    "project_pseudo_id": { "1A": "520681571" },
   }
 
   let targets: MappingTarget[] = [

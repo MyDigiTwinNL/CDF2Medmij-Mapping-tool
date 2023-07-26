@@ -88,10 +88,10 @@ const exSmoker = function(wave:string):boolean{
  * ------------------------------------------------------------------
  *                                [1A][1B][1C][2A][2B][3A][3B]
  * smoking_startage_adu_c_2       [X ][X ][X ][X ][X ][X ][  ] 
- * AGE                            [X ][  ][  ][  ][  ][  ][  ] 
+ * age                            [X ][  ][  ][  ][  ][  ][  ] 
  * 
  * @precondition
- *      - no missing values in AGE and smoking_startage_adu_c_2 in the given wave
+ *      - no missing values in age and smoking_startage_adu_c_2 in the given wave
  * 
  * @pairingrule 
  *      - the approximate year the participant had the age reported in A1 baseline assessment, 
@@ -99,11 +99,11 @@ const exSmoker = function(wave:string):boolean{
  */
 const  smokingStart = function(wave:string){
     //
-    const surveyDateParts = inputValue("DATE","1A").split("/");        
+    const surveyDateParts = inputValue("date","1A").split("/");        
     const surveyYear= Number(surveyDateParts[1]);
     const startAge = Number(inputValue("smoking_startage_adu_c_2",wave));
     //Age is only on baseline assessment 1A
-    const surveyAge = Number(inputValue("AGE","1A"));                
+    const surveyAge = Number(inputValue("age","1A"));                
     return (surveyYear - surveyAge + startAge).toString()
 };
 
@@ -112,14 +112,14 @@ const  smokingStart = function(wave:string){
  * ------------------------------------------------------------------
  *                                [1A][1B][1C][2A][2B][3A][3B]
  * smoking_endage_adu_c_2         [X ][X ][X ][X ][X ][X ][  ] 
- * AGE                            [X ][  ][  ][  ][  ][  ][  ] 
+ * age                            [X ][  ][  ][  ][  ][  ][  ] 
  * 
  */
 const  smokingEnd = function(wave:string){
-    const surveyDateParts = inputValue("DATE","1A").split("/");        
+    const surveyDateParts = inputValue("date","1A").split("/");        
     const surveyYear= Number(surveyDateParts[1]);
     const endAge = Number(inputValue("smoking_endage_adu_c_2",wave));
-    const surveyAge = Number(inputValue("AGE","1A"));                
+    const surveyAge = Number(inputValue("age","1A"));                
     return (surveyYear - surveyAge + endAge).toString()
 };
 

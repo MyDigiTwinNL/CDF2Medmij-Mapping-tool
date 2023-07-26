@@ -86,7 +86,7 @@ const _clinicalStatus = moize((diab_presence:string,followup_assessments:object)
  * diabetes_startage_adu_q_1      [X ][  ][  ][  ][  ][  ]
  * diabetes_presence_adu_q_1      [X ][  ][  ][  ][  ][  ]
  * diabetes_followup_adu_q_1      [  ][X ][X ][X ][X ][X ] 
- * DATE                           [X ][X ][X ][X ][X ][X ]
+ * date                           [X ][X ][X ][X ][X ][X ]
  * ------------------------------------------------------------------
  * 
  * @precondition
@@ -104,10 +104,10 @@ const _clinicalStatus = moize((diab_presence:string,followup_assessments:object)
  */
 export const onsetDateTime = ():string => {
     if (inputValue("diabetes_presence_adu_q_1","1A")==='1'){
-        const surveyDateParts = inputValue("DATE","1A").split("/");
+        const surveyDateParts = inputValue("date","1A").split("/");
         const surveyYear = Number(surveyDateParts[1]);
         const diabetesStartAge = Number (inputValue("diabetes_startage_adu_q_1","1A"));
-        const surveyAge = Number(inputValue("AGE","1A"));      
+        const surveyAge = Number(inputValue("age","1A"));      
         return (surveyYear - surveyAge + diabetesStartAge).toString();
     }
     else{
@@ -140,7 +140,7 @@ function findDatesBetweenDiabetesPresenceReport(): [string,string]|undefined{
       const wave = waves[i];
       const value = diabFollowUp[wave];
       if (value === '1') {
-        return [inputValue("DATE",previousWave),inputValue("DATE",wave)];        
+        return [inputValue("date",previousWave),inputValue("date",wave)];        
       }
   
       previousWave = wave;

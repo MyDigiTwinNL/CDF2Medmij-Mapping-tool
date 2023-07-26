@@ -79,8 +79,8 @@ const _clinicalStatus = moize((hypertension_presence_assessments:object):object 
  *                                [1A][1B][1C][2A][3A][3B]
  * hypertension_startage_adu_q_1  [X ][  ][  ][  ][X ][X ] how old were you when hypertension was first diagnosed?
  * hypertension_presence_adu_q_1  [X ][  ][  ][  ][X ][X ] have you ever had hypertension? 
- * DATE                           [X ][X ][X ][X ][X ][X ]
- * AGE                            [X ]
+ * date                           [X ][X ][X ][X ][X ][X ]
+ * age                            [X ]
  * ------------------------------------------------------------------
  * 
  * @precondition
@@ -95,8 +95,8 @@ export const onsetDateTime = ():string => {
     //find the first occurence of hypertension_presence_adu_q_1=yes
     const hypPresence = Object.entries(inputValues("hypertension_presence_adu_q_1")).find(([key,value]) => value === "1")
     const hypPresenceAssessment:string = hypPresence?hypPresence[0]:"";
-    const surveyDateParts = inputValue("DATE","1A").split("/");
-    const surveyAge = Number(inputValue("AGE","1A"));      
+    const surveyDateParts = inputValue("date","1A").split("/");
+    const surveyAge = Number(inputValue("age","1A"));      
     const surveyYear = Number(surveyDateParts[1]);
     const hypStartAge = Number(inputValue('hypertension_startage_adu_q_1',hypPresenceAssessment))
     return (surveyYear - surveyAge + hypStartAge).toString()

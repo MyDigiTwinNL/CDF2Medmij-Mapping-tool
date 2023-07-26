@@ -8,8 +8,8 @@ test('hypertension reported on assessment 3A', () => {
   const input = {
     "hypertension_startage_adu_q_1": { "1A": "", "3A": "23", "3B": "23" },
     "hypertension_presence_adu_q_1": { "1A": "2", "3A": "1", "3B": "1" },
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
-    "AGE": { "1A": "22" },
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
+    "age": { "1A": "22" },
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -27,8 +27,8 @@ test('No hypertension reported', () => {
   const input = {
     "hypertension_startage_adu_q_1": { "1A": "", "3A": "", "3B": "" },
     "hypertension_presence_adu_q_1": { "1A": "2", "3A": "2", "3B": "2" },
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
-    "AGE": { "1A": "22" },
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
+    "age": { "1A": "22" },
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -45,9 +45,9 @@ test('Hypertension resource generation when it is reported', () => {
   const input = {
     "hypertension_startage_adu_q_1": { "1A": "", "3A": "23", "3B": "23" },
     "hypertension_presence_adu_q_1": { "1A": "2", "3A": "1", "3B": "1" },
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
-    "AGE": { "1A": "22" },
-    "PROJECT_PSEUDO_ID": { "1A": "520681571" },
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
+    "age": { "1A": "22" },
+    "project_pseudo_id": { "1A": "520681571" },
   }
 
   const targets: MappingTarget[] = [
@@ -74,9 +74,9 @@ test('Hypertension resource generation when no hypertension is reported', () => 
   const input = {
     "hypertension_startage_adu_q_1": { "1A": "", "3A": "", "3B": "" },
     "hypertension_presence_adu_q_1": { "1A": "2", "3A": "2", "3B": "2" },
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
-    "AGE": { "1A": "22" },
-    "PROJECT_PSEUDO_ID": { "1A": "520681571" },
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
+    "age": { "1A": "22" },
+    "project_pseudo_id": { "1A": "520681571" },
   }
 
   const targets: MappingTarget[] = [

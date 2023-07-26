@@ -14,8 +14,8 @@ test('diabetes clinical status, when reported positive in 1A, diabetes type 2', 
     "diabetes_type_adu_q_1_a":   { "1A": "" },
     "t1d_followup_adu_q_1":                            { "2A": "2", "3A": "2", "3B": "2" },
     "t2d_followup_adu_q_1":                            { "2A": "2", "3A": "2", "3B": "2" },    
-    "DATE": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
-    "AGE": { "1A": "22" }
+    "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
+    "age": { "1A": "22" }
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -38,8 +38,8 @@ test('diabetes clinical status, when reported positive in a follow-up, diabetes 
     "diabetes_type_adu_q_1_a":   { "1A": "" },
     "t1d_followup_adu_q_1":                            { "2A": "2", "3A": /*Positive*/"1", "3B": "2" },
     "t2d_followup_adu_q_1":                            { "2A": "2", "3A": "2", "3B": "2" },    
-    "DATE": {"1A":"5/1992","1B":"5/1995","1C":"5/1997",/*date1*/"2A":"5/2001",/*date2*/"3A":"5/2003","3B":"5/2005"},
-    "AGE": { "1A": "22" },
+    "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1997",/*date1*/"2A":"5/2001",/*date2*/"3A":"5/2003","3B":"5/2005"},
+    "age": { "1A": "22" },
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -91,8 +91,8 @@ test('diabetes clinical status, when never reported', () => {
     "diabetes_type_adu_q_1_a":   { "1A": "" },
     "t1d_followup_adu_q_1":                            { "2A": "2", "3A": "2", "3B": "2" },
     "t2d_followup_adu_q_1":                            { "2A": "2", "3A": "2", "3B": "2" },    
-    "DATE": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
-    "AGE": { "1A": "22" },
+    "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
+    "age": { "1A": "22" },
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -140,9 +140,9 @@ test('Diabates resource generation when not reported', () => {
     "diabetes_presence_adu_q_1": { "1A": "2" },
     "diabetes_followup_adu_q_1": { "1B": "2", "1C": "2", "2A": "2", "3A": "2", "3B": "2" },
     "diabetes_startage_adu_q_1": { "1A": "" },
-    "DATE": { "1A": "5/1992" },
-    "AGE": { "1A": "22" },
-    "PROJECT_PSEUDO_ID": { "1A": "520681571" }
+    "date": { "1A": "5/1992" },
+    "age": { "1A": "22" },
+    "project_pseudo_id": { "1A": "520681571" }
   }
 
   const targets: MappingTarget[] = [

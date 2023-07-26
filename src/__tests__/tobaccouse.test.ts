@@ -8,15 +8,15 @@ import { MappingTarget, processInput } from '../mapper'
 test('non-smoker', () => {
 
   const input = {
-    "current_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2", "3B": "2" },
-    "smoking_startage_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
-    "ex_smoker_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
-    "smoking_endage_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
-    "ever_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2", "3B": "2" },
-    "total_frequency_adu_c_1": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
-    "packyears_cumulative_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
-    "AGE": { "1A": "22" }
+    "current_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2"},
+    "smoking_startage_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": ""},
+    "ex_smoker_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": ""},
+    "smoking_endage_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": ""},
+    "ever_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2"},
+    "total_frequency_adu_c_1": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": ""},
+    "packyears_cumulative_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": ""},
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005"},
+    "age": { "1A": "22" }
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -38,8 +38,8 @@ test('participant was an ex-smoker before the first assessment', () => {
     "ever_smoker_adu_c_2": { "1A": "1", "1B": "1", "1C": "1", "2A": "1", "2B": "1", "3A": "1" },
     "total_frequency_adu_c_1": { "1A": "5", "1B": "5", "1C": "5", "2A": "5", "2B": "5", "3A": "5" },
     "packyears_cumulative_adu_c_2": { "1A": "200", "1B": "200", "1C": "200", "2A": "200", "2B": "200", "3A": "200" },
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
-    "AGE": { "1A": "40" }
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
+    "age": { "1A": "40" }
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -63,8 +63,8 @@ test('participant started smoking before the baseline assessment and was still a
     "ever_smoker_adu_c_2": { "1A": "1", "1B": "1", "1C": "1", "2A": "1", "2B": "1", "3A": "1" },
     "total_frequency_adu_c_1": { "1A": "5", "1B": "5", "1C": "5", "2A": "5", "2B": "5", "3A": "5" },
     "packyears_cumulative_adu_c_2": { "1A": "200", "1B": "200", "1C": "200", "2A": "200", "2B": "200", "3A": "200" },
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
-    "AGE": { "1A": "40" }
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
+    "age": { "1A": "40" }
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -87,8 +87,8 @@ test('participant started smoking after the baseline assessment and was still a 
     "ever_smoker_adu_c_2":      { "1A": "2", "1B": "2", "1C": "2", "2A": "1", "2B": "1", "3A": "1" },
     "total_frequency_adu_c_1":  { "1A": "", "1B": "", "1C": "", "2A": "5", "2B": "5", "3A": "5" },
     "packyears_cumulative_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "200", "2B": "200", "3A": "200" },
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
-    "AGE": { "1A": "40" }
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
+    "age": { "1A": "40" }
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -116,8 +116,8 @@ test('participant started smoking after the baseline assessment and quit smoking
     "ever_smoker_adu_c_2":      { "1A": "2", "1B": "1", "1C": "1", "2A": "1", "2B": "1", "3A": "1" },
     "total_frequency_adu_c_1":  { "1A": "", "1B": "5", "1C": "5", "2A": "", "2B": "", "3A": "" },
     "packyears_cumulative_adu_c_2": { "1A": "", "1B": "200", "1C": "200", "2A": "200", "2B": "200", "3A": "200" },
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
-    "AGE": { "1A": "40" }
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
+    "age": { "1A": "40" }
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -157,9 +157,9 @@ test('Resource generation - participant started smoking before the baseline asse
     "ever_smoker_adu_c_2": { "1A": "1", "1B": "1", "1C": "1", "2A": "1", "2B": "1", "3A": "1" },
     "total_frequency_adu_c_1": { "1A": "5", "1B": "5", "1C": "5", "2A": "5", "2B": "5", "3A": "5" },
     "packyears_cumulative_adu_c_2": { "1A": "200", "1B": "200", "1C": "200", "2A": "200", "2B": "200", "3A": "200" },
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
-    "AGE": { "1A": "40" },
-    "PROJECT_PSEUDO_ID": { "1A": "520681571" }
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
+    "age": { "1A": "40" },
+    "project_pseudo_id": { "1A": "520681571" }
   }
 
   const targets: MappingTarget[] = [
@@ -183,9 +183,9 @@ test('Resource generation - non-smoker', () => {
     "ever_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2", "3B": "2" },
     "total_frequency_adu_c_1": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
     "packyears_cumulative_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
-    "DATE": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
-    "AGE": { "1A": "22" },
-    "PROJECT_PSEUDO_ID": { "1A": "520681571" }
+    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "2B": "5/2003", "3A": "5/2005", "3B": "5/2009" },
+    "age": { "1A": "22" },
+    "project_pseudo_id": { "1A": "520681571" }
   }
 
   const targets: MappingTarget[] = [

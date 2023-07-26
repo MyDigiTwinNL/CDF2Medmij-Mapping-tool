@@ -1,10 +1,10 @@
 {
-    "PROJECT_PSEUDO_ID": {"1A":"5206"},
-    "VARIANT_ID": {},
-    "DATE": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
-    "AGE": {"1A":"22"},
-    "GENDER": {"1A":"male"},
-    "ZIP_CODE": {"1A":"male"},
+    "project_pseudo_id": {"1A":"5206"},
+    "variant_id": {},
+    "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
+    "age": {"1A":"22"},
+    "gender": {"1A":"male"},
+    "zip_code": {"1A":"male"},
 
     "hypertension_startage_adu_q_1":{"1A":"","3A":"23","3B":"23"},
     "hypertension_presence_adu_q_1":{"1A":"2","3A":"1","3B":"1"},
@@ -33,7 +33,7 @@
     "ldlchol_result_all_m_1":       {"1A":"0.41","2A":"0.42"},
     
     "heartattack_startage_adu_q_1": {"1A":"33"},
-    "angioplasty_bypass_adu_q_1a":  {"1A":"1","3A":"1","3B":"1"},
+    "angioplasty_bypass_adu_q_1_a":  {"1A":"1","3A":"1","3B":"1"},
     "heartattack_presence_adu_q_1": {"1A":"1"},
     "heartattack_followup_adu_q_1":     {"1B":"2","1C":"2","2A":"2","3A":"2","3B":"2"},
     "angioplasty_bypass_adu_q_1":   {"1A":"1","3A":"1","3B":"1"},

@@ -17,7 +17,7 @@ http://wiki.lifelines.nl/doku.php?id=cardiovascular_diseases
  * 
  *                                      [1A][1B][1C][2A][3A][3B]
  *   heartattack_startage_adu_q_1:      [X ][  ][  ][  ][  ][  ]    
- *   angioplasty_bypass_adu_q_1a:       [X ][  ][  ][  ][X ][X ]    
+ *   angioplasty_bypass_adu_q_1_a:       [X ][  ][  ][  ][X ][X ]    
  *   heartattack_presence_adu_q_1:      [X ][  ][  ][  ][  ][  ]    
  *   heartattack_followup_adu_q_1:      [  ][X ][X ][X ][X ][X ]    
  *   angioplasty_bypass_adu_q_1:        [X ][  ][  ][  ][X ][X ]    
@@ -44,7 +44,7 @@ export const code = ():object => {
  *   heartattack_presence_adu_q_1:      [X ][  ][  ][  ][  ][  ]    
  *   heartattack_followup_adu_q_1:      [  ][X ][X ][X ][X ][X ]
  *   angioplasty_bypass_adu_q_1:        [X ][  ][  ][  ][X ][X ]     
- *   angioplasty_bypass_adu_q_1a:       [X ][  ][  ][  ][X ][X ]  how old were you when you had the (first) balloon angioplasty/bypass surgery?       
+ *   angioplasty_bypass_adu_q_1_a:       [X ][  ][  ][  ][X ][X ]  how old were you when you had the (first) balloon angioplasty/bypass surgery?       
  *   carotid_stenosis_adu_q_1:          [X ][  ][  ][  ][  ][  ]    
  *   claudication_followup_adu_q_1:     [  ][X ][X ][X ][X ][X ]    
  *   cvd_followup_adu_q_1:              [  ][X ][X ][X ][X ][X ]    
@@ -167,7 +167,7 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  *   heartattack_presence_adu_q_1:      [X ][  ][  ][  ][  ][  ]    
  *   heartattack_startage_adu_q_1:      [X ][  ][  ][  ][  ][  ]    
  *   angioplasty_bypass_adu_q_1:        [X ][  ][  ][  ][X ][X ]  have you ever had a balloon angioplasty (stretching of artery with balloon) and/or bypass surgery? 
- *   angioplasty_bypass_adu_q_1a:       [X ][  ][  ][  ][X ][X ]  if so, how old were you when you had the (first) balloon angioplasty/bypass surgery?  
+ *   angioplasty_bypass_adu_q_1_a:       [X ][  ][  ][  ][X ][X ]  if so, how old were you when you had the (first) balloon angioplasty/bypass surgery?  
  * 
  *   heartattack_followup_adu_q_1:      [  ][X ][X ][X ][X ][X ]    
  *   carotid_stenosis_adu_q_1:          [X ][  ][  ][  ][  ][  ]    
@@ -180,7 +180,7 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  * 
  * @pairingrule
  * 
- *      if heartattack_presence_adu_q_1 in 1A = yes AND angioplasty_bypass_adu_q_1 in 1A = yes => earliest date calculated based on (heartattack_startage_adu_q_1, angioplasty_bypass_adu_q_1a)
+ *      if heartattack_presence_adu_q_1 in 1A = yes AND angioplasty_bypass_adu_q_1 in 1A = yes => earliest date calculated based on (heartattack_startage_adu_q_1, angioplasty_bypass_adu_q_1_a)
  *      else
  *          if there is a 'yes' in any heartattack_followup_adu_q_1 => mean date between the date of the assessment 
  *              where heartattack_followup_adu_q_1 = yes, and the date of the preceding one.
@@ -200,10 +200,10 @@ export const vascularDiseaseStartYear = function(){
 
     /*const firstAssessmentWithPositiveCVD = findFirstAssessmentWithPositiveValue(cvdRelatedVariables);
     if (inputValue("heartattack_presence_adu_q_1")["1A"]==="1"){        
-        const surveyDateParts = inputValue("DATE")["1A"].split("/");        
+        const surveyDateParts = inputValue("date")["1A"].split("/");        
         const surveyYear= Number(surveyDateParts[1]);
         const heartAttackStartAge = Number(inputValue("heartattack_startage_adu_q_1"));
-        const surveyAge = Number(inputValue("AGE"));                
+        const surveyAge = Number(inputValue("age"));                
         return (surveyYear - surveyAge + heartAttackStartAge).toString()
     }        
     

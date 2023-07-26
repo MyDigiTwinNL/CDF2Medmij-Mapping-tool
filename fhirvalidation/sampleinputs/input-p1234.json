@@ -1,10 +1,10 @@
 {
-    "PROJECT_PSEUDO_ID": {"1A":"1234"},
-    "VARIANT_ID": {},
-    "DATE": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
-    "AGE": {"1A":"22"},
-    "GENDER": {"1A":"male"},
-    "ZIP_CODE": {"1A":"male"},
+    "project_pseudo_id": {"1A":"1234"},
+    "variant_id": {},
+    "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
+    "age": {"1A":"22"},
+    "gender": {"1A":"male"},
+    "zip_code": {"1A":"male"},
 
     "hypertension_startage_adu_q_1":{"1A":"","3A":"23","3B":"23"},
     "hypertension_presence_adu_q_1":{"1A":"2","3A":"1","3B":"1"},
@@ -34,7 +34,7 @@
     "cholesterol_result_all_m_1":   {"1A":"0.51","2A":"0.52"},
     
     "heartattack_startage_adu_q_1": {"1A":"33"},
-    "angioplasty_bypass_adu_q_1a":  {"1A":"1","3A":"1","3B":"1"},
+    "angioplasty_bypass_adu_q_1_a":  {"1A":"1","3A":"1","3B":"1"},
     "heartattack_presence_adu_q_1": {"1A":"1"},
     "heartattack_followup_adu_q_1":     {"1B":"2","1C":"2","2A":"2","3A":"2","3B":"2"},
     "angioplasty_bypass_adu_q_1":   {"1A":"1","3A":"1","3B":"1"},
@@ -42,13 +42,13 @@
     "claudication_followup_adu_q_1":            {"2A":"2","3A":"2","3B":"2"},
     "cvd_followup_adu_q_1":             {"1B":"2","1C":"2","2A":"2","3A":"2","3B":"2"},
 
-    "current_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2", "3B": "2" },
-    "smoking_startage_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
-    "ex_smoker_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
-    "smoking_endage_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
-    "ever_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2", "3B": "2" },
-    "total_frequency_adu_c_1": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" },
-    "packyears_cumulative_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "", "3B": "" }
+    "current_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2" },
+    "smoking_startage_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "" },
+    "ex_smoker_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": "" },
+    "smoking_endage_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": ""},
+    "ever_smoker_adu_c_2": { "1A": "2", "1B": "2", "1C": "2", "2A": "2", "2B": "2", "3A": "2"},
+    "total_frequency_adu_c_1": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": ""},
+    "packyears_cumulative_adu_c_2": { "1A": "", "1B": "", "1C": "", "2A": "", "2B": "", "3A": ""}
 
 
 

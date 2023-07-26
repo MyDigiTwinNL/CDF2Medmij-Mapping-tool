@@ -64,5 +64,5 @@ const hdlResults=function(wave:string):number{
 };
 
 const collectedDateTime=function(wave:string):string{
-    return lifelinesDateToISO(inputValue("DATE",wave))
+    return lifelinesDateToISO(inputValue("date",wave))
 };
