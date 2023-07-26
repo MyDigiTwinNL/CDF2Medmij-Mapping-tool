@@ -4,7 +4,7 @@ import {transformVariables,variableAssessments} from './functionsCatalog'
 export class InputSingleton {
     private static instance: InputSingleton;
   
-    private input: any;
+    private input!: transformVariables;
     private mutex: Mutex;
     
     private constructor() {
@@ -23,13 +23,13 @@ export class InputSingleton {
         this.input = input;
     }
 
-    public getInput():any{
-        return this.input;
+    public getInput(varName:string):variableAssessments{
+        return this.input[varName];
     }
 
     public getMutex():Mutex{
       return this.mutex;
-  }
+    }
 
 
     public static getInstance(): InputSingleton {

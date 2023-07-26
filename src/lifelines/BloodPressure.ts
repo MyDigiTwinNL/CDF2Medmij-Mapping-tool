@@ -1,4 +1,4 @@
-import { inputValue,createCheckedAccessProxy } from '../functionsCatalog';
+import { inputValue,createCheckedAccessProxy, inputValues } from '../functionsCatalog';
 import { lifelinesDateToISO } from '../lifelinesFunctions'
 import moize from 'moize'
 import { cuffTypeManchetTypeCodeList } from '../codes/manchetCodeLists';
@@ -114,6 +114,7 @@ const bp_bandsize_all_m_1_codeMapping: { [key: string]: object } = {
 
 export const cuffType = function (wave: string): object|undefined {
     const bandsize: string|undefined = inputValue("bp_bandsize_all_m_1",wave)
+
     if (bandsize!=undefined){
         return bp_bandsize_all_m_1_codeMapping[bandsize];
     }
