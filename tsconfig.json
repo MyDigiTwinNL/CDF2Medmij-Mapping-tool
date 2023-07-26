@@ -113,6 +113,7 @@
     "src/lifelines"
   ],
   "files": [
+    "src/__tests__/bloodpressure.test.ts",
     "src/lifelines/BloodPressure.ts",
     "src/lifelines/Patient.ts",
     "src/functionsCatalog.ts",
@@ -121,6 +122,8 @@
     "src/mapper.ts",
     "src/transform.ts",
     "src/transformationParameters.ts",
+    "src/viewerserver/server.ts",
+    "src/viewerserver/serversettings.ts",
   ]
 
 }

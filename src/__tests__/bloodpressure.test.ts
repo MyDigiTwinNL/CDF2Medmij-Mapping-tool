@@ -27,9 +27,6 @@ test('BloodPressure resource generation', () => {
     expect(output.length).toBe(2);    
   })
 
-
-
-
 })
 
 
