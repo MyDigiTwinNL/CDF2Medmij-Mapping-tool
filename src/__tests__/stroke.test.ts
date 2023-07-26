@@ -7,11 +7,11 @@ import { MappingTarget, processInput } from '../mapper'
 test('stroke, when reported positive in 1A', () => {
 
   const input = {
-    "stroke_startage_adu_q_1":{ "1A": "12" },
-    "stroke_presence_adu_q_1": { "1A": "1" },
-    "stroke_followup_adu_q_1":{"1B":"2","1C":"2","2A":"2","3A":"2","3B":"2"},
-    "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
-    "age": { "1A": "22" }
+    "stroke_startage_adu_q_1":{ "1a": "12" },
+    "stroke_presence_adu_q_1": { "1a": "1" },
+    "stroke_followup_adu_q_1":{"1b":"2","1C":"2","2a":"2","3a":"2","3b":"2"},
+    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
+    "age": { "1a": "22" }
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -26,11 +26,11 @@ test('stroke, when reported positive in 1A', () => {
 test('stroke, when reported in 2A', () => {
 
   const input = {
-    "stroke_startage_adu_q_1":{ "1A": "12" },
-    "stroke_presence_adu_q_1": { "1A": "2" },
-    "stroke_followup_adu_q_1":{"1B":"2","1C":"2","2A":"1","3A":"2","3B":"2"},    
-    "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1996","2A":"5/2002","3A":"5/2003","3B":"5/2005"},
-    "age": { "1A": "22" }
+    "stroke_startage_adu_q_1":{ "1a": "12" },
+    "stroke_presence_adu_q_1": { "1a": "2" },
+    "stroke_followup_adu_q_1":{"1b":"2","1C":"2","2a":"1","3a":"2","3b":"2"},    
+    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1996","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "age": { "1a": "22" }
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -45,11 +45,11 @@ test('stroke, when reported in 2A', () => {
 test('stroke, when reported right after baseline (1B)', () => {
 
   const input = {
-    "stroke_startage_adu_q_1":{ "1A": "12" },
-    "stroke_presence_adu_q_1": { "1A": "2" },
-    "stroke_followup_adu_q_1":{"1B":"1","1C":"2","2A":"2","3A":"2","3B":"2"},    
-    "date": {"1A":"5/1993","1B":"5/1995","1C":"5/1996","2A":"5/2002","3A":"5/2003","3B":"5/2005"},
-    "age": { "1A": "22" }
+    "stroke_startage_adu_q_1":{ "1a": "12" },
+    "stroke_presence_adu_q_1": { "1a": "2" },
+    "stroke_followup_adu_q_1":{"1b":"1","1C":"2","2a":"2","3a":"2","3b":"2"},    
+    "date": {"1a":"5/1993","1b":"5/1995","1C":"5/1996","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "age": { "1a": "22" }
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -63,11 +63,11 @@ test('stroke, when reported right after baseline (1B)', () => {
 test('stroke, when no reported', () => {
 
   const input = {
-    "stroke_startage_adu_q_1":{ "1A": "12" },
-    "stroke_presence_adu_q_1": { "1A": "2" },
-    "stroke_followup_adu_q_1":{"2A":"2","3A":"2","3B":"2"},
-    "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2002","3A":"5/2003","3B":"5/2005"},
-    "age": { "1A": "22" }
+    "stroke_startage_adu_q_1":{ "1a": "12" },
+    "stroke_presence_adu_q_1": { "1a": "2" },
+    "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"},
+    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "age": { "1a": "22" }
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -83,12 +83,12 @@ test('stroke, when no reported', () => {
 test('Stroke resource generation when not reported', () => {
 
   const input = {
-    "project_pseudo_id": {"1A":"520681571"},
-    "stroke_startage_adu_q_1":{ "1A": "12" },
-    "stroke_presence_adu_q_1": { "1A": "2" },
-    "stroke_followup_adu_q_1":{"2A":"2","3A":"2","3B":"2"},
-    "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2002","3A":"5/2003","3B":"5/2005"},
-    "age": { "1A": "22" }
+    "project_pseudo_id": {"1a":"520681571"},
+    "stroke_startage_adu_q_1":{ "1a": "12" },
+    "stroke_presence_adu_q_1": { "1a": "2" },
+    "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"},
+    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "age": { "1a": "22" }
   }
 
   const targets: MappingTarget[] = [
@@ -112,12 +112,12 @@ test('Stroke resource generation when not reported', () => {
 test('Stroke resource generation when reported', () => {
 
   const input = {
-    "project_pseudo_id": {"1A":"520681571"},
-    "stroke_startage_adu_q_1":{ "1A": "12" },
-    "stroke_presence_adu_q_1": { "1A": "1" },
-    "stroke_followup_adu_q_1":{"2A":"2","3A":"2","3B":"2"},
-    "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2002","3A":"5/2003","3B":"5/2005"},
-    "age": { "1A": "22" }
+    "project_pseudo_id": {"1a":"520681571"},
+    "stroke_startage_adu_q_1":{ "1a": "12" },
+    "stroke_presence_adu_q_1": { "1a": "1" },
+    "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"},
+    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "age": { "1a": "22" }
   }
 
   const targets: MappingTarget[] = [

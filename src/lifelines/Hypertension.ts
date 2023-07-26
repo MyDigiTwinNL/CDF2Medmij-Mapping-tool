@@ -95,8 +95,8 @@ export const onsetDateTime = ():string => {
     //find the first occurence of hypertension_presence_adu_q_1=yes
     const hypPresence = Object.entries(inputValues("hypertension_presence_adu_q_1")).find(([key,value]) => value === "1")
     const hypPresenceAssessment:string = hypPresence?hypPresence[0]:"";
-    const surveyDateParts = inputValue("date","1A").split("/");
-    const surveyAge = Number(inputValue("age","1A"));      
+    const surveyDateParts = inputValue("date","1a").split("/");
+    const surveyAge = Number(inputValue("age","1a"));      
     const surveyYear = Number(surveyDateParts[1]);
     const hypStartAge = Number(inputValue('hypertension_startage_adu_q_1',hypPresenceAssessment))
     return (surveyYear - surveyAge + hypStartAge).toString()

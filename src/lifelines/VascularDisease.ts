@@ -132,7 +132,7 @@ const findFirstAssessmentWithPositiveValue = (variables: {
         };
     }): string | null => {
     
-    const wavesSequence: string[] = ["1A", "1B", "1C", "2A", "3A", "3B"];
+    const wavesSequence: string[] = ["1a", "1b", "1C", "2a", "3a", "3b"];
     
 
     for (const element of wavesSequence) {
@@ -199,8 +199,8 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
 export const vascularDiseaseStartYear = function(){
 
     /*const firstAssessmentWithPositiveCVD = findFirstAssessmentWithPositiveValue(cvdRelatedVariables);
-    if (inputValue("heartattack_presence_adu_q_1")["1A"]==="1"){        
-        const surveyDateParts = inputValue("date")["1A"].split("/");        
+    if (inputValue("heartattack_presence_adu_q_1")["1a"]==="1"){        
+        const surveyDateParts = inputValue("date")["1a"].split("/");        
         const surveyYear= Number(surveyDateParts[1]);
         const heartAttackStartAge = Number(inputValue("heartattack_startage_adu_q_1"));
         const surveyAge = Number(inputValue("age"));                

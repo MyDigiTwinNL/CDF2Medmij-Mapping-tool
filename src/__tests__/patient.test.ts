@@ -7,9 +7,9 @@ import { MappingTarget, processInput } from '../mapper'
 test('Male patient', () => {
   
   const input = {
-    "age": {"1A":"22"},
-    "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
-    "gender": {"1A":"male"}
+    "age": {"1a":"22"},
+    "date": { "1a": "5/1992", "1b": "5/1995", "1C": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
+    "gender": {"1a":"male"}
   }  
 
   InputSingleton.getInstance().setInput(input);
@@ -25,10 +25,10 @@ test('Patient resource generation', () => {
 
   
     const input = {
-        "project_pseudo_id": {"1A":"520681571"},
-        "age": {"1A":"22"},
-        "date": { "1A": "5/1992", "1B": "5/1995", "1C": "5/1997", "2A": "5/2001", "3A": "5/2003", "3B": "5/2005" },
-        "gender": {"1A":"male"}
+        "project_pseudo_id": {"1a":"520681571"},
+        "age": {"1a":"22"},
+        "date": { "1a": "5/1992", "1b": "5/1995", "1C": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
+        "gender": {"1a":"male"}
       }  
       
     const targets: MappingTarget[] = [

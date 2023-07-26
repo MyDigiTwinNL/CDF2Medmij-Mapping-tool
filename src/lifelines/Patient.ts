@@ -11,10 +11,10 @@ gender, age (See Lifelines data manual)
 */
 
 export const birthDate = () => {   
-        const dateValue:string|undefined = inputValue("date","1A");
+        const dateValue:string|undefined = inputValue("date","1a");
         if (dateValue!=undefined){
-            const surveyDateParts = inputValue("date","1A")!.split("/");
-            const surveyAge = Number(inputValue("age","1A"));      
+            const surveyDateParts = inputValue("date","1a")!.split("/");
+            const surveyAge = Number(inputValue("age","1a"));      
             const surveyYear = Number(surveyDateParts[1]);
             return (surveyYear-surveyAge).toString()
         }
@@ -25,10 +25,10 @@ export const birthDate = () => {
 
 
 export const gender = ():object => {
-    if (inputValue("gender","1A")==="male"){
+    if (inputValue("gender","1a")==="male"){
         return genderFHIRV3Codes.male;
     }
-    else if (inputValue("gender","1A")==="female"){
+    else if (inputValue("gender","1a")==="female"){
         return genderFHIRV3Codes.female;
     }
     else{

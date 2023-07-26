@@ -29,7 +29,7 @@ export type TobaccoUseProperties = {
 export const results=function():TobaccoUseProperties[]{
 
     //Lifelines tobacco use derivatives do not include 3B
-    const waves=["1A","1B","1C","2A","2B","3A"]
+    const waves=["1a","1b","1C","2a","2b","3a"]
 
     return waves.map((wave)=>(
         {
@@ -99,11 +99,11 @@ const exSmoker = function(wave:string):boolean{
  */
 const  smokingStart = function(wave:string){
     //
-    const surveyDateParts = inputValue("date","1A").split("/");        
+    const surveyDateParts = inputValue("date","1a").split("/");        
     const surveyYear= Number(surveyDateParts[1]);
     const startAge = Number(inputValue("smoking_startage_adu_c_2",wave));
     //Age is only on baseline assessment 1A
-    const surveyAge = Number(inputValue("age","1A"));                
+    const surveyAge = Number(inputValue("age","1a"));                
     return (surveyYear - surveyAge + startAge).toString()
 };
 
@@ -116,10 +116,10 @@ const  smokingStart = function(wave:string){
  * 
  */
 const  smokingEnd = function(wave:string){
-    const surveyDateParts = inputValue("date","1A").split("/");        
+    const surveyDateParts = inputValue("date","1a").split("/");        
     const surveyYear= Number(surveyDateParts[1]);
     const endAge = Number(inputValue("smoking_endage_adu_c_2",wave));
-    const surveyAge = Number(inputValue("age","1A"));                
+    const surveyAge = Number(inputValue("age","1a"));                
     return (surveyYear - surveyAge + endAge).toString()
 };
 

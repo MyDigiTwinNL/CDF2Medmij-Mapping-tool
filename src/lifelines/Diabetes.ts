@@ -55,7 +55,7 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  * 
  */
 export const clinicalStatus = ():object => { 
-    return _clinicalStatus(inputValue("diabetes_presence_adu_q_1","1A"),inputValues("diabetes_followup_adu_q_1"));
+    return _clinicalStatus(inputValue("diabetes_presence_adu_q_1","1a"),inputValues("diabetes_followup_adu_q_1"));
 }
 
 /**
@@ -103,11 +103,11 @@ const _clinicalStatus = moize((diab_presence:string,followup_assessments:object)
  *              
  */
 export const onsetDateTime = ():string => {
-    if (inputValue("diabetes_presence_adu_q_1","1A")==='1'){
-        const surveyDateParts = inputValue("date","1A").split("/");
+    if (inputValue("diabetes_presence_adu_q_1","1a")==='1'){
+        const surveyDateParts = inputValue("date","1a").split("/");
         const surveyYear = Number(surveyDateParts[1]);
-        const diabetesStartAge = Number (inputValue("diabetes_startage_adu_q_1","1A"));
-        const surveyAge = Number(inputValue("age","1A"));      
+        const diabetesStartAge = Number (inputValue("diabetes_startage_adu_q_1","1a"));
+        const surveyAge = Number(inputValue("age","1a"));      
         return (surveyYear - surveyAge + diabetesStartAge).toString();
     }
     else{
@@ -133,7 +133,7 @@ export const onsetDateTime = ():string => {
  */
 function findDatesBetweenDiabetesPresenceReport(): [string,string]|undefined{
     const diabFollowUp=inputValues('diabetes_followup_adu_q_1')      
-    const waves = ['1A','1B','1C','2A', '3A', '3B'];
+    const waves = ['1a','1b','1c','2a', '3a', '3b'];
     let previousWave = waves[0];
   
     for (let i = 1; i < waves.length; i++) {
@@ -192,9 +192,9 @@ export const verificationStatus = ():object => {
  */
 export const code = ():object => {
 
-    if (inputValue('diabetes_presence_adu_q_1',"1A")==='1'){
-        if (inputValue('diabetes_type_adu_q_1',"1A")==='1') return conditionsSNOMEDCodeList.diabetes_mellitus_type_1;
-        else if (inputValue('diabetes_type_adu_q_1',"1A")==='2') return conditionsSNOMEDCodeList.diabetes_mellitus_type_2
+    if (inputValue('diabetes_presence_adu_q_1',"1a")==='1'){
+        if (inputValue('diabetes_type_adu_q_1',"1a")==='1') return conditionsSNOMEDCodeList.diabetes_mellitus_type_1;
+        else if (inputValue('diabetes_type_adu_q_1',"1a")==='2') return conditionsSNOMEDCodeList.diabetes_mellitus_type_2
         else throw Error("Undefined mapping case")
     }
     else{

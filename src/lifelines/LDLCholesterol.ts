@@ -34,18 +34,18 @@ https://simplifier.net/packages/nictiz.fhir.nl.stu3.zib2017/2.2.13/files/2039136
 export const results=function():object[]{
     return [
         {
-            "assessment":"1A",
-            "isLDLAboveReferenceRange": isLDLAboveReferenceRange("1A"),
-            "resultFlags": resultFlags("1A"),
-            "ldlResults": ldlResults("1A"),
-            "collectedDateTime": collectedDateTime("1A")
+            "assessment":"1a",
+            "isLDLAboveReferenceRange": isLDLAboveReferenceRange("1a"),
+            "resultFlags": resultFlags("1a"),
+            "ldlResults": ldlResults("1a"),
+            "collectedDateTime": collectedDateTime("1a")
         },
         {
-            "assessment":"2A",
-            "isLDLAboveReferenceRange": isLDLAboveReferenceRange("2A"),
-            "resultFlags": resultFlags("2A"),
-            "ldlResults": ldlResults("2A"),
-            "collectedDateTime": collectedDateTime("2A")
+            "assessment":"2a",
+            "isLDLAboveReferenceRange": isLDLAboveReferenceRange("2a"),
+            "resultFlags": resultFlags("2a"),
+            "ldlResults": ldlResults("2a"),
+            "collectedDateTime": collectedDateTime("2a")
         },
     
     ]

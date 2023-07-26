@@ -65,22 +65,22 @@ export const results = function (): BloodPressureReadingEntry[] {
     //return the data through the 'checked access' proxy to prevent silent data-access errors in JSONata (e.g., a mispelled property)
     return [
         createCheckedAccessProxy({
-            "assessment":"1A",
-            "cuffType": cuffType("1A"),
+            "assessment":"1a",
+            "cuffType": cuffType("1a"),
             "measuringLocation": undefined,
-            "systolicBloodPressure": systolicBloodPressure("1A"),
-            "diastolicBloodPressure": diastolicBloodPressure("1A"),
-            "arterialBloodPressure": arterialBloodPressure("1A"),
-            "collectedDateTime": collectedDateTime("1A")
+            "systolicBloodPressure": systolicBloodPressure("1a"),
+            "diastolicBloodPressure": diastolicBloodPressure("1a"),
+            "arterialBloodPressure": arterialBloodPressure("1a"),
+            "collectedDateTime": collectedDateTime("1a")
         }),
         createCheckedAccessProxy({
-            "assessment":"2A",
-            "cuffType": cuffType("2A"),
+            "assessment":"2a",
+            "cuffType": cuffType("2a"),
             "measuringLocation": undefined,
-            "systolicBloodPressure": systolicBloodPressure("2A"),
-            "diastolicBloodPressure": diastolicBloodPressure("2A"),
-            "arterialBloodPressure": arterialBloodPressure("2A"),
-            "collectedDateTime": collectedDateTime("2A")
+            "systolicBloodPressure": systolicBloodPressure("2a"),
+            "diastolicBloodPressure": diastolicBloodPressure("2a"),
+            "arterialBloodPressure": arterialBloodPressure("2a"),
+            "collectedDateTime": collectedDateTime("2a")
         })
 
     ]

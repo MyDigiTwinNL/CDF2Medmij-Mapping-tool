@@ -9,14 +9,14 @@ test('BloodPressure resource generation', () => {
 
   
   const input = {
-    "bp_entrytype_all_m_1":         {"1A":"2","2A":"2"},
-    "bp_bandsize_all_m_1":          {"1A":"1","2A":"1","3A":"1"},
-    "bp_arm_all_m_1":                           {"3A":"2"},
-    "bpavg_systolic_all_m_1":       {"1A":"130","2A":"130"},
-    "bpavg_diastolic_all_m_1":      {"1A":"140","2A":"140"},
-    "bpavg_arterial_all_m_1":       {"1A":"113","2A":"113"},
-    "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
-    "project_pseudo_id": { "1A": "520681571" },
+    "bp_entrytype_all_m_1":         {"1a":"2","2a":"2"},
+    "bp_bandsize_all_m_1":          {"1a":"1","2a":"1","3a":"1"},
+    "bp_arm_all_m_1":                           {"3a":"2"},
+    "bpavg_systolic_all_m_1":       {"1a":"130","2a":"130"},
+    "bpavg_diastolic_all_m_1":      {"1a":"140","2a":"140"},
+    "bpavg_arterial_all_m_1":       {"1a":"113","2a":"113"},
+    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
+    "project_pseudo_id": { "1a": "520681571" },
   }
 
   const targets: MappingTarget[] = [
@@ -34,14 +34,14 @@ test('BloodPressure resource generation with empty values', () => {
 
   
   const input = {
-    "bp_entrytype_all_m_1":         {"1A":"2","2A":"2"},
-    "bp_bandsize_all_m_1":          {"1A":"1","2A":"1","3A":"1"},
-    "bp_arm_all_m_1":                           {"3A":"2"},
-    "bpavg_systolic_all_m_1":       {"1A":"130","2A":""},
-    "bpavg_diastolic_all_m_1":      {"1A":"140","2A":""},
-    "bpavg_arterial_all_m_1":       {"1A":"113","2A":"113"},
-    "date": {"1A":"5/1992","1B":"5/1995","1C":"5/1997","2A":"5/2001","3A":"5/2003","3B":"5/2005"},
-    "project_pseudo_id": { "1A": "520681571" },
+    "bp_entrytype_all_m_1":         {"1a":"2","2a":"2"},
+    "bp_bandsize_all_m_1":          {"1a":"1","2a":"1","3a":"1"},
+    "bp_arm_all_m_1":                           {"3a":"2"},
+    "bpavg_systolic_all_m_1":       {"1a":"130","2a":""},
+    "bpavg_diastolic_all_m_1":      {"1a":"140","2a":""},
+    "bpavg_arterial_all_m_1":       {"1a":"113","2a":"113"},
+    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
+    "project_pseudo_id": { "1a": "520681571" },
   }
 
   const targets: MappingTarget[] = [

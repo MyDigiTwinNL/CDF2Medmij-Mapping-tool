@@ -33,18 +33,18 @@ https://simplifier.net/packages/nictiz.fhir.nl.stu3.zib2017/2.2.13/files/2039136
 export const results=function():object[]{
     return [
         {
-            "assessment":"1A",
-            "isHDLBelowReferenceRange": isHDLBelowReferenceRange("1A"),
-            "resultFlags": resultFlags("1A"),
-            "hdlResults": hdlResults("1A"),
-            "collectedDateTime": collectedDateTime("1A")
+            "assessment":"1a",
+            "isHDLBelowReferenceRange": isHDLBelowReferenceRange("1a"),
+            "resultFlags": resultFlags("1a"),
+            "hdlResults": hdlResults("1a"),
+            "collectedDateTime": collectedDateTime("1a")
         },
         {
-            "assessment":"2A",
-            "isHDLBelowReferenceRange": isHDLBelowReferenceRange("2A"),
-            "resultFlags": resultFlags("2A"),
-            "hdlResults": hdlResults("2A"),
-            "collectedDateTime": collectedDateTime("2A")
+            "assessment":"2a",
+            "isHDLBelowReferenceRange": isHDLBelowReferenceRange("2a"),
+            "resultFlags": resultFlags("2a"),
+            "hdlResults": hdlResults("2a"),
+            "collectedDateTime": collectedDateTime("2a")
         },
     
     ]
