@@ -6,6 +6,22 @@ import { InputSingleton } from './inputSingleton';
 export type variableAssessments = { [key: string]: string|undefined}
 export type transformVariables = {[key:string]:variableAssessments}
 
+/*
+ * Create a proxy for JS objects that ensure that the access to non-existing properties generate an error
+ * It is intended to be used for the data sent to JSONata to avoid silent errors 
+ */
+export function createCheckedAccessProxy<T extends object>(obj: T): T {
+  const handler: ProxyHandler<T> = {
+      get(target, prop, receiver) {
+          if (!(prop==='sequence' || prop==='then') && !(prop in target)) {            
+              throw new Error(`Property '${String(prop)}' does not exist in the object:${JSON.stringify(target)}`);
+          }
+          return Reflect.get(target, prop, receiver);
+      }
+  };
+  return new Proxy(obj, handler);
+}
+
 /**
  * Generates a FHIR-compliant UUID based on an unique identified (e.g., participant id)
  */

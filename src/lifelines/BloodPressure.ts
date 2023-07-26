@@ -1,8 +1,9 @@
-import { inputValue } from '../functionsCatalog';
+import { inputValue,createCheckedAccessProxy } from '../functionsCatalog';
 import { lifelinesDateToISO } from '../lifelinesFunctions'
 import moize from 'moize'
 import { cuffTypeManchetTypeCodeList } from '../codes/manchetCodeLists';
 import { measuringLocationSNOMEDCodelist } from '../codes/snomedCodeLists';
+
 
 
 /*
@@ -61,8 +62,9 @@ export type BloodPressureReadingEntry = {
  *                
  */
 export const results = function (): BloodPressureReadingEntry[] {
+    //return the data through the 'checked access' proxy to prevent silent data-access errors in JSONata (e.g., a mispelled property)
     return [
-        {
+        createCheckedAccessProxy({
             "assessment":"1A",
             "cuffType": cuffType("1A"),
             "measuringLocation": undefined,
@@ -70,8 +72,8 @@ export const results = function (): BloodPressureReadingEntry[] {
             "diastolicBloodPressure": diastolicBloodPressure("1A"),
             "arterialBloodPressure": arterialBloodPressure("1A"),
             "collectedDateTime": collectedDateTime("1A")
-        },
-        {
+        }),
+        createCheckedAccessProxy({
             "assessment":"2A",
             "cuffType": cuffType("2A"),
             "measuringLocation": undefined,
@@ -79,7 +81,7 @@ export const results = function (): BloodPressureReadingEntry[] {
             "diastolicBloodPressure": diastolicBloodPressure("2A"),
             "arterialBloodPressure": arterialBloodPressure("2A"),
             "collectedDateTime": collectedDateTime("2A")
-        }
+        })
 
     ]
 }
@@ -147,6 +149,13 @@ export const arterialBloodPressure = function (wave: string): number {
 };
 
 export const collectedDateTime = function (wave: string): string {
-    return lifelinesDateToISO(inputValue("date",wave));
+    const date = inputValue("date",wave);
+    if (date!=undefined){
+        return date;    
+    }
+    else{
+        return "unknown";
+    }
+    
 }
 

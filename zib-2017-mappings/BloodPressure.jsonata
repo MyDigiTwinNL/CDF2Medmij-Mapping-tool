@@ -58,7 +58,7 @@
                 ]
             },
             "component": [
-                {
+                (($result.arterialBloodPressure!=undefined)?{
                     "code": {
                     "coding": [
                         {
@@ -74,8 +74,8 @@
                     "system": "http://unitsofmeasure.org",
                     "code": "mm[Hg]"
                     }
-                },
-                {
+                }),
+                (($result.systolicBloodPressure!=undefined)?{
                     "code": {
                         "coding": [
                             {
@@ -86,13 +86,13 @@
                         ]
                     },
                     "valueQuantity": {
-                        "value": $result.SystolicBloodPressure,
+                        "value": $result.systolicBloodPressure,
                         "unit": "mmHg",
                         "system": "http://unitsofmeasure.org",
                         "code": "mm[Hg]"
                     }
-                },
-                {
+                }),
+                (($result.diastolicBloodPressure!=undefined)?{
                     "code": {
                         "coding": [
                             {
@@ -108,8 +108,8 @@
                         "system": "http://unitsofmeasure.org",
                         "code": "mm[Hg]"
                     }
-                },
-                {
+                }),
+                (($result.cuffType.system!=undefined)?{
                     "code": {
                         "coding": [
                             {
@@ -128,7 +128,7 @@
                             }
                         ]
                     }
-                },
+                }),
                 {
                     "code": {
                         "coding": [

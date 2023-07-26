@@ -9,7 +9,7 @@ export const waveSpecificResourceId = (resourceName:string,wave:string):string =
 /**
  * Output format based on: https://build.fhir.org/datatypes.html#dateTime
  */
-export const lifelinesDateToISO = (lifelinesdate?: string) => {
+export const lifelinesDateToISO = (lifelinesdate: string) => {
 
     if (lifelinesdate === undefined) throw Error('Undefined parameter given to lifelinesDataToISO function. Expected string with the format YYYY-MM')
     
