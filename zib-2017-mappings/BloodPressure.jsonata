@@ -58,7 +58,7 @@
                 ]
             },
             "component": [
-                (($result.arterialBloodPressure!=undefined)?{
+                ($isDefined($result.arterialBloodPressure)?{
                     "code": {
                     "coding": [
                         {
@@ -75,7 +75,7 @@
                     "code": "mm[Hg]"
                     }
                 }),
-                (($result.systolicBloodPressure!=undefined)?{
+                ($isDefined($result.systolicBloodPressure)?{
                     "code": {
                         "coding": [
                             {
@@ -92,7 +92,7 @@
                         "code": "mm[Hg]"
                     }
                 }),
-                (($result.diastolicBloodPressure!=undefined)?{
+                ($isDefined($result.diastolicBloodPressure)?{
                     "code": {
                         "coding": [
                             {
@@ -109,7 +109,7 @@
                         "code": "mm[Hg]"
                     }
                 }),
-                (($result.cuffType.system!=undefined)?{
+                ($isDefined($result.cuffType.system)?{
                     "code": {
                         "coding": [
                             {

@@ -136,22 +136,40 @@ export const measuringLocation = function (wave: string): object|undefined {
 };
 
 
-export const systolicBloodPressure = function (wave: string): number {
-    return Number(inputValue("bpavg_systolic_all_m_1",wave))
+export const systolicBloodPressure = function (wave: string): number|undefined {
+    const sysv = inputValue("bpavg_systolic_all_m_1",wave);
+    if (sysv!==undefined){
+        return Number(sysv);
+    }
+    else{
+        return undefined;
+    }    
 };
 
-export const diastolicBloodPressure = function (wave: string): number {
-    return Number(inputValue("bpavg_diastolic_all_m_1",wave))
+export const diastolicBloodPressure = function (wave: string): number|undefined {
+    const diav = inputValue("bpavg_diastolic_all_m_1",wave)
+    if (diav!==undefined){
+        return Number(diav);
+    }
+    else{
+        return undefined;
+    }
 };
 
-export const arterialBloodPressure = function (wave: string): number {
-    return Number(inputValue("bpavg_arterial_all_m_1",wave))
+export const arterialBloodPressure = function (wave: string): number|undefined {
+    const artbpv = inputValue("bpavg_arterial_all_m_1",wave);
+    if (artbpv!==undefined){
+        return Number(artbpv);    
+    }
+    else{
+        return undefined;
+    }    
 };
 
 export const collectedDateTime = function (wave: string): string {
     const date = inputValue("date",wave);
     if (date!=undefined){
-        return date;    
+        return lifelinesDateToISO(date);    
     }
     else{
         return "unknown";

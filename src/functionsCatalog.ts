@@ -28,6 +28,15 @@ export function createCheckedAccessProxy<T extends object>(obj: T): T {
 export const idToUUID = (id: string) => `urn:uuid:${uuidv5(id, parameters.privateNameSpace)}`
 
 /**
+ * Function to be used in JSONata for consistent validation of undefined properties/values
+ * @param value 
+ * @returns 
+ */
+export const isDefined = (value:any) => {
+  return  value !== undefined
+};
+
+/**
  * (Safer) alternative to the regular approach for referencing variables within a JSONata expression,
  * which reports an error if a given variable does not exist. Also useful for getting access to 
  * the input variables within JSONAta bindings (external functions).
