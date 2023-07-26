@@ -107,6 +107,20 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  }
+  },
+  "exclude": [
+    "src/__tests__",
+    "src/lifelines"
+  ],
+  "files": [
+    "src/lifelines/BloodPressure.ts",
+    "src/lifelines/Patient.ts",
+    "src/functionsCatalog.ts",
+    "src/inputSingleton.ts",
+    "src/lifelinesFunctions.ts",
+    "src/mapper.ts",
+    "src/transform.ts",
+    "src/transformationParameters.ts",
+  ]
 
 }

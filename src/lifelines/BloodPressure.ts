@@ -14,6 +14,16 @@ http://wiki.lifelines.nl/doku.php?id=blood_pressure
 */
 
 
+export type BloodPressureReadingEntry = {
+    "assessment":string,
+    "cuffType": object|undefined,
+    "measuringLocation": object|undefined,
+    "systolicBloodPressure": number|undefined,
+    "diastolicBloodPressure": number|undefined,
+    "arterialBloodPressure": number|undefined,
+    "collectedDateTime": string|undefined
+}
+
 
 /**
  * HCIM BloodPressure:
@@ -50,7 +60,7 @@ http://wiki.lifelines.nl/doku.php?id=blood_pressure
  *          uncertain about the location.
  *                
  */
-export const results = function (): object[] {
+export const results = function (): BloodPressureReadingEntry[] {
     return [
         {
             "assessment":"1A",
@@ -100,16 +110,27 @@ const bp_bandsize_all_m_1_codeMapping: { [key: string]: object } = {
 };
 
 
-
-export const cuffType = function (wave: string): object {
-    const bandsize: string = inputValue("bp_bandsize_all_m_1",wave)
-    return bp_bandsize_all_m_1_codeMapping[bandsize];
+export const cuffType = function (wave: string): object|undefined {
+    const bandsize: string|undefined = inputValue("bp_bandsize_all_m_1",wave)
+    if (bandsize!=undefined){
+        return bp_bandsize_all_m_1_codeMapping[bandsize];
+    }
+    else{
+        return undefined
+    }
 };
 
 
-export const measuringLocation = function (wave: string): object {
+export const measuringLocation = function (wave: string): object|undefined {
     const lifelinesBpArmAll = inputValue("bp_arm_all_m_1",wave)
-    return measuring_location_codeMapping[lifelinesBpArmAll]
+    if (lifelinesBpArmAll!=undefined){
+        return measuring_location_codeMapping[lifelinesBpArmAll]
+    }
+    else{
+        return undefined;
+    }
+
+    
 };
 
 

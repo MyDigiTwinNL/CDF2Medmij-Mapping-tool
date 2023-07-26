@@ -5,9 +5,9 @@ import {InputSingleton} from './inputSingleton'
 
 
 const targets: MappingTarget[] = [
-  { "template": '../zib-2017-mappings/Diabetes.jsonata', "module": './lifelines/Diabetes' },
+  //{ "template": '../zib-2017-mappings/Diabetes.jsonata', "module": './lifelines/Diabetes' },
   { "template": '../zib-2017-mappings/BloodPressure.jsonata', "module": './lifelines/BloodPressure' },
-  { "template": '../zib-2017-mappings/LDLCholesterol_Diagnostic_Report.jsonata', "module": './lifelines/LDLCholesterol' },
+  /*{ "template": '../zib-2017-mappings/LDLCholesterol_Diagnostic_Report.jsonata', "module": './lifelines/LDLCholesterol' },
   { "template": '../zib-2017-mappings/LDLCholesterol_Observation.jsonata', "module": './lifelines/LDLCholesterol' },
   { "template": '../zib-2017-mappings/LDLCholesterol_Specimen.jsonata', "module": './lifelines/LDLCholesterol' },
   { "template": '../zib-2017-mappings/Hypertension.jsonata', "module": './lifelines/Hypertension' },
@@ -18,7 +18,7 @@ const targets: MappingTarget[] = [
   { "template": '../zib-2017-mappings/Stroke.jsonata', "module": './lifelines/Stroke' },
   { "template": '../zib-2017-mappings/TotalCholesterol_Diagnostic_Report.jsonata', "module": './lifelines/TotalCholesterol' },
   { "template": '../zib-2017-mappings/TotalCholesterol_Observation.jsonata', "module": './lifelines/TotalCholesterol' },
-  { "template": '../zib-2017-mappings/TotalCholesterol_Specimen.jsonata', "module": './lifelines/TotalCholesterol' },
+  { "template": '../zib-2017-mappings/TotalCholesterol_Specimen.jsonata', "module": './lifelines/TotalCholesterol' },*/
   { "template": '../zib-2017-mappings/Patient.jsonata', "module": './lifelines/Patient' },
 ]
 

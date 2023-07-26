@@ -10,6 +10,8 @@ import { privateNameSpace } from './transformationParameters';
 
 import { InputSingleton } from './inputSingleton';
 
+import {transformVariables} from './functionsCatalog'
+
 
 /**
  * Registers a JS function into a JSONata expression
@@ -69,7 +71,7 @@ async function setup(targets: MappingTarget[]): Promise<jsonata.Expression[]> {
  * @param mappings configuration of templates and modules to be used in the transformation
  * @returns An array of JSON FHIR objects
  */
-export async function processInput(input: object, mappings:MappingTarget[]): Promise<object[]> {
+export async function processInput(input: transformVariables, mappings:MappingTarget[]): Promise<object[]> {
 
   InputSingleton.getInstance().setInput(input);
 

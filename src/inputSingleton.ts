@@ -1,4 +1,5 @@
 import { Mutex } from 'async-mutex';
+import {transformVariables,variableAssessments} from './functionsCatalog'
 
 export class InputSingleton {
     private static instance: InputSingleton;
@@ -11,7 +12,14 @@ export class InputSingleton {
       this.mutex = new Mutex();
     }
   
-    public setInput(input:any){
+    public setInput(input:transformVariables){
+
+      //replace empty spaces in the input data with 'undefined'
+      for (const variable in input){
+        for (const assessment in input[variable]){
+          if (input[variable][assessment]?.trim()==='') input[variable][assessment]=undefined
+        }
+      }
         this.input = input;
     }
 
