@@ -86,12 +86,21 @@ export async function processInput(input: transformVariables, mappings:MappingTa
           const output = await expression.evaluate(input)          
           //the output can be an array of resources (e.g., lab results involve multiple linked resources)
           if (Array.isArray(output)) {
-            output.forEach((resource) => resources.push(resource))
+            
+            output.forEach((resource) => {
+              //Some of the resources within the array may be empty (when no created due to missing information)
+              if (Object.keys(resource).length > 0) resources.push(resource)
+            }
+            )
+
           }
           //include only non-empty outputs (empty objects are returned when the resource should not be part of the participant's bundle)
           else if (Object.keys(output).length > 0) {
             resources.push(output)
           }
+          //else{
+          //  throw Error('unexpected type:'+JSON.stringify(output))
+          //}
         }
         catch (error) {                    
           throw new Error(`Error while transforming a JSonata expression [${JSON.stringify(expression.ast())}]`, { cause: error })

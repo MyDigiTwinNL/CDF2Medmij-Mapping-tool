@@ -29,7 +29,7 @@
     "bpavg_diastolic_all_m_1":      {"1a":"140","2a":"140"},
     "bpavg_arterial_all_m_1":       {"1a":"113","2a":"113"},
 
-    "hdlchol_result_all_m_1":       {"1a":"0.31","2a":"0.32"},
+    "hdlchol_result_all_m_1":       {"1a":"0.31","2a":"0.22"},
     "ldlchol_result_all_m_1":       {"1a":"0.41","2a":"0.42"},
     "cholesterol_result_all_m_1":   {"1a":"0.51","2a":"0.52"},
     
