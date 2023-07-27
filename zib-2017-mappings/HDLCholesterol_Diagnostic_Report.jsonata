@@ -2,10 +2,9 @@
 
 
 (
-
 $map($HDLCholesterol_results(), function($result) {
         
-    {
+    ($isDefined($result.hdlResults))?{
     "resourceType": "DiagnosticReport",
     "id": $waveSpecificResourceId('zib-laboratorytestresult-diagnosticreport-hdl',$result.assessment),
     "meta": {
@@ -77,7 +76,7 @@ $map($HDLCholesterol_results(), function($result) {
     ]
     
 
-    }
+    } : {}
 
 })
 

@@ -36,7 +36,8 @@ wss.on('connection', (ws: WebSocket) => {
                         ws.send(JSON.stringify({"responsetype":"output","payload":output}));
                     }
 
-                ).catch((error) => {
+                ).catch((error) => {                    
+                    console.info("Error:"+error);
                     const errmsg = error.cause!=null?error.cause.toString():error
                     console.info("Error:"+errmsg);
                     console.trace();
