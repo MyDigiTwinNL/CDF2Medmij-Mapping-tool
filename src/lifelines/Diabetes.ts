@@ -1,8 +1,8 @@
-import {inputValue, inputValues} from '../functionsCatalog';
+import {inputValue, inputValues, variableAssessments} from '../functionsCatalog';
 import moize from 'moize'
 import {lifelinesDateToISO, lifelinesMeanDate} from '../lifelinesFunctions'
 import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../codes/snomedCodeLists';
-
+import assert from 'assert'
 
 /*
 Based on HCIM Problem resource:
@@ -61,7 +61,7 @@ export const clinicalStatus = ():object => {
 /**
  * Memoized function for clinicalStatus
  */
-const _clinicalStatus = moize((diab_presence:string,followup_assessments:object):object => {        
+const _clinicalStatus = moize((diab_presence:string|undefined,followup_assessments:variableAssessments):object => {        
     if (diab_presence==="1"){
         return clinicalStatusSNOMEDCodeList.active
     }
@@ -90,7 +90,7 @@ const _clinicalStatus = moize((diab_presence:string,followup_assessments:object)
  * ------------------------------------------------------------------
  * 
  * @precondition
- *      - no missing values
+ *      - date and age are never missing values (is a default variable)
  *      - the problem is 'active' (see clinicalStatus function)
  * 
  * @pairingrule
@@ -103,8 +103,11 @@ const _clinicalStatus = moize((diab_presence:string,followup_assessments:object)
  *              
  */
 export const onsetDateTime = ():string => {
+
+    assert(inputValue("date","1a")!=undefined && inputValue("age","1a")!=undefined,'failed precondition: date and age are never missing values (is a default variable)')
+
     if (inputValue("diabetes_presence_adu_q_1","1a")==='1'){
-        const surveyDateParts = inputValue("date","1a").split("/");
+        const surveyDateParts = inputValue("date","1a")!.split("/");
         const surveyYear = Number(surveyDateParts[1]);
         const diabetesStartAge = Number (inputValue("diabetes_startage_adu_q_1","1a"));
         const surveyAge = Number(inputValue("age","1a"));      
@@ -130,23 +133,32 @@ export const onsetDateTime = ():string => {
  * 
  * @param diabFollowUp 
  * @returns 
+ * @precondition there is always a date on the assessment prior to the one where diabetes_followup_adu_q_1 was 'yes'
+ * 
  */
 function findDatesBetweenDiabetesPresenceReport(): [string,string]|undefined{
     const diabFollowUp=inputValues('diabetes_followup_adu_q_1')      
-    const waves = ['1a','1b','1c','2a', '3a', '3b'];
+    const waves = ['1a','1b',"1c",'2a', '3a', '3b'];
     let previousWave = waves[0];
   
     for (let i = 1; i < waves.length; i++) {
       const wave = waves[i];
       const value = diabFollowUp[wave];
+      //find the first positive response
       if (value === '1') {
-        return [inputValue("date",previousWave),inputValue("date",wave)];        
+        const positiveResponseAssessmentDate = inputValue("date",wave)
+        const previousAssessmentDate = inputValue("date",previousWave)            
+        
+        assert(positiveResponseAssessmentDate!=undefined && previousAssessmentDate!=undefined,`failed precondition: date and age are never missing values (diabetes, assessment ${wave})`)
+        
+        return [previousAssessmentDate,positiveResponseAssessmentDate];        
       }
   
       previousWave = wave;
     }
 
-    return undefined
+    return undefined    
+
   }
 
 
@@ -170,7 +182,6 @@ export const verificationStatus = ():object => {
  * diabetes_followup_adu_q_1    [  ][X ][X ][X ][X ][X ]
  * 
  * @precondition
- *      - no missing values
  *      - the problem is 'active' (see clinicalStatus function)
  *      - there are no 'yes' values in both t1d_followup_adu_q_1 and t1d_followup_adu_q_2 (the two types of diabetes are mutually exclusive)
  *      - when there is a yes in diabetes_followup_adu_q_1, there should be a yes in either t1d_followup_adu_q_1 and t2d_followup_adu_q_1 
@@ -191,6 +202,8 @@ export const verificationStatus = ():object => {
  * 
  */
 export const code = ():object => {
+
+    
 
     if (inputValue('diabetes_presence_adu_q_1',"1a")==='1'){
         if (inputValue('diabetes_type_adu_q_1',"1a")==='1') return conditionsSNOMEDCodeList.diabetes_mellitus_type_1;

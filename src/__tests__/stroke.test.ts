@@ -9,8 +9,8 @@ test('stroke, when reported positive in 1A', () => {
   const input = {
     "stroke_startage_adu_q_1":{ "1a": "12" },
     "stroke_presence_adu_q_1": { "1a": "1" },
-    "stroke_followup_adu_q_1":{"1b":"2","1C":"2","2a":"2","3a":"2","3b":"2"},
-    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
+    "stroke_followup_adu_q_1":{"1b":"2","1c":"2","2a":"2","3a":"2","3b":"2"},
+    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
     "age": { "1a": "22" }
   }
 
@@ -28,8 +28,8 @@ test('stroke, when reported in 2A', () => {
   const input = {
     "stroke_startage_adu_q_1":{ "1a": "12" },
     "stroke_presence_adu_q_1": { "1a": "2" },
-    "stroke_followup_adu_q_1":{"1b":"2","1C":"2","2a":"1","3a":"2","3b":"2"},    
-    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1996","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "stroke_followup_adu_q_1":{"1b":"2","1c":"2","2a":"1","3a":"2","3b":"2"},    
+    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1996","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
     "age": { "1a": "22" }
   }
 
@@ -47,8 +47,8 @@ test('stroke, when reported right after baseline (1B)', () => {
   const input = {
     "stroke_startage_adu_q_1":{ "1a": "12" },
     "stroke_presence_adu_q_1": { "1a": "2" },
-    "stroke_followup_adu_q_1":{"1b":"1","1C":"2","2a":"2","3a":"2","3b":"2"},    
-    "date": {"1a":"5/1993","1b":"5/1995","1C":"5/1996","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "stroke_followup_adu_q_1":{"1b":"1","1c":"2","2a":"2","3a":"2","3b":"2"},    
+    "date": {"1a":"5/1993","1b":"5/1995","1c":"5/1996","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
     "age": { "1a": "22" }
   }
 
@@ -66,7 +66,7 @@ test('stroke, when no reported', () => {
     "stroke_startage_adu_q_1":{ "1a": "12" },
     "stroke_presence_adu_q_1": { "1a": "2" },
     "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"},
-    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
     "age": { "1a": "22" }
   }
 
@@ -87,7 +87,7 @@ test('Stroke resource generation when not reported', () => {
     "stroke_startage_adu_q_1":{ "1a": "12" },
     "stroke_presence_adu_q_1": { "1a": "2" },
     "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"},
-    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
     "age": { "1a": "22" }
   }
 
@@ -116,7 +116,7 @@ test('Stroke resource generation when reported', () => {
     "stroke_startage_adu_q_1":{ "1a": "12" },
     "stroke_presence_adu_q_1": { "1a": "1" },
     "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"},
-    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
     "age": { "1a": "22" }
   }
 

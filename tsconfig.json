@@ -114,6 +114,7 @@
   ],
   "files": [
     "src/__tests__/bloodpressure.test.ts",
+    "src/lifelines/Diabetes.ts",
     "src/lifelines/BloodPressure.ts",
     "src/lifelines/Patient.ts",
     "src/functionsCatalog.ts",

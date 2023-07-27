@@ -8,7 +8,7 @@ test('hypertension reported on assessment 3A', () => {
   const input = {
     "hypertension_startage_adu_q_1": { "1a": "", "3a": "23", "3b": "23" },
     "hypertension_presence_adu_q_1": { "1a": "2", "3a": "1", "3b": "1" },
-    "date": { "1a": "5/1992", "1b": "5/1995", "1C": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
+    "date": { "1a": "5/1992", "1b": "5/1995", "1c": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
     "age": { "1a": "22" },
   }
 
@@ -27,7 +27,7 @@ test('No hypertension reported', () => {
   const input = {
     "hypertension_startage_adu_q_1": { "1a": "", "3a": "", "3b": "" },
     "hypertension_presence_adu_q_1": { "1a": "2", "3a": "2", "3b": "2" },
-    "date": { "1a": "5/1992", "1b": "5/1995", "1C": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
+    "date": { "1a": "5/1992", "1b": "5/1995", "1c": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
     "age": { "1a": "22" },
   }
 
@@ -45,7 +45,7 @@ test('Hypertension resource generation when it is reported', () => {
   const input = {
     "hypertension_startage_adu_q_1": { "1a": "", "3a": "23", "3b": "23" },
     "hypertension_presence_adu_q_1": { "1a": "2", "3a": "1", "3b": "1" },
-    "date": { "1a": "5/1992", "1b": "5/1995", "1C": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
+    "date": { "1a": "5/1992", "1b": "5/1995", "1c": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
     "age": { "1a": "22" },
     "project_pseudo_id": { "1a": "520681571" },
   }
@@ -74,7 +74,7 @@ test('Hypertension resource generation when no hypertension is reported', () => 
   const input = {
     "hypertension_startage_adu_q_1": { "1a": "", "3a": "", "3b": "" },
     "hypertension_presence_adu_q_1": { "1a": "2", "3a": "2", "3b": "2" },
-    "date": { "1a": "5/1992", "1b": "5/1995", "1C": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
+    "date": { "1a": "5/1992", "1b": "5/1995", "1c": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
     "age": { "1a": "22" },
     "project_pseudo_id": { "1a": "520681571" },
   }

@@ -140,7 +140,7 @@ export const onsetDateTime = ():string => {
  */
 function findDatesBetweenStrokePresenceReport(): [string,string]|undefined{
     const strokeFollowUp=inputValues('stroke_followup_adu_q_1')      
-    const waves = ['1a','1b','1c','2a', '3a', '3b'];
+    const waves = ['1a','1b',"1c",'2a', '3a', '3b'];
     let previousWave = waves[0];
   
     for (let i = 1; i < waves.length; i++) {

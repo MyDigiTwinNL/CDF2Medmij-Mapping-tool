@@ -8,13 +8,13 @@ test('diabetes clinical status, when reported positive in 1A, diabetes type 2', 
 
   const input = {
     "diabetes_presence_adu_q_1": { "1a": "1" },
-    "diabetes_followup_adu_q_1": { "1b": "2", "1C": "2", "2a": "2", "3a": "2", "3b": "2" },
+    "diabetes_followup_adu_q_1": { "1b": "2", "1c": "2", "2a": "2", "3a": "2", "3b": "2" },
     "diabetes_startage_adu_q_1": { "1a": "12" },
     "diabetes_type_adu_q_1":     { "1a": "2" },
     "diabetes_type_adu_q_1_a":   { "1a": "" },
     "t1d_followup_adu_q_1":                            { "2a": "2", "3a": "2", "3b": "2" },
     "t2d_followup_adu_q_1":                            { "2a": "2", "3a": "2", "3b": "2" },    
-    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
     "age": { "1a": "22" }
   }
 
@@ -32,13 +32,13 @@ test('diabetes clinical status, when reported positive in a follow-up, diabetes 
 
   const input = {
     "diabetes_presence_adu_q_1": { "1a": "2" },
-    "diabetes_followup_adu_q_1": { "1b": "2", "1C": "2", "2a": "2", "3a": "1", "3b": "2" },
+    "diabetes_followup_adu_q_1": { "1b": "2", "1c": "2", "2a": "2", "3a": "1", "3b": "2" },
     "diabetes_startage_adu_q_1": { "1a": "" },
     "diabetes_type_adu_q_1":     { "1a": "2" },
     "diabetes_type_adu_q_1_a":   { "1a": "" },
     "t1d_followup_adu_q_1":                            { "2a": "2", "3a": /*Positive*/"1", "3b": "2" },
     "t2d_followup_adu_q_1":                            { "2a": "2", "3a": "2", "3b": "2" },    
-    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997",/*date1*/"2a":"5/2001",/*date2*/"3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997",/*date1*/"2a":"5/2001",/*date2*/"3a":"5/2003","3b":"5/2005"},
     "age": { "1a": "22" },
   }
 
@@ -56,7 +56,7 @@ test('diabetes clinical status, when reported after assessment 1A', () => {
 
   const input = {
     "diabetes_presence_adu_q_1": { "1a": "2" },
-    "diabetes_followup_adu_q_1": { "1b": "2", "1C": "2", "2a": "1", "3a": "2", "3b": "2" },
+    "diabetes_followup_adu_q_1": { "1b": "2", "1c": "2", "2a": "1", "3a": "2", "3b": "2" },
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -68,7 +68,7 @@ test('diabetes clinical status, when never reported', () => {
 
   const input = {
     "diabetes_presence_adu_q_1": { "1a": "2" },
-    "diabetes_followup_adu_q_1": { "1b": "2", "1C": "2", "2a": "2", "3a": "2", "3b": "2" },
+    "diabetes_followup_adu_q_1": { "1b": "2", "1c": "2", "2a": "2", "3a": "2", "3b": "2" },
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -85,13 +85,13 @@ test('diabetes clinical status, when never reported', () => {
 
   const input = {
     "diabetes_presence_adu_q_1": { "1a": "2" },
-    "diabetes_followup_adu_q_1": { "1b": "2", "1C": "1", "2a": "2", "3a": "2", "3b": "2" },
+    "diabetes_followup_adu_q_1": { "1b": "2", "1c": "1", "2a": "2", "3a": "2", "3b": "2" },
     "diabetes_startage_adu_q_1": { "1a": "" },
     "diabetes_type_adu_q_1":     { "1a": "2" },
     "diabetes_type_adu_q_1_a":   { "1a": "" },
     "t1d_followup_adu_q_1":                            { "2a": "2", "3a": "2", "3b": "2" },
     "t2d_followup_adu_q_1":                            { "2a": "2", "3a": "2", "3b": "2" },    
-    "date": {"1a":"5/1992","1b":"5/1995","1C":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
     "age": { "1a": "22" },
   }
 
@@ -110,7 +110,7 @@ test('diabetes clinical status, when reported in assessments 1B or 1C, where t1d
 
   const input = {
     "diabetes_presence_adu_q_1": { "1a": "2" },
-    "diabetes_followup_adu_q_1": { "1b": "2", "1C": "2", "2a": "1", "3a": "2", "3b": "2" },
+    "diabetes_followup_adu_q_1": { "1b": "2", "1c": "2", "2a": "1", "3a": "2", "3b": "2" },
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -122,7 +122,7 @@ test('diabetes clinical status, when never reported', () => {
 
   const input = {
     "diabetes_presence_adu_q_1": { "1a": "2" },
-    "diabetes_followup_adu_q_1": { "1b": "2", "1C": "2", "2a": "2", "3a": "2", "3b": "2" },
+    "diabetes_followup_adu_q_1": { "1b": "2", "1c": "2", "2a": "2", "3a": "2", "3b": "2" },
   }
 
   InputSingleton.getInstance().setInput(input);
@@ -138,7 +138,7 @@ test('Diabates resource generation when not reported', () => {
 
   const input = {
     "diabetes_presence_adu_q_1": { "1a": "2" },
-    "diabetes_followup_adu_q_1": { "1b": "2", "1C": "2", "2a": "2", "3a": "2", "3b": "2" },
+    "diabetes_followup_adu_q_1": { "1b": "2", "1c": "2", "2a": "2", "3a": "2", "3b": "2" },
     "diabetes_startage_adu_q_1": { "1a": "" },
     "date": { "1a": "5/1992" },
     "age": { "1a": "22" },

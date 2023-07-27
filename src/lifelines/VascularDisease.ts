@@ -132,7 +132,7 @@ const findFirstAssessmentWithPositiveValue = (variables: {
         };
     }): string | null => {
     
-    const wavesSequence: string[] = ["1a", "1b", "1C", "2a", "3a", "3b"];
+    const wavesSequence: string[] = ["1a", "1b", "1c", "2a", "3a", "3b"];
     
 
     for (const element of wavesSequence) {

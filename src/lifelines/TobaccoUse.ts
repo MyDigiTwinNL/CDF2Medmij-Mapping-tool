@@ -29,7 +29,7 @@ export type TobaccoUseProperties = {
 export const results=function():TobaccoUseProperties[]{
 
     //Lifelines tobacco use derivatives do not include 3B
-    const waves=["1a","1b","1C","2a","2b","3a"]
+    const waves=["1a","1b","1c","2a","2b","3a"]
 
     return waves.map((wave)=>(
         {

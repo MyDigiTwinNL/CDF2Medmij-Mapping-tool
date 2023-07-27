@@ -1,0 +1,39 @@
+(
+    
+$map($TotalCholesterol_results(), function($result) {
+
+    {
+        "resourceType": "Specimen",
+        
+        "id": $waveSpecificResourceId('zib-laboratorytestresult-specimen-total-chol',$result.assessment),
+        "meta": {
+            "profile": [
+                "http://nictiz.nl/fhir/StructureDefinition/zib-LaboratoryTestResult-Specimen"
+            ]
+        },
+        "text": {
+            "status": "extensions",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Undefined</div>"
+        },        
+        "type": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "122555007",
+                    "display": "Venous blood specimen (specimen)"
+                }
+            ]
+        },
+        "subject": {
+            "reference": $idToUUID($resourceId('nl-core-patient')),
+            "display": "Anonymized-"&$resourceId('nl-core-patient')
+        },
+        "collection": {
+            "collectedDateTime": $result.collectedDateTime
+        }
+    }
+
+})
+
+)
+

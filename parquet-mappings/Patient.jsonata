@@ -1,0 +1,37 @@
+(
+
+
+    {
+        "resourceType": "Patient",
+        
+        "id": $resourceId('nl-core-patient'),
+        "meta": {
+            "profile": [
+                "http://fhir.nl/fhir/StructureDefinition/nl-core-patient"
+            ]
+        },
+        "text": {
+            "status": "extensions",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Undefined</div>"
+        },
+        "gender": $Patient_gender().display,
+        "_gender": {
+            "extension": [
+                {
+                    "url": "http://nictiz.nl/fhir/StructureDefinition/code-specification",
+                    "valueCodeableConcept": {
+                        "coding": [
+                            {
+                                "system": "http://hl7.org/fhir/v3/AdministrativeGender",
+                                "code": $Patient_gender().code,
+                                "display": $Patient_gender().display
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "birthDate": $Patient_birthDate()
+    }
+
+)
