@@ -5,8 +5,8 @@ import {InputSingleton} from './inputSingleton'
 
 
 const targets: MappingTarget[] = [
-  //{ "template": '../zib-2017-mappings/Diabetes.jsonata', "module": './lifelines/Diabetes' },
-  //{ "template": '../zib-2017-mappings/BloodPressure.jsonata', "module": './lifelines/BloodPressure' },
+  { "template": '../zib-2017-mappings/Diabetes.jsonata', "module": './lifelines/Diabetes' },
+  { "template": '../zib-2017-mappings/BloodPressure.jsonata', "module": './lifelines/BloodPressure' },
   /*{ "template": '../zib-2017-mappings/LDLCholesterol_Diagnostic_Report.jsonata', "module": './lifelines/LDLCholesterol' },
   { "template": '../zib-2017-mappings/LDLCholesterol_Observation.jsonata', "module": './lifelines/LDLCholesterol' },
   { "template": '../zib-2017-mappings/LDLCholesterol_Specimen.jsonata', "module": './lifelines/LDLCholesterol' },

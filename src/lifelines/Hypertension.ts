@@ -1,7 +1,7 @@
-import {inputValue,inputValues} from '../functionsCatalog';
+import {inputValue,inputValues,variableAssessments} from '../functionsCatalog';
 import moize from 'moize'
 import {clinicalStatusSNOMEDCodeList,verificationStatusSNOMEDCodeList,conditionsSNOMEDCodeList} from '../codes/snomedCodeLists';
-
+import assert from 'assert'
 
 /*
 Based on HCIM Problem resource:
@@ -21,7 +21,7 @@ http://wiki.lifelines.nl/doku.php?id=diabetes&s[]=diabetes&s[]=startage&s[]=adu&
  * 
  * ------------------------------------------------------------------
  * There us no such a thing as 'inactive' diabetes. Therefore, the Diabetes resource will be
- * generated only when the clinicalStatus() is active.
+ * generated only when the clinicalStatus() is active. 
  * 
  */
 export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMEDCodeList.active
@@ -49,15 +49,18 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  *      an 'empty' result is returned, as there is no such a thing as 'inactive' hypertension.
  * 
  */
-export const clinicalStatus = ():object => { 
-    return _clinicalStatus(inputValues('hypertension_presence_adu_q_1'));
+export const clinicalStatus = ():object|undefined => { 
+    const hypertpres = inputValues('hypertension_presence_adu_q_1');
+
+    return hypertpres!==undefined?_clinicalStatus(hypertpres):undefined
+
 }
 
 
 /**
  * Memoized function for clinicalStatus
  */
-const _clinicalStatus = moize((hypertension_presence_assessments:object):object => {        
+const _clinicalStatus = moize((hypertension_presence_assessments:variableAssessments):object => {        
     if (Object.values(hypertension_presence_assessments).some((wavereading) => wavereading === "1")){
         return clinicalStatusSNOMEDCodeList.active
     }
@@ -84,22 +87,44 @@ const _clinicalStatus = moize((hypertension_presence_assessments:object):object 
  * ------------------------------------------------------------------
  * 
  * @precondition
- *      - no missing values
+ *      - date and age are never missing values
  *      - the problem is 'active' (see clinicalStatus function)
  * 
  * @pairingrule
  *   the year when the participand had the age reported in hypertension_startage_adu_q_1, in the first assessment
  *     (1A, 3A, or 3B) where hypertension_presence_adu_q_1 == yes
+ *   if the age reported on that particular assessment (hypertension_startage_adu_q_1) is missing, the date is undefined.
+ * 
+ * @question
+ *   to be discussed
+ * 
  */
-export const onsetDateTime = ():string => {
+export const onsetDateTime = ():string|undefined => {
+    const firstAssessmentDate = inputValue("date","1a");
+    const firstAssessmentAge = inputValue("age","1a");
+        
+    assert(firstAssessmentDate!==undefined && firstAssessmentAge!==undefined)
+
     //find the first occurence of hypertension_presence_adu_q_1=yes
     const hypPresence = Object.entries(inputValues("hypertension_presence_adu_q_1")).find(([key,value]) => value === "1")
-    const hypPresenceAssessment:string = hypPresence?hypPresence[0]:"";
-    const surveyDateParts = inputValue("date","1a").split("/");
-    const surveyAge = Number(inputValue("age","1a"));      
-    const surveyYear = Number(surveyDateParts[1]);
-    const hypStartAge = Number(inputValue('hypertension_startage_adu_q_1',hypPresenceAssessment))
-    return (surveyYear - surveyAge + hypStartAge).toString()
+    
+    const hypPresenceAssessment:string = hypPresence!==undefined?hypPresence[0]:"";   
+
+    const hypStartAge:string|undefined = inputValue('hypertension_startage_adu_q_1',hypPresenceAssessment);
+
+    if (hypStartAge!==undefined){
+        const surveyDateParts = firstAssessmentDate.split("/");
+        const surveyAge = Number(firstAssessmentAge);      
+        const surveyYear = Number(surveyDateParts[1]);
+    
+        return (surveyYear - surveyAge + Number(hypStartAge)).toString()
+    
+    }
+    else{
+        return undefined;
+    }
+
+    
 };
 
 /**

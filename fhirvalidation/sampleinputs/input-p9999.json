@@ -14,7 +14,7 @@
     "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"},
 
 
-    "diabetes_presence_adu_q_1":    {"1a":"2"},
+    "diabetes_presence_adu_q_1":    {"1a":"1"},
     "diabetes_startage_adu_q_1":    {"1a":"28"},
     "diabetes_followup_adu_q_1":        {"1b":"2","1c":"2","2a":"2","3a":"2","3b":"2"},
     "diabetes_type_adu_q_1":        {"1a":"2"},

@@ -92,9 +92,13 @@ const _clinicalStatus = moize((diab_presence:string|undefined,followup_assessmen
  * @precondition
  *      - date and age are never missing values (is a default variable)
  *      - the problem is 'active' (see clinicalStatus function)
+ *      - if there is a diabetes report on a follow-up 'diabetes_followup_adu_q_1', there should be a 'yes' value
+ *        in either t2d_followup_adu_q_1 or t2d_followup_adu_q_1 (diabetes type)
+ * 
  * 
  * @pairingrule
  *      if diabetes_presence_adu_q_1 = yes in 1A => approximate year on which the participant given the age reported  by diabetes_startage_adu_q_1
+ *          (undefined if diabetes_startage_adu_q_1 has a missing value)
  *      else
  *          if there is a 'yes' in any diabetes_followup_adu_q_1 => mean date between the date of the assessment 
  *              where diabetes_followup_adu_q_1 = yes, and the date of the preceding one.
@@ -102,16 +106,25 @@ const _clinicalStatus = moize((diab_presence:string|undefined,followup_assessmen
  *              error/precondition violated ('diabetes' is not 'active' if the execution reached this point)
  *              
  */
-export const onsetDateTime = ():string => {
+export const onsetDateTime = ():string|undefined => {
 
-    assert(inputValue("date","1a")!=undefined && inputValue("age","1a")!=undefined,'failed precondition: date and age are never missing values (is a default variable)')
+    assert(inputValue("date","1a")!==undefined && inputValue("age","1a")!==undefined,'failed precondition: date and age are never missing values (is a default variable)')
 
     if (inputValue("diabetes_presence_adu_q_1","1a")==='1'){
         const surveyDateParts = inputValue("date","1a")!.split("/");
         const surveyYear = Number(surveyDateParts[1]);
-        const diabetesStartAge = Number (inputValue("diabetes_startage_adu_q_1","1a"));
-        const surveyAge = Number(inputValue("age","1a"));      
-        return (surveyYear - surveyAge + diabetesStartAge).toString();
+
+        const diabetesStartAge = inputValue("diabetes_startage_adu_q_1","1a")
+
+        if (diabetesStartAge!==undefined){
+            const surveyAge = Number(inputValue("age","1a"));   
+            return (surveyYear - surveyAge + Number(diabetesStartAge)).toString();
+        }
+        else{
+            return undefined
+        }
+
+        
     }
     else{
         
