@@ -118,6 +118,7 @@
     "src/lifelines/Diabetes.ts",
     "src/lifelines/BloodPressure.ts",
     "src/lifelines/Patient.ts",
+    "src/lifelines/Stroke.ts",
     "src/functionsCatalog.ts",
     "src/inputSingleton.ts",
     "src/lifelinesFunctions.ts",

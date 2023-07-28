@@ -1,8 +1,8 @@
-import {inputValue, inputValues} from '../functionsCatalog';
+import {inputValue, inputValues,variableAssessments} from '../functionsCatalog';
 import moize from 'moize'
 import {lifelinesDateToISO, lifelinesMeanDate} from '../lifelinesFunctions'
 import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../codes/snomedCodeLists';
-
+import assert from 'assert'
 
 /*
 Based on HCIM Problem resource:
@@ -61,7 +61,7 @@ export const clinicalStatus = ():object => {
 /**
  * Memoized function for clinicalStatus
  */
-const _clinicalStatus = moize((stroke_presence:string,followup_assessments:object):object => {        
+const _clinicalStatus = moize((stroke_presence:string|undefined,followup_assessments:variableAssessments):object => {        
     if (stroke_presence==="1"){
         return clinicalStatusSNOMEDCodeList.active
     }
@@ -90,7 +90,7 @@ const _clinicalStatus = moize((stroke_presence:string,followup_assessments:objec
  * ------------------------------------------------------------------
  * 
  * @precondition
- *      - no missing values
+ *      - date and age are not missing values (undefined)
  *      - the problem is 'active' (see clinicalStatus function)
  * 
  * @pairingrule
@@ -109,13 +109,27 @@ const _clinicalStatus = moize((stroke_presence:string,followup_assessments:objec
  *          For the time being, 1A date will be used.
  *          
  */
-export const onsetDateTime = ():string => {
+export const onsetDateTime = ():string | undefined=> {
+
+    const firstAssessmentDate = inputValue("date","1a");
+    const firstAssessmentAge = inputValue("age","1a");
+        
+    assert(firstAssessmentDate!==undefined && firstAssessmentAge!==undefined, 'Precondition violated: age or date are undefined')
+
+
     if (inputValue("stroke_presence_adu_q_1","1a")==='1'){
-        const surveyDateParts = inputValue("date","1a").split("/");
+        const surveyDateParts = firstAssessmentDate.split("/");
         const surveyYear = Number(surveyDateParts[1]);
-        const strokeStartAge = Number (inputValue("stroke_startage_adu_q_1","1a"));
-        const surveyAge = Number(inputValue("age","1a"));      
-        return (surveyYear - surveyAge + strokeStartAge).toString();
+
+        const strokeStartAge = inputValue("stroke_startage_adu_q_1","1a");
+        if (strokeStartAge!==undefined){
+            const surveyAge = Number(inputValue("age","1a"));      
+            return (surveyYear - surveyAge + Number(strokeStartAge)).toString();
+        }
+        else{
+            return undefined;
+        }
+
     }
     else{
         
@@ -139,7 +153,7 @@ export const onsetDateTime = ():string => {
  * @returns 
  */
 function findDatesBetweenStrokePresenceReport(): [string,string]|undefined{
-    const strokeFollowUp=inputValues('stroke_followup_adu_q_1')      
+    const strokeFollowUp:variableAssessments = inputValues('stroke_followup_adu_q_1')      
     const waves = ['1a','1b',"1c",'2a', '3a', '3b'];
     let previousWave = waves[0];
   
@@ -147,7 +161,12 @@ function findDatesBetweenStrokePresenceReport(): [string,string]|undefined{
       const wave = waves[i];
       const value = strokeFollowUp[wave];
       if (value === '1') {
-        return [inputValue("date",previousWave),inputValue("date",wave)];        
+        const positiveResponseAssessmentDate = inputValue("date",wave)
+        const previousAssessmentDate = inputValue("date",previousWave)            
+
+        assert(positiveResponseAssessmentDate!=undefined && previousAssessmentDate!=undefined,`failed precondition: date and age are never missing values (stroke, assessment ${wave})`)
+
+        return [previousAssessmentDate,positiveResponseAssessmentDate];        
       }
   
       previousWave = wave;
