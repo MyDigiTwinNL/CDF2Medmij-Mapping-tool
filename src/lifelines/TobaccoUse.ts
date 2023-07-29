@@ -19,17 +19,32 @@ export type TobaccoUseProperties = {
     "packYears":number|undefined,
     "smokingStartDate":string|undefined,
     "smokingEndDate":string|undefined,
+    //mandatory for building the resource
     "everSmoker":boolean,
     "exSmoker":boolean
 }
   
 /**
+ * Check if a given assessment was missed. 
  * It is assumed (from Lifelines data analysis) that when 'date' is missing in an assessment, the
  * participant dropped the study or missed the assessment.
  * @param wave 
  * @returns true if the assessment was missed 
  */
-const missedAsssesment = (wave:string) => inputValue("date",wave)==undefined
+const missedAsssesment = (wave:string) => inputValue("date",wave)===undefined
+
+
+/**
+ * Check that a non-missed assessment lacks the basic information required to 
+ * create the resource. In this case, this happens when ever_smoker_adu_c_2 
+ * or ex_smoker_adu_c_2  are undefined. According to the data analysis on Lifelines data, when
+ * the former is missing, the latter is also always missing. 
+ * 
+ * @param wave 
+ * @returns 
+ */
+const essentialDataMissed = (wave:string) => inputValue("ever_smoker_adu_c_2",wave)===undefined
+
 
 /**
  * 
@@ -41,7 +56,7 @@ export const results=function():TobaccoUseProperties[]{
     const waves=["1a","1b","1c","2a","2b","3a"]
     
     //if the assessment was missed, do not create the resource
-    return waves.filter((wave)=>!missedAsssesment(wave)).map((wave) =>
+    return waves.filter((wave)=>!missedAsssesment(wave) && !essentialDataMissed).map((wave) =>
         createCheckedAccessProxy({
             "assessment":wave,
             "useStatus":tobaccoUseStatus(wave),
