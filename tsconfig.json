@@ -116,6 +116,7 @@
     "src/__tests__/bloodpressure.test.ts",
     "src/lifelines/HDLCholesterol.ts",
     "src/lifelines/Diabetes.ts",
+    "src/lifelines/TobaccoUse.ts",
     "src/lifelines/BloodPressure.ts",
     "src/lifelines/Patient.ts",
     "src/lifelines/Stroke.ts",

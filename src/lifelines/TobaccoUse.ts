@@ -1,8 +1,8 @@
-import { inputValue } from '../functionsCatalog';
+import { inputValue,createCheckedAccessProxy } from '../functionsCatalog';
 import { lifelinesDateToISO } from '../lifelinesFunctions'
 import moize from 'moize'
 import { tobaccoUseStatusSNOMEDCodelist,typeOfTobaccoUsedSNOMEDCodelist} from '../codes/snomedCodeLists';
-
+import assert from 'assert'
 
 /**
  * Based on HCIM Tobacco ZIB resource https://zibs.nl/wiki/TobaccoUse-v3.1(2017EN)
@@ -15,12 +15,11 @@ import { tobaccoUseStatusSNOMEDCodelist,typeOfTobaccoUsedSNOMEDCodelist} from '.
 export type TobaccoUseProperties = {
     "assessment":string,
     "useStatus":object,
-    "amountPerDay":number,
-    "packYears":number,
-    "smokingStartDate":string,
-    "smokingEndDate":string,
+    "amountPerDay":number|undefined,
+    "packYears":number|undefined,
+    "smokingStartDate":string|undefined,
+    "smokingEndDate":string|undefined,
     "everSmoker":boolean,
-    "currentSmoker":boolean,
     "exSmoker":boolean
 }
   
@@ -32,17 +31,16 @@ export const results=function():TobaccoUseProperties[]{
     const waves=["1a","1b","1c","2a","2b","3a"]
 
     return waves.map((wave)=>(
-        {
+        createCheckedAccessProxy({
             "assessment":wave,
             "useStatus":tobaccoUseStatus(wave),
             "amountPerDay":amountPerDay(wave),
             "packYears":packYears(wave),
             "smokingStartDate":smokingStart(wave),
             "smokingEndDate":smokingEnd(wave),
-            "everSmoker":everSmoker(wave),
-            "currentSmoker":currentSmoker(wave),
+            "everSmoker":everSmoker(wave),            
             "exSmoker":exSmoker(wave)
-        }
+        })
     )
     
     );
@@ -56,21 +54,15 @@ export const results=function():TobaccoUseProperties[]{
  *                                [1A][1B][1C][2A][2B][3A][3B]
  * ever_smoker_adu_c_2            [X ][X ][X ][X ][X ][X ][  ] 
  *   
- */
-const everSmoker = function(wave:string):boolean{
-    return inputValue("ever_smoker_adu_c_2",wave)==="1"
-}
-
-/**
- * Related variables:
- * ------------------------------------------------------------------
- *                                [1A][1B][1C][2A][2B][3A][3B]
- * current_smoker_adu_c_2         [X ][X ][X ][X ][X ][X ][  ] 
+ * @precondition ever_smoker_adu_c_2 is not undefined 
  * 
  */
-const currentSmoker = function(wave:string):boolean{
-    return inputValue("current_smoker_adu_c_2",wave)==="1"
+const everSmoker = function(wave:string):boolean{
+    const eversmk = inputValue("ever_smoker_adu_c_2",wave)
+    assert(eversmk!==undefined)
+    return eversmk==="1"    
 }
+
 
 /**
  * Related variables:
@@ -78,9 +70,14 @@ const currentSmoker = function(wave:string):boolean{
  *                                [1A][1B][1C][2A][2B][3A][3B]
  * ex_smoker_adu_c_2              [X ][X ][X ][X ][X ][X ][  ] 
  * 
+ * @precondition ex_smoker_adu_c_2 is not undefined 
+ * 
+ * 
  */
 const exSmoker = function(wave:string):boolean{
-    return inputValue("ex_smoker_adu_c_2",wave)==="1"
+    const exSmoker = inputValue("ex_smoker_adu_c_2",wave)
+    assert(exSmoker!==undefined)
+    return exSmoker==="1"
 }
 
 /**
@@ -91,20 +88,31 @@ const exSmoker = function(wave:string):boolean{
  * age                            [X ][  ][  ][  ][  ][  ][  ] 
  * 
  * @precondition
- *      - no missing values in age and smoking_startage_adu_c_2 in the given wave
+ *      - no missing values in age and date in the given wave
  * 
  * @pairingrule 
  *      - the approximate year the participant had the age reported in A1 baseline assessment, 
  *        given the date such baseline assessment was performed
  */
-const  smokingStart = function(wave:string){
-    //
-    const surveyDateParts = inputValue("date","1a").split("/");        
-    const surveyYear= Number(surveyDateParts[1]);
-    const startAge = Number(inputValue("smoking_startage_adu_c_2",wave));
-    //Age is only on baseline assessment 1A
-    const surveyAge = Number(inputValue("age","1a"));                
-    return (surveyYear - surveyAge + startAge).toString()
+const  smokingStart = (wave:string):string|undefined => {
+    const assessmentDate = inputValue("date","1a");
+    const partAge = inputValue("age","1a");
+
+    assert(assessmentDate!==undefined && partAge!==undefined)
+
+    const smokingStartAge = inputValue("smoking_startage_adu_c_2",wave)
+
+    if (smokingStartAge!=undefined){
+        const surveyDateParts = assessmentDate.split("/");        
+        const surveyYear= Number(surveyDateParts[1]);
+        const startAge = Number(smokingStartAge);
+        //Age is only on baseline assessment 1A
+        const surveyAge = Number(partAge);                
+        return (surveyYear - surveyAge + startAge).toString()
+    }
+    else{
+        return undefined
+    }
 };
 
 /**
@@ -115,12 +123,26 @@ const  smokingStart = function(wave:string){
  * age                            [X ][  ][  ][  ][  ][  ][  ] 
  * 
  */
-const  smokingEnd = function(wave:string){
-    const surveyDateParts = inputValue("date","1a").split("/");        
-    const surveyYear= Number(surveyDateParts[1]);
-    const endAge = Number(inputValue("smoking_endage_adu_c_2",wave));
-    const surveyAge = Number(inputValue("age","1a"));                
-    return (surveyYear - surveyAge + endAge).toString()
+const  smokingEnd = (wave:string):string|undefined => {
+
+    const assessmentDate = inputValue("date","1a");
+    const partAge = inputValue("age","1a");
+
+    assert(assessmentDate!==undefined && partAge!==undefined)
+
+    const smokingEndAge = inputValue("smoking_endage_adu_c_2",wave);
+
+    if (smokingEndAge!==undefined){
+        const surveyDateParts = assessmentDate.split("/");        
+        const surveyYear= Number(surveyDateParts[1]);
+        const endAge = Number(smokingEndAge);
+        const surveyAge = Number(partAge);                
+        return (surveyYear - surveyAge + endAge).toString()
+    }
+    else{
+        return undefined
+    }
+    
 };
 
 
@@ -146,13 +168,23 @@ const typeOfTobaccoUsed = (wave:string):object|undefined =>{
  * 
  * The status of the result value.
  * 
- * @precondition the three variables have no missing values in the given 'wave'
+ * @return the SNOMED code corresponding to the related variables. If the related variables
+ *         are undefined, returns 'other'
+ * 
+ *         Note: the related variables do not follow the standard coding (1=yes, 2=no)
+ *               Instead, yes = 1, no = 0.
+ * 
+ *              "current_smoker_adu_c_2","0","no","nee"
+ *              "ever_smoker_adu_c_2","0","no","nee"
+ *              "ex_smoker_adu_c_2","0","no","nee"
  * 
  * @param wave the code of the assessment for which the tobacco use status will be evaluated
  *  
+ * @question 
+ * 
  */
 const tobaccoUseStatus = (wave:string):object => {    
-    if (inputValue("ever_smoker_adu_c_2",wave)==="2"){
+    if (inputValue("ever_smoker_adu_c_2",wave)==="0"){
         return tobaccoUseStatusSNOMEDCodelist.non_smoker;
     }
     else if (inputValue("ex_smoker_adu_c_2",wave)==="1"){
@@ -171,13 +203,15 @@ const tobaccoUseStatus = (wave:string):object => {
  * 
  * 
  */
-const amountPerDay = (wave:string):number =>{
-    return Number(inputValue("total_frequency_adu_c_1",wave))
+const amountPerDay = (wave:string):number|undefined =>{
+    const apd = inputValue("total_frequency_adu_c_1",wave)
+    return apd!==undefined?Number(apd):undefined    
 }
 
 /**
  * packyears_cumulative_adu_c_2 - packyears (cumuative smoking history)
  */
-const packYears = (wave:string):number => {
-    return Number(inputValue("packyears_cumulative_adu_c_2",wave))
+const packYears = (wave:string):number|undefined => {
+    const py = inputValue("packyears_cumulative_adu_c_2",wave);
+    return py!==undefined?Number(py):undefined    
 }
