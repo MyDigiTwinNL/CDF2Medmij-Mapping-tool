@@ -28,6 +28,16 @@ export type BloodPressureReadingEntry = {
 
 
 /**
+ * It is assumed (from Lifelines data analysis) that when 'date' is missing in an assessment, the
+ * participant dropped the study or missed the assessment.
+ * @param wave 
+ * @returns true if the assessment was missed 
+ */
+const missedAsssesment = (wave:string) => inputValue("date",wave)==undefined
+
+
+
+/**
  * HCIM BloodPressure:
  * The FHIR BloodPressure profile sets a minimum expectations for the Observation Resource to record, 
  * search and fetch the blood pressure associated with a patient.
@@ -63,7 +73,24 @@ export type BloodPressureReadingEntry = {
  *                
  */
 export const results = function (): BloodPressureReadingEntry[] {
-    //return the data through the 'checked access' proxy to prevent silent data-access errors in JSONata (e.g., a mispelled property)
+
+    const waves=["1a","2a"]
+
+    return waves.map((wave) => 
+        //return the data through the 'checked access' proxy to prevent silent data-access errors in JSONata (e.g., a mispelled property)
+        createCheckedAccessProxy({
+            "assessment":wave,
+            "cuffType": cuffType(wave),
+            "measuringLocation": undefined,
+            "systolicBloodPressure": systolicBloodPressure(wave),
+            "diastolicBloodPressure": diastolicBloodPressure(wave),
+            "arterialBloodPressure": arterialBloodPressure(wave),
+            "collectedDateTime": collectedDateTime(wave)
+        })
+    
+    ).filter((bpentry:BloodPressureReadingEntry)=>!missedAsssesment(bpentry.assessment))
+
+    
     return [
         createCheckedAccessProxy({
             "assessment":"1a",

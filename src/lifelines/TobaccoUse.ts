@@ -23,8 +23,18 @@ export type TobaccoUseProperties = {
     "exSmoker":boolean
 }
   
+/**
+ * It is assumed (from Lifelines data analysis) that when 'date' is missing in an assessment, the
+ * participant dropped the study or missed the assessment.
+ * @param wave 
+ * @returns true if the assessment was missed 
+ */
+const missedAsssesment = (wave:string) => inputValue("date",wave)==undefined
 
-
+/**
+ * 
+ * @returns 
+ */
 export const results=function():TobaccoUseProperties[]{
 
     //Lifelines tobacco use derivatives do not include 3B
@@ -41,9 +51,8 @@ export const results=function():TobaccoUseProperties[]{
             "everSmoker":everSmoker(wave),            
             "exSmoker":exSmoker(wave)
         })
-    )
-    
-    );
+       //if the assessment was missed, do not create the resource
+    )).filter((tprops:TobaccoUseProperties) => !missedAsssesment(tprops.assessment));
 
 
 }

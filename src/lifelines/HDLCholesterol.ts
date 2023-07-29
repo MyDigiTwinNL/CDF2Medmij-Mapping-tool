@@ -23,6 +23,15 @@ https://simplifier.net/packages/nictiz.fhir.nl.stu3.zib2017/2.2.13/files/2039136
 */
 
 
+/**
+ * It is assumed (from Lifelines data analysis) that when 'date' is missing in an assessment, the
+ * participant dropped the study or missed the assessment.
+ * @param wave 
+ * @returns true if the assessment was missed 
+ */
+const missedAsssesment = (wave:string) => inputValue("date",wave)==undefined
+
+
 
 /**
  * A laboratory result describes the result of a laboratory analysis. These are specimen-oriented 
@@ -42,23 +51,20 @@ https://simplifier.net/packages/nictiz.fhir.nl.stu3.zib2017/2.2.13/files/2039136
  */
 export const results=function():HDLCholesterolReadingEntry[]{
     
-    return [
-        createCheckedAccessProxy({
-            "assessment":"1a",
-            "isHDLBelowReferenceRange": isHDLBelowReferenceRange("1a"),
-            "resultFlags": resultFlags("1a"),
-            "hdlResults": hdlResults("1a"),
-            "collectedDateTime": collectedDateTime("1a")
-        }),
-        createCheckedAccessProxy({
-            "assessment":"2a",
-            "isHDLBelowReferenceRange": isHDLBelowReferenceRange("2a"),
-            "resultFlags": resultFlags("2a"),
-            "hdlResults": hdlResults("2a"),
-            "collectedDateTime": collectedDateTime("2a")
-        }),
     
-    ]
+    const waves=["1a","2a"]
+
+    return waves.map((wave)=>(
+        createCheckedAccessProxy({
+            "assessment":wave,
+            "isHDLBelowReferenceRange": isHDLBelowReferenceRange(wave),
+            "resultFlags": resultFlags(wave),
+            "hdlResults": hdlResults(wave),
+            "collectedDateTime": collectedDateTime(wave)
+        })
+        //if the assessment was missed, do not evaluate/create the resource
+    )).filter((hdlentry:HDLCholesterolReadingEntry)=>!missedAsssesment(hdlentry.assessment)) 
+
 
 }
 
