@@ -10,3 +10,15 @@
 
 
 
+
+
+*   the year when the participand had the age reported in hypertension_startage_adu_q_1, in the first assessment
+ *     (1A, 3A, or 3B) where hypertension_presence_adu_q_1 == yes
+ *   if the age on that particular assessment is missing
+ 
+
+
+         //"3","other type:","andere vorm, nl."
+        //"4","i do not know","weet ik niet"
+        //missing value
+        else return conditionsSNOMEDCodeList.diabetes_mellitus
