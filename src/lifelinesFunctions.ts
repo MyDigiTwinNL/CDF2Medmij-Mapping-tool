@@ -42,5 +42,5 @@ export const lifelinesMeanDate = (date1: string, date2: string): string => {
     const meanMonth = (meanDate.getMonth() + 1).toString();
     const meanYear = meanDate.getFullYear();
   
-    return `${meanMonth}/${meanYear}`;
+    return `${meanYear}-${meanMonth}`;
   }

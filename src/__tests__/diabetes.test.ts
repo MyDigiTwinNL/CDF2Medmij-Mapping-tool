@@ -14,7 +14,7 @@ test('diabetes clinical status, when reported positive in 1A, diabetes type 2', 
     "diabetes_type_adu_q_1_a":   { "1a": "" },
     "t1d_followup_adu_q_1":                            { "2a": "2", "3a": "2", "3b": "2" },
     "t2d_followup_adu_q_1":                            { "2a": "2", "3a": "2", "3b": "2" },    
-    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","2b":"2002-5","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "22" }
   }
 
@@ -38,7 +38,7 @@ test('diabetes clinical status, when reported positive in a follow-up, diabetes 
     "diabetes_type_adu_q_1_a":   { "1a": "" },
     "t1d_followup_adu_q_1":                            { "2a": "2", "3a": /*Positive*/"1", "3b": "2" },
     "t2d_followup_adu_q_1":                            { "2a": "2", "3a": "2", "3b": "2" },    
-    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997",/*date1*/"2a":"5/2001",/*date2*/"3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5",/*date1*/"2a":"2001-5",/*date2*/"3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "22" },
   }
 
@@ -91,7 +91,7 @@ test('diabetes clinical status, when never reported', () => {
     "diabetes_type_adu_q_1_a":   { "1a": "" },
     "t1d_followup_adu_q_1":                            { "2a": "2", "3a": "2", "3b": "2" },
     "t2d_followup_adu_q_1":                            { "2a": "2", "3a": "2", "3b": "2" },    
-    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","2b":"2002-5","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "22" },
   }
 
@@ -140,7 +140,7 @@ test('Diabates resource generation when not reported', () => {
     "diabetes_presence_adu_q_1": { "1a": "2" },
     "diabetes_followup_adu_q_1": { "1b": "2", "1c": "2", "2a": "2", "3a": "2", "3b": "2" },
     "diabetes_startage_adu_q_1": { "1a": "" },
-    "date": { "1a": "5/1992" },
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","2b":"2002-5","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "22" },
     "project_pseudo_id": { "1a": "520681571" }
   }
