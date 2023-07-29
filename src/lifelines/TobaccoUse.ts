@@ -56,7 +56,7 @@ export const results=function():TobaccoUseProperties[]{
     const waves=["1a","1b","1c","2a","2b","3a"]
     
     //if the assessment was missed, do not create the resource
-    return waves.filter((wave)=>!missedAsssesment(wave) && !essentialDataMissed).map((wave) =>
+    return waves.filter((wave)=>!missedAsssesment(wave) && !essentialDataMissed(wave)).map((wave) =>
         createCheckedAccessProxy({
             "assessment":wave,
             "useStatus":tobaccoUseStatus(wave),
