@@ -17,7 +17,7 @@ test('Cholesterol reports, above reference range', () => {
   const input = {
 
     "cholesterol_result_all_m_1":  {"1a":(cholesterolmf.referenceRangeUpperLimit()+0.1).toString(),"2a":(cholesterolmf.referenceRangeUpperLimit()+0.1).toString()},
-    "date": { "1a": "5/1992", "1b": "5/1995", "1c": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
   }  
 
   InputSingleton.getInstance().setInput(input);
@@ -37,7 +37,7 @@ test('Cholesterol reports, mix of normal and above reference ranges', () => {
   const input = {
 
     "cholesterol_result_all_m_1":  {"1a":(cholesterolmf.referenceRangeUpperLimit()-0.1).toString(),"2a":(cholesterolmf.referenceRangeUpperLimit()+0.1).toString()},
-    "date": { "1a": "5/1992", "1b": "5/1995", "1c": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
   }  
 
   InputSingleton.getInstance().setInput(input);
@@ -57,7 +57,7 @@ test('Cholesterol reports, within normal levels', () => {
   const input = {
 
     "cholesterol_result_all_m_1":  {"1a":(cholesterolmf.referenceRangeUpperLimit()-1).toString(),"2a":(cholesterolmf.referenceRangeUpperLimit()-0.1).toString()},
-    "date": { "1a": "5/1992", "1b": "5/1995", "1c": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
   }  
 
   InputSingleton.getInstance().setInput(input);
@@ -78,7 +78,7 @@ test('Total Cholesterol resource generation', () => {
   
   const input = {
     "cholesterol_result_all_m_1":  {"1a":(cholesterolmf.referenceRangeUpperLimit()-1).toString(),"2a":(cholesterolmf.referenceRangeUpperLimit()-0.1).toString()},
-    "date": { "1a": "5/1992", "1b": "5/1995", "1c": "5/1997", "2a": "5/2001", "3a": "5/2003", "3b": "5/2005" },
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "22" },
     "project_pseudo_id": { "1a": "520681571" },
   }

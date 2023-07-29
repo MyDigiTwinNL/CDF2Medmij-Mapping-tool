@@ -10,7 +10,7 @@ test('stroke, when reported positive in 1A', () => {
     "stroke_startage_adu_q_1":{ "1a": "12" },
     "stroke_presence_adu_q_1": { "1a": "1" },
     "stroke_followup_adu_q_1":{"1b":"2","1c":"2","2a":"2","3a":"2","3b":"2"},
-    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","2b":"2002-5","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "22" }
   }
 
@@ -29,7 +29,7 @@ test('stroke, when reported in 2A', () => {
     "stroke_startage_adu_q_1":{ "1a": "12" },
     "stroke_presence_adu_q_1": { "1a": "2" },
     "stroke_followup_adu_q_1":{"1b":"2","1c":"2","2a":"1","3a":"2","3b":"2"},    
-    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1996","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "22" }
   }
 
@@ -48,7 +48,7 @@ test('stroke, when reported right after baseline (1B)', () => {
     "stroke_startage_adu_q_1":{ "1a": "12" },
     "stroke_presence_adu_q_1": { "1a": "2" },
     "stroke_followup_adu_q_1":{"1b":"1","1c":"2","2a":"2","3a":"2","3b":"2"},    
-    "date": {"1a":"5/1993","1b":"5/1995","1c":"5/1996","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"1992-5","1b":"1994-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "22" }
   }
 
@@ -56,7 +56,7 @@ test('stroke, when reported right after baseline (1B)', () => {
   expect(strokemf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
   expect(strokemf.isPresent()).toBe(true);
   expect(strokemf.code()).toBe(conditionsSNOMEDCodeList.cerebrovascular_accident);
-  expect(strokemf.onsetDateTime()).toBe("1994-05");
+  expect(strokemf.onsetDateTime()).toBe("1993-05");
   
 });
 
@@ -66,7 +66,7 @@ test('stroke, when no reported', () => {
     "stroke_startage_adu_q_1":{ "1a": "12" },
     "stroke_presence_adu_q_1": { "1a": "2" },
     "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"},
-    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "22" }
   }
 
@@ -87,7 +87,7 @@ test('Stroke resource generation when not reported', () => {
     "stroke_startage_adu_q_1":{ "1a": "12" },
     "stroke_presence_adu_q_1": { "1a": "2" },
     "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"},
-    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "22" }
   }
 
@@ -116,7 +116,7 @@ test('Stroke resource generation when reported', () => {
     "stroke_startage_adu_q_1":{ "1a": "12" },
     "stroke_presence_adu_q_1": { "1a": "1" },
     "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"},
-    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2002","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "22" }
   }
 

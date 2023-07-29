@@ -15,7 +15,7 @@ test('BloodPressure resource generation', () => {
     "bpavg_systolic_all_m_1":       {"1a":"130","2a":"130"},
     "bpavg_diastolic_all_m_1":      {"1a":"140","2a":"140"},
     "bpavg_arterial_all_m_1":       {"1a":"113","2a":"113"},
-    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","2b":"2002-5","3a":"2003-5","3b":"2005-5"},
     "project_pseudo_id": { "1a": "520681571" },
   }
 
@@ -40,7 +40,7 @@ test('BloodPressure resource generation with empty values', () => {
     "bpavg_systolic_all_m_1":       {"1a":"130","2a":""},
     "bpavg_diastolic_all_m_1":      {"1a":"140","2a":""},
     "bpavg_arterial_all_m_1":       {"1a":"113","2a":"113"},
-    "date": {"1a":"5/1992","1b":"5/1995","1c":"5/1997","2a":"5/2001","3a":"5/2003","3b":"5/2005"},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","2b":"2002-5","3a":"2003-5","3b":"2005-5"},
     "project_pseudo_id": { "1a": "520681571" },
   }
 
