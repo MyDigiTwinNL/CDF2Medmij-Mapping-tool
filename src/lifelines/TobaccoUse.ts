@@ -126,11 +126,14 @@ const  smokingStart = (wave:string):string|undefined => {
     const smokingStartAge = inputValue("smoking_startage_adu_c_2",wave)
 
     if (smokingStartAge!=undefined){
-        const surveyDateParts = assessmentDate.split("/");        
-        const surveyYear= Number(surveyDateParts[1]);
+        const surveyDateParts = assessmentDate.split("-");        
+        const surveyYear= Number(surveyDateParts[0]);
         const startAge = Number(smokingStartAge);
         //Age is only on baseline assessment 1A
-        const surveyAge = Number(partAge);                
+        const surveyAge = Number(partAge);   
+        
+        console.info(`>>>>>>>>>${startAge} - ${surveyAge} - ${(surveyYear)}`)
+
         return (surveyYear - surveyAge + startAge).toString()
     }
     else{
@@ -156,8 +159,8 @@ const  smokingEnd = (wave:string):string|undefined => {
     const smokingEndAge = inputValue("smoking_endage_adu_c_2",wave);
 
     if (smokingEndAge!==undefined){
-        const surveyDateParts = assessmentDate.split("/");        
-        const surveyYear= Number(surveyDateParts[1]);
+        const surveyDateParts = assessmentDate.split("-");        
+        const surveyYear= Number(surveyDateParts[0]);
         const endAge = Number(smokingEndAge);
         const surveyAge = Number(partAge);                
         return (surveyYear - surveyAge + endAge).toString()

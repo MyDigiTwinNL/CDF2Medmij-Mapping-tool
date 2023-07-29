@@ -41,8 +41,8 @@
     };
 
     $vascularDiseaseStartYear := function(){(
-        $surveyDateParts:=$split(date,"/");
-        $surveyYear:= $number($surveyDateParts[1]);
+        $surveyDateParts:=$split(date,"-");
+        $surveyYear:= $number($surveyDateParts[0]);
         $heartAttackStartAge := $number(heartattack_startage_adu_q_1);
         $surveyAge := $number(age);                
         $string($surveyYear - $surveyAge + $vascularDiseaseStartAge())

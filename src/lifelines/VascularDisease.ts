@@ -200,7 +200,7 @@ export const vascularDiseaseStartYear = function(){
 
     /*const firstAssessmentWithPositiveCVD = findFirstAssessmentWithPositiveValue(cvdRelatedVariables);
     if (inputValue("heartattack_presence_adu_q_1")["1a"]==="1"){        
-        const surveyDateParts = inputValue("date")["1a"].split("/");        
+        const surveyDateParts = inputValue("date")["1a"].split("-");        
         const surveyYear= Number(surveyDateParts[1]);
         const heartAttackStartAge = Number(inputValue("heartattack_startage_adu_q_1"));
         const surveyAge = Number(inputValue("age"));                

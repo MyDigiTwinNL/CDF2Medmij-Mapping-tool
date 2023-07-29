@@ -118,8 +118,8 @@ export const onsetDateTime = ():string | undefined=> {
 
 
     if (inputValue("stroke_presence_adu_q_1","1a")==='1'){
-        const surveyDateParts = firstAssessmentDate.split("/");
-        const surveyYear = Number(surveyDateParts[1]);
+        const surveyDateParts = firstAssessmentDate.split("-");
+        const surveyYear = Number(surveyDateParts[0]);
 
         const strokeStartAge = inputValue("stroke_startage_adu_q_1","1a");
         if (strokeStartAge!==undefined){

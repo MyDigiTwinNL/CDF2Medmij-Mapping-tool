@@ -13,7 +13,7 @@ export const lifelinesDateToISO = (lifelinesdate: string) => {
 
     if (lifelinesdate === undefined) throw Error('Undefined parameter given to lifelinesDataToISO function. Expected string with the format YYYY-MM')
     
-    const [month, year] = lifelinesdate.split('/').map(
+    const [year,month] = lifelinesdate.split('-').map(
         (dpart) => parseInt(dpart)
     );
     
@@ -30,8 +30,8 @@ export const lifelinesDateToISO = (lifelinesdate: string) => {
  * MM/YYYY
  */
 export const lifelinesMeanDate = (date1: string, date2: string): string => {
-    const [month1, year1] = date1.split('/');
-    const [month2, year2] = date2.split('/');
+    const [year1,month1] = date1.split('-');
+    const [year2,month2] = date2.split('-');
   
     const date1Obj = new Date(parseInt(year1), parseInt(month1) - 1);
     const date2Obj = new Date(parseInt(year2), parseInt(month2) - 1);

@@ -113,9 +113,9 @@ export const onsetDateTime = ():string|undefined => {
     const hypStartAge:string|undefined = inputValue('hypertension_startage_adu_q_1',hypPresenceAssessment);
 
     if (hypStartAge!==undefined){
-        const surveyDateParts = firstAssessmentDate.split("/");
+        const surveyDateParts = firstAssessmentDate.split("-");
         const surveyAge = Number(firstAssessmentAge);      
-        const surveyYear = Number(surveyDateParts[1]);
+        const surveyYear = Number(surveyDateParts[0]);
     
         return (surveyYear - surveyAge + Number(hypStartAge)).toString()
     

@@ -111,8 +111,8 @@ export const onsetDateTime = ():string|undefined => {
     assert(inputValue("date","1a")!==undefined && inputValue("age","1a")!==undefined,'failed precondition: date and age are never missing values (is a default variable)')
 
     if (inputValue("diabetes_presence_adu_q_1","1a")==='1'){
-        const surveyDateParts = inputValue("date","1a")!.split("/");
-        const surveyYear = Number(surveyDateParts[1]);
+        const surveyDateParts = inputValue("date","1a")!.split("-");
+        const surveyYear = Number(surveyDateParts[0]);
 
         const diabetesStartAge = inputValue("diabetes_startage_adu_q_1","1a")
 

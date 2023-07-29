@@ -13,9 +13,9 @@ gender, age (See Lifelines data manual)
 export const birthDate = () => {   
         const dateValue:string|undefined = inputValue("date","1a");
         if (dateValue!=undefined){
-            const surveyDateParts = inputValue("date","1a")!.split("/");
+            const surveyDateParts = inputValue("date","1a")!.split("-");
             const surveyAge = Number(inputValue("age","1a"));      
-            const surveyYear = Number(surveyDateParts[1]);
+            const surveyYear = Number(surveyDateParts[0]);
             return (surveyYear-surveyAge).toString()
         }
         else{
