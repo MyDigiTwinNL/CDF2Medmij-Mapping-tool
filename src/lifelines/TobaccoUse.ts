@@ -132,8 +132,6 @@ const  smokingStart = (wave:string):string|undefined => {
         //Age is only on baseline assessment 1A
         const surveyAge = Number(partAge);   
         
-        console.info(`>>>>>>>>>${startAge} - ${surveyAge} - ${(surveyYear)}`)
-
         return (surveyYear - surveyAge + startAge).toString()
     }
     else{
