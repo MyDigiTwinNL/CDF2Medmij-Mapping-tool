@@ -39,8 +39,9 @@ export const results=function():TobaccoUseProperties[]{
 
     //Lifelines tobacco use derivatives do not include 3B
     const waves=["1a","1b","1c","2a","2b","3a"]
-
-    return waves.map((wave)=>(
+    
+    //if the assessment was missed, do not create the resource
+    return waves.filter((wave)=>!missedAsssesment(wave)).map((wave) =>
         createCheckedAccessProxy({
             "assessment":wave,
             "useStatus":tobaccoUseStatus(wave),
@@ -50,10 +51,8 @@ export const results=function():TobaccoUseProperties[]{
             "smokingEndDate":smokingEnd(wave),
             "everSmoker":everSmoker(wave),            
             "exSmoker":exSmoker(wave)
-        })
-       //if the assessment was missed, do not create the resource
-    )).filter((tprops:TobaccoUseProperties) => !missedAsssesment(tprops.assessment));
-
+        })      
+    )
 
 }
 

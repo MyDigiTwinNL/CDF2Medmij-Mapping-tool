@@ -76,7 +76,8 @@ export const results = function (): BloodPressureReadingEntry[] {
 
     const waves=["1a","2a"]
 
-    return waves.map((wave) => 
+
+    return waves.filter((wave)=>!missedAsssesment(wave)).map((wave) =>    
         //return the data through the 'checked access' proxy to prevent silent data-access errors in JSONata (e.g., a mispelled property)
         createCheckedAccessProxy({
             "assessment":wave,
@@ -86,32 +87,10 @@ export const results = function (): BloodPressureReadingEntry[] {
             "diastolicBloodPressure": diastolicBloodPressure(wave),
             "arterialBloodPressure": arterialBloodPressure(wave),
             "collectedDateTime": collectedDateTime(wave)
-        })
-    
-    ).filter((bpentry:BloodPressureReadingEntry)=>!missedAsssesment(bpentry.assessment))
+        })    
+    )
 
-    
-    return [
-        createCheckedAccessProxy({
-            "assessment":"1a",
-            "cuffType": cuffType("1a"),
-            "measuringLocation": undefined,
-            "systolicBloodPressure": systolicBloodPressure("1a"),
-            "diastolicBloodPressure": diastolicBloodPressure("1a"),
-            "arterialBloodPressure": arterialBloodPressure("1a"),
-            "collectedDateTime": collectedDateTime("1a")
-        }),
-        createCheckedAccessProxy({
-            "assessment":"2a",
-            "cuffType": cuffType("2a"),
-            "measuringLocation": undefined,
-            "systolicBloodPressure": systolicBloodPressure("2a"),
-            "diastolicBloodPressure": diastolicBloodPressure("2a"),
-            "arterialBloodPressure": arterialBloodPressure("2a"),
-            "collectedDateTime": collectedDateTime("2a")
-        })
 
-    ]
 }
 
 

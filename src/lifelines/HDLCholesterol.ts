@@ -50,20 +50,19 @@ const missedAsssesment = (wave:string) => inputValue("date",wave)==undefined
  * 
  */
 export const results=function():HDLCholesterolReadingEntry[]{
-    
-    
+        
     const waves=["1a","2a"]
 
-    return waves.map((wave)=>(
+    //if the assessment was missed, do not evaluate/create the resource
+    return waves.filter((wave)=>!missedAsssesment(wave)).map((wave) =>
         createCheckedAccessProxy({
             "assessment":wave,
             "isHDLBelowReferenceRange": isHDLBelowReferenceRange(wave),
             "resultFlags": resultFlags(wave),
             "hdlResults": hdlResults(wave),
             "collectedDateTime": collectedDateTime(wave)
-        })
-        //if the assessment was missed, do not evaluate/create the resource
-    )).filter((hdlentry:HDLCholesterolReadingEntry)=>!missedAsssesment(hdlentry.assessment)) 
+        })        
+    )
 
 
 }
