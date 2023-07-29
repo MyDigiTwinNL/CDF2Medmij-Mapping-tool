@@ -111,21 +111,21 @@ const exSmoker = function(wave:string):boolean{
  * age                            [X ][  ][  ][  ][  ][  ][  ] 
  * 
  * @precondition
- *      - no missing values in age and date in the given wave
+ *      - no missing values in date in the given wave
  * 
  * @pairingrule 
  *      - the approximate year the participant had the age reported in A1 baseline assessment, 
  *        given the date such baseline assessment was performed
  */
 const  smokingStart = (wave:string):string|undefined => {
-    const assessmentDate = inputValue("date","1a");
-    const partAge = inputValue("age","1a");
-
-    assert(assessmentDate!==undefined && partAge!==undefined)
-
+    const assessmentDate = inputValue("date","1a");    
+    assert(assessmentDate!==undefined)
+    
+    const partAge = inputValue("age","1a");    
+    
     const smokingStartAge = inputValue("smoking_startage_adu_c_2",wave)
 
-    if (smokingStartAge!=undefined){
+    if (smokingStartAge!=undefined && partAge!=undefined){
         const surveyDateParts = assessmentDate.split("-");        
         const surveyYear= Number(surveyDateParts[0]);
         const startAge = Number(smokingStartAge);
@@ -150,13 +150,13 @@ const  smokingStart = (wave:string):string|undefined => {
 const  smokingEnd = (wave:string):string|undefined => {
 
     const assessmentDate = inputValue("date","1a");
+    
+    assert(assessmentDate!==undefined)
+
     const partAge = inputValue("age","1a");
-
-    assert(assessmentDate!==undefined && partAge!==undefined)
-
     const smokingEndAge = inputValue("smoking_endage_adu_c_2",wave);
 
-    if (smokingEndAge!==undefined){
+    if (smokingEndAge!==undefined && partAge!==undefined){
         const surveyDateParts = assessmentDate.split("-");        
         const surveyYear= Number(surveyDateParts[0]);
         const endAge = Number(smokingEndAge);

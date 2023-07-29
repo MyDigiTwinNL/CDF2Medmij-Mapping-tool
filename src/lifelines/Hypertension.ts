@@ -87,7 +87,7 @@ const _clinicalStatus = moize((hypertension_presence_assessments:variableAssessm
  * ------------------------------------------------------------------
  * 
  * @precondition
- *      - date and age are never missing values
+ *      - date is not a missing value
  *      - the problem is 'active' (see clinicalStatus function)
  * 
  * @pairingrule
@@ -101,10 +101,11 @@ const _clinicalStatus = moize((hypertension_presence_assessments:variableAssessm
  */
 export const onsetDateTime = ():string|undefined => {
     const firstAssessmentDate = inputValue("date","1a");
-    const firstAssessmentAge = inputValue("age","1a");
+    
         
-    assert(firstAssessmentDate!==undefined && firstAssessmentAge!==undefined, 'Precondition violated: age or date are undefined')
+    assert(firstAssessmentDate!==undefined, 'Precondition violated: age or date are undefined')
 
+    const firstAssessmentAge = inputValue("age","1a");
     //find the first occurence of hypertension_presence_adu_q_1=yes
     const hypPresence = Object.entries(inputValues("hypertension_presence_adu_q_1")).find(([key,value]) => value === "1")
     
@@ -112,7 +113,7 @@ export const onsetDateTime = ():string|undefined => {
 
     const hypStartAge:string|undefined = inputValue('hypertension_startage_adu_q_1',hypPresenceAssessment);
 
-    if (hypStartAge!==undefined){
+    if (hypStartAge!==undefined && firstAssessmentAge!==undefined){
         const surveyDateParts = firstAssessmentDate.split("-");
         const surveyAge = Number(firstAssessmentAge);      
         const surveyYear = Number(surveyDateParts[0]);

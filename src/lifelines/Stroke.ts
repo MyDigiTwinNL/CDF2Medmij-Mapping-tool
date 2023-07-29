@@ -111,18 +111,18 @@ const _clinicalStatus = moize((stroke_presence:string|undefined,followup_assessm
  */
 export const onsetDateTime = ():string | undefined=> {
 
-    const firstAssessmentDate = inputValue("date","1a");
-    const firstAssessmentAge = inputValue("age","1a");
+    const firstAssessmentDate = inputValue("date","1a");    
         
-    assert(firstAssessmentDate!==undefined && firstAssessmentAge!==undefined, 'Precondition violated: age or date are undefined')
+    assert(firstAssessmentDate!==undefined, 'Precondition violated: age or date are undefined')
 
+    const firstAssessmentAge = inputValue("age","1a");
 
     if (inputValue("stroke_presence_adu_q_1","1a")==='1'){
         const surveyDateParts = firstAssessmentDate.split("-");
         const surveyYear = Number(surveyDateParts[0]);
 
         const strokeStartAge = inputValue("stroke_startage_adu_q_1","1a");
-        if (strokeStartAge!==undefined){
+        if (strokeStartAge!==undefined && firstAssessmentAge!==undefined){
             const surveyAge = Number(inputValue("age","1a"));      
             return (surveyYear - surveyAge + Number(strokeStartAge)).toString();
         }

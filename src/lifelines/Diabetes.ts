@@ -90,7 +90,7 @@ const _clinicalStatus = moize((diab_presence:string|undefined,followup_assessmen
  * ------------------------------------------------------------------
  * 
  * @precondition
- *      - date and age are never missing values (is a default variable)
+ *      - date is never a missing value (is a default variable)
  *      - the problem is 'active' (see clinicalStatus function)
  *      - if there is a diabetes report on a follow-up 'diabetes_followup_adu_q_1', there should be a 'yes' value
  *        in either t2d_followup_adu_q_1 or t2d_followup_adu_q_1 (diabetes type)
@@ -108,15 +108,16 @@ const _clinicalStatus = moize((diab_presence:string|undefined,followup_assessmen
  */
 export const onsetDateTime = ():string|undefined => {
 
-    assert(inputValue("date","1a")!==undefined && inputValue("age","1a")!==undefined,'failed precondition: date and age are never missing values (is a default variable)')
+    assert(inputValue("date","1a")!==undefined,'failed precondition: date and age are never missing values (is a default variable)')
 
     if (inputValue("diabetes_presence_adu_q_1","1a")==='1'){
         const surveyDateParts = inputValue("date","1a")!.split("-");
         const surveyYear = Number(surveyDateParts[0]);
 
         const diabetesStartAge = inputValue("diabetes_startage_adu_q_1","1a")
+        const age = inputValue("age","1a")
 
-        if (diabetesStartAge!==undefined){
+        if (diabetesStartAge!==undefined && age!=undefined){
             const surveyAge = Number(inputValue("age","1a"));   
             return (surveyYear - surveyAge + Number(diabetesStartAge)).toString();
         }
