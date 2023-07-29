@@ -15,5 +15,6 @@ module load nodejs/16.15.1-GCCcore-11.3.0
 module list
 
 node_modules/typescript/bin/tsc --build --clean
+node_modules/typescript/bin/tsc
 #npm run transform --  ../data_samples_tiny/ -o /home/umcg-hcadavid/temporal-data/pheno_lifelines_fhir
 npm run transform -- /home/umcg-hcadavid/temporal-data/pheno_lifelines_csd_out -o /home/umcg-hcadavid/temporal-data/pheno_lifelines_fhir
