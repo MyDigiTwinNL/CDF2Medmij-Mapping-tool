@@ -198,6 +198,7 @@ export const verificationStatus = ():object => {
  *      - the problem is 'active' (see clinicalStatus function)
  *      - there are no 'yes' values in both t1d_followup_adu_q_1 and t1d_followup_adu_q_2 (the two types of diabetes are mutually exclusive)
  *      - when there is a yes in diabetes_followup_adu_q_1, there should be a yes in either t1d_followup_adu_q_1 and t2d_followup_adu_q_1 
+ *      - if there is a yes in 'diabetes_presence_adu_q_1', there should be a value in 'diabetes_type_adu_q_1'
  *      
  * @pairingrule 
  *      if diabetes_presence_adu_q_1[1A] is 'yes', and diabetes_type_adu_q_1 is either 1 or 2 => corresponding SNOMED diabetes type code
@@ -205,7 +206,7 @@ export const verificationStatus = ():object => {
  *      else
  *          if there is a 'yes' in t1d_followup_adu_q_1 => SNOMED code for diabates type 1
  *          else if there is a 'yes' in t2d_followup_adu_q_1 or  => SNOMED-diabates type 2
-            else - error/precondition #4 violated
+            else - error/precondition #3 violated
  * 
  * 
  * @question
@@ -214,14 +215,34 @@ export const verificationStatus = ():object => {
  *          collected only on 2A, 3A, 3B. So, which diabetes type should we use?
  * 
  */
-export const code = ():object => {
+export const code = ():object|undefined => {
 
     
-
     if (inputValue('diabetes_presence_adu_q_1',"1a")==='1'){
-        if (inputValue('diabetes_type_adu_q_1',"1a")==='1') return conditionsSNOMEDCodeList.diabetes_mellitus_type_1;
-        else if (inputValue('diabetes_type_adu_q_1',"1a")==='2') return conditionsSNOMEDCodeList.diabetes_mellitus_type_2
-        else throw Error("Undefined mapping case")
+
+        const diabetesType = inputValue('diabetes_type_adu_q_1',"1a")
+        //"1","type 1 (juvenile diabetes, usually since childhood)","type 1 (jeugddiabetes, meestal van kinds af aan)"
+        if (diabetesType==='1') return conditionsSNOMEDCodeList.diabetes_mellitus_type_1;
+        //"2","type 2 (adult-onset diabetes, usually started at a later age)","type 2 (ouderdomsdiabetes, meestal op latere leeftijd)"
+        else if (diabetesType==='2') return conditionsSNOMEDCodeList.diabetes_mellitus_type_2
+        //"3","other type:","andere vorm, nl."
+        else if (diabetesType==='3') {
+            /**
+             * To be defined (Issue #2)
+             * 
+             * TODO: re-code open ended values from diabetes_type_adu_q_1_a
+             */
+
+            const otherType = inputValue('diabetes_type_adu_q_1_a',"1a")
+                        
+            return conditionsSNOMEDCodeList.diabetes_mellitus
+        }
+        //"4","i do not know","weet ik niet"
+        //missing value
+        else{
+            return conditionsSNOMEDCodeList.diabetes_mellitus
+        }                
+
     }
     else{
         const t1dfollowup = inputValues("t1d_followup_adu_q_1")
