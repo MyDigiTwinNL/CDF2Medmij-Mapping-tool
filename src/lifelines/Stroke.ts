@@ -148,36 +148,43 @@ export const onsetDateTime = ():string | undefined=> {
 }
     
 /**
+ *                                [1a][1b][1c][2a][3a][3b]
+ * stroke_followup_adu_q_1        [  ][X ][X ][X ][X ][X ]
+ * date                           [X ][X ][X ][X ][X ][X ]
+ * 
+ * 
+ * mean date between the date of the assessment 
+ *              where stroke_followup_adu_q_1 = yes, and the date of the preceding one.
+ * 
  * 
  * @param diabFollowUp 
  * @returns 
  */
 function findDatesBetweenStrokePresenceReport(): [string,string]|undefined{
-    const strokeFollowUp:variableAssessments = inputValues('stroke_followup_adu_q_1')      
-    const waves = ['1a','1b',"1c",'2a', '3a', '3b'];
-    let previousWave = waves[0];
-  
-    for (let i = 1; i < waves.length; i++) {
-      const wave = waves[i];
-      const value = strokeFollowUp[wave];
-      if (value === '1') {
-        const positiveResponseAssessmentDate = inputValue("date",wave)
-        const previousAssessmentDate = inputValue("date",previousWave)            
 
-        assert(positiveResponseAssessmentDate!=undefined && previousAssessmentDate!=undefined,`failed precondition: date and age are never missing values (stroke, assessment ${wave})`)
+    const strokeFollowUp:variableAssessments = inputValues('stroke_followup_adu_q_1')    
 
-        return [previousAssessmentDate,positiveResponseAssessmentDate];        
-      }
-  
-      previousWave = wave;
-    }
+    //find the first positive report on stroke_followup_adu_q_1, and its corresponding date
+    const strokeWave = Object.keys(strokeFollowUp).find((key) => strokeFollowUp[key] === '1');
+    assert(strokeWave!==undefined,`A 'yes' value on stroke_followup_adu_q_1 was expected`)
+    const strokeWaveDate = inputValue("date",strokeWave)
+    assert(strokeWaveDate!==undefined,`A non-null date is expected in the assessment where stroke_followup_adu_q_1 is reported`)
 
-    return undefined
+    //find the previous non-undefined assessment date
+    const assessmentDates:variableAssessments = inputValues('date')            
+    const waves = ['1a','1b','1c','2a','3a','3b'];    
+    const previousWaves = waves.slice(0,waves.indexOf(strokeWave))
+    const previousAssessmentWave = previousWaves.reverse().find((pwave)=>assessmentDates[pwave]!==undefined)
+    
+    assert (previousAssessmentWave!==undefined,`Assessment (with a defined date) expected to exist previous to the one where stroke_followup_adu_q_1 is reported`)
+    
+    const previousAssessmentDate:string = assessmentDates[previousAssessmentWave]!;
+    return [previousAssessmentDate,strokeWaveDate]
   }
 
 
 
-
+  
 /**
  * The verification status to support or decline the clinical status of the condition or diagnosis.
  */

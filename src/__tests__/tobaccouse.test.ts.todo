@@ -72,7 +72,7 @@ test('participant started smoking before the baseline assessment and was still a
 
   expect((mappingResult[0] as TobaccoUseProperties).useStatus).toBe(tobaccoUseStatusSNOMEDCodelist.daily);
   expect((mappingResult[0] as TobaccoUseProperties).smokingStartDate).toBe("1972");
-  expect((mappingResult[0] as TobaccoUseProperties).currentSmoker).toBe(true);
+  expect((mappingResult[0] as TobaccoUseProperties).eve).toBe(true);
 
 });
 

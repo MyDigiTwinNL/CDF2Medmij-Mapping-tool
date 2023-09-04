@@ -60,6 +60,46 @@ test('stroke, when reported right after baseline (1B)', () => {
   
 });
 
+
+test('stroke, when reported in 2A, after skipping one assessment', () => {
+
+  const input = {
+    "stroke_startage_adu_q_1":{ "1a": "12" },
+    "stroke_presence_adu_q_1": { "1a": "2" },
+    "stroke_followup_adu_q_1":{"1b":"2","1c":undefined,"2a":"1","3a":"2","3b":"2"},    
+    "date": {"1a":"1992-5","1b":"1995-5","1c":undefined,"2a":"2001-5","3a":"2003-5","3b":"2005-5"},
+    "age": { "1a": "22" }
+  }
+
+  InputSingleton.getInstance().setInput(input);
+  expect(strokemf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
+  expect(strokemf.isPresent()).toBe(true);
+  expect(strokemf.code()).toBe(conditionsSNOMEDCodeList.cerebrovascular_accident);
+  expect(strokemf.onsetDateTime()).toBe("1998-05");
+  
+});
+
+
+test('stroke, when reported in 2A, after skipping multiple assessments', () => {
+
+  const input = {
+    "stroke_startage_adu_q_1":{ "1a": "12" },
+    "stroke_presence_adu_q_1": { "1a": "2" },
+    "stroke_followup_adu_q_1":{"1b":undefined,"1c":undefined,"2a":"1","3a":"2","3b":"2"},    
+    "date": {"1a":"1992-5","1b":undefined,"1c":undefined,"2a":"2002-5","3a":"2003-5","3b":"2005-5"},
+    "age": { "1a": "22" }
+  }
+
+  InputSingleton.getInstance().setInput(input);
+  expect(strokemf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
+  expect(strokemf.isPresent()).toBe(true);
+  expect(strokemf.code()).toBe(conditionsSNOMEDCodeList.cerebrovascular_accident);
+  expect(strokemf.onsetDateTime()).toBe("1997-05");
+  
+});
+
+
+
 test('stroke, when no reported', () => {
 
   const input = {
