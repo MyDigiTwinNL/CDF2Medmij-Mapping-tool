@@ -3,6 +3,7 @@ import { lifelinesDateToISO } from '../lifelinesFunctions'
 import moize from 'moize'
 import { tobaccoUseStatusSNOMEDCodelist,typeOfTobaccoUsedSNOMEDCodelist} from '../codes/snomedCodeLists';
 import assert from 'assert'
+import {UnexpectedInputException} from '../unexpectedInputException'
 
 /**
  * Based on HCIM Tobacco ZIB resource https://zibs.nl/wiki/TobaccoUse-v3.1(2017EN)
@@ -118,15 +119,17 @@ const exSmoker = function(wave:string):boolean{
  *        given the date such baseline assessment was performed
  */
 const  smokingStart = (wave:string):string|undefined => {
-    const assessmentDate = inputValue("date","1a");    
-    assert(assessmentDate!==undefined)
+    const assessmentDate = inputValue("date","1a");   
+    
+    if (assessmentDate==undefined) throw new UnexpectedInputException('non-null date expected for assessment 1a (TobaccoUse/smokingStart)');
+    //assert(assessmentDate!==undefined,'non-null date expected for assessment 1a (TobaccoUse/smokingStart)')
     
     const partAge = inputValue("age","1a");    
     
     const smokingStartAge = inputValue("smoking_startage_adu_c_2",wave)
 
     if (smokingStartAge!=undefined && partAge!=undefined){
-        const surveyDateParts = assessmentDate.split("-");        
+        const surveyDateParts = assessmentDate!.split("-");        
         const surveyYear= Number(surveyDateParts[0]);
         const startAge = Number(smokingStartAge);
         //Age is only on baseline assessment 1A
@@ -151,13 +154,15 @@ const  smokingEnd = (wave:string):string|undefined => {
 
     const assessmentDate = inputValue("date","1a");
     
-    assert(assessmentDate!==undefined)
+    if (assessmentDate==undefined) throw new UnexpectedInputException('non-null date expected for assessment 1a (TobaccoUse/smokingStart)');
+
+    //assert(assessmentDate!==undefined,'non-null date expected for assessment 1a (TobaccoUse/smokingEnd)')
 
     const partAge = inputValue("age","1a");
     const smokingEndAge = inputValue("smoking_endage_adu_c_2",wave);
 
     if (smokingEndAge!==undefined && partAge!==undefined){
-        const surveyDateParts = assessmentDate.split("-");        
+        const surveyDateParts = assessmentDate!.split("-");        
         const surveyYear= Number(surveyDateParts[0]);
         const endAge = Number(smokingEndAge);
         const surveyAge = Number(partAge);                

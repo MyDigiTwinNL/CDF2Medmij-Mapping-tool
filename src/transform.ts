@@ -2,6 +2,8 @@ import fs from 'fs';
 import * as path from 'path';
 import { MappingTarget, transform } from './mapper'
 import {InputSingleton} from './inputSingleton'
+import { UnexpectedInputException } from './unexpectedInputException';
+import { type } from 'os';
 
 
 const targets: MappingTarget[] = [
@@ -48,44 +50,57 @@ const inputFileToStdout = (filePath: string) => {
   
 }
 
-const inputFileToFolder = (filePath: string, outputFolder: string) => {
+const inputFileToFolder = async (filePath: string, outputFolder: string) => {
   //To resolve all relative paths from the 'dist' folder.
   resolveLocalPath();
 
-  //See comment on inputFileToStdout
-  InputSingleton.getInstance().getMutex().acquire().then((releasemutex) => {
+  await InputSingleton.getInstance().getMutex().acquire();
+  
+  try {
     const input = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    transform(input, targets).then((output) => {
-  
-      const fileName = path.basename(filePath);
-      const fileExtension = path.extname(filePath);
-      const fileNameWithoutExtension = fileName.replace(fileExtension, '');
-      const fhirFileName = `${fileNameWithoutExtension}-fhir${fileExtension}`;
-      const outputFilePath = path.join(outputFolder, fhirFileName);
-  
-      fs.writeFileSync(outputFilePath, JSON.stringify(output));
-      
-      console.info(`${filePath} ====> ${outputFilePath})`);      
-      
-      releasemutex();
-    }
-    ).catch((error)=>{
-        console.info(`Transformation of file ${filePath} failed. Cause: ${error.cause}`);      
-    })
+    const output = await transform(input, targets);
+    const fileName = path.basename(filePath);
+    const fileExtension = path.extname(filePath);
+    const fileNameWithoutExtension = fileName.replace(fileExtension, '');
+    const fhirFileName = `${fileNameWithoutExtension}-fhir${fileExtension}`;
+    const outputFilePath = path.join(outputFolder, fhirFileName);
 
-  });
+    fs.writeFileSync(outputFilePath, JSON.stringify(output));
+  
+    console.info(`${filePath} ====> ${outputFilePath}`);
+
+  } finally {
+    InputSingleton.getInstance().getMutex().release();
+  }
 
   
 }
 
+/**
+ * 
+ * @param inputFolder 
+ * @param outputFolder 
+ * @throws 
+ */
 const inputFolderToOutputFolder = (inputFolder: string, outputFolder: string) => {
 
   const fileNames: string[] = fs.readdirSync(inputFolder);
   fileNames.forEach((fileName) => {
+    console.info(`Processing ${fileName}`);      
     const filePath: string = path.join(inputFolder, fileName);
     const fileStats: fs.Stats = fs.statSync(filePath);
     if (fileStats.isFile() && fileName.toLowerCase().endsWith(".json")) {
-      inputFileToFolder(filePath, outputFolder);            
+      
+      inputFileToFolder(filePath, outputFolder).catch((err)=> {
+        if (err instanceof UnexpectedInputException){
+          console.info(`Skipping ${filePath} due to unexpected input: ${err.message}`)
+        }
+        else{
+          console.info(`Aborting transformation due to an error while processing ${filePath}: ${err.message}`)
+        }
+        
+      });                  
+      
     }
   });
 

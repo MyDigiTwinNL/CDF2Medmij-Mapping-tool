@@ -12,6 +12,8 @@ import { InputSingleton } from './inputSingleton';
 
 import {transformVariables} from './functionsCatalog'
 
+import {UnexpectedInputException} from './unexpectedInputException'
+
 
 /**
  * Registers a JS function into a JSONata expression
@@ -106,8 +108,15 @@ export async function processInput(input: transformVariables, mappings:MappingTa
             
           }*/
         }
-        catch (error) {                    
-          throw new Error(`Error while transforming a JSonata expression [${JSON.stringify(expression.ast())}]`, { cause: error })
+        catch (error) {          
+          if (error instanceof UnexpectedInputException){            
+            throw error;
+            //console.info('@@@@@@@@@@@@@@@@@@@@ Input data error - to skip')
+          }
+          else{
+            throw new Error(`Error while transforming a JSonata expression [${JSON.stringify(expression.ast())}]`, { cause: error })  
+          }                    
+          
         }
 
       }

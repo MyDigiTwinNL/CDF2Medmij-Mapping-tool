@@ -103,7 +103,7 @@ export const onsetDateTime = ():string|undefined => {
     const firstAssessmentDate = inputValue("date","1a");
     
         
-    assert(firstAssessmentDate!==undefined, 'Precondition violated: age or date are undefined')
+    assert(firstAssessmentDate!==undefined, 'Precondition violated: age or date are undefined (Hypertension)')
 
     const firstAssessmentAge = inputValue("age","1a");
     //find the first occurence of hypertension_presence_adu_q_1=yes

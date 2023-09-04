@@ -3,6 +3,8 @@ import moize from 'moize'
 import {lifelinesDateToISO, lifelinesMeanDate} from '../lifelinesFunctions'
 import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../codes/snomedCodeLists';
 import assert from 'assert'
+import {UnexpectedInputException} from '../unexpectedInputException'
+
 
 /*
 Based on HCIM Problem resource:
@@ -113,7 +115,10 @@ export const onsetDateTime = ():string | undefined=> {
 
     const firstAssessmentDate = inputValue("date","1a");    
         
-    assert(firstAssessmentDate!==undefined, 'Precondition violated: age or date are undefined')
+
+    if (firstAssessmentDate==undefined) throw new UnexpectedInputException('non-null date expected for assessment 1a (TobaccoUse/smokingStart)');
+
+    //assert(firstAssessmentDate!==undefined, 'Precondition violated: age or date are undefined (Stroke)')
 
     const firstAssessmentAge = inputValue("age","1a");
 
@@ -176,9 +181,9 @@ function findDatesBetweenStrokePresenceReport(): [string,string]|undefined{
     const previousWaves = waves.slice(0,waves.indexOf(strokeWave))
     const previousAssessmentWave = previousWaves.reverse().find((pwave)=>assessmentDates[pwave]!==undefined)
     
-    assert (previousAssessmentWave!==undefined,`Assessment (with a defined date) expected to exist previous to the one where stroke_followup_adu_q_1 is reported`)
+    if (previousAssessmentWave==undefined) throw new UnexpectedInputException(`Assessment (with a defined date) expected to exist previous to the one where stroke_followup_adu_q_1 is reported`);
     
-    const previousAssessmentDate:string = assessmentDates[previousAssessmentWave]!;
+    const previousAssessmentDate:string = assessmentDates[previousAssessmentWave!]!;
     return [previousAssessmentDate,strokeWaveDate]
   }
 
