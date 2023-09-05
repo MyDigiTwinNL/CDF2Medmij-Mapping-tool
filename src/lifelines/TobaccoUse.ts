@@ -2,8 +2,8 @@ import { inputValue,createCheckedAccessProxy } from '../functionsCatalog';
 import { lifelinesDateToISO } from '../lifelinesFunctions'
 import moize from 'moize'
 import { tobaccoUseStatusSNOMEDCodelist,typeOfTobaccoUsedSNOMEDCodelist} from '../codes/snomedCodeLists';
-import assert from 'assert'
-import {UnexpectedInputException} from '../unexpectedInputException'
+
+import {UnexpectedInputException,assertIsDefined} from '../unexpectedInputException'
 
 /**
  * Based on HCIM Tobacco ZIB resource https://zibs.nl/wiki/TobaccoUse-v3.1(2017EN)
@@ -83,7 +83,7 @@ export const results=function():TobaccoUseProperties[]{
  */
 const everSmoker = function(wave:string):boolean{
     const eversmk = inputValue("ever_smoker_adu_c_2",wave)
-    assert(eversmk!==undefined)
+    assertIsDefined(eversmk,`Expected value on ever_smoker_adu_c_2`)
     return eversmk==="1"    
 }
 
@@ -100,7 +100,7 @@ const everSmoker = function(wave:string):boolean{
  */
 const exSmoker = function(wave:string):boolean{
     const exSmoker = inputValue("ex_smoker_adu_c_2",wave)
-    assert(exSmoker!==undefined)
+    assertIsDefined(exSmoker,`Expected non-null value on ex_smoker_adu_c_2`)
     return exSmoker==="1"
 }
 
@@ -120,9 +120,8 @@ const exSmoker = function(wave:string):boolean{
  */
 const  smokingStart = (wave:string):string|undefined => {
     const assessmentDate = inputValue("date","1a");   
-    
-    if (assessmentDate==undefined) throw new UnexpectedInputException('non-null date expected for assessment 1a (TobaccoUse/smokingStart)');
-    //assert(assessmentDate!==undefined,'non-null date expected for assessment 1a (TobaccoUse/smokingStart)')
+        
+    assertIsDefined(assessmentDate,'non-null date expected for assessment 1a (TobaccoUse/smokingStart)')
     
     const partAge = inputValue("age","1a");    
     
@@ -154,9 +153,7 @@ const  smokingEnd = (wave:string):string|undefined => {
 
     const assessmentDate = inputValue("date","1a");
     
-    if (assessmentDate==undefined) throw new UnexpectedInputException('non-null date expected for assessment 1a (TobaccoUse/smokingStart)');
-
-    //assert(assessmentDate!==undefined,'non-null date expected for assessment 1a (TobaccoUse/smokingEnd)')
+    assertIsDefined(assessmentDate,'non-null date expected for assessment 1a (TobaccoUse/smokingEnd)')
 
     const partAge = inputValue("age","1a");
     const smokingEndAge = inputValue("smoking_endage_adu_c_2",wave);

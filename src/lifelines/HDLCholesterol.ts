@@ -2,7 +2,7 @@ import {inputValue,createCheckedAccessProxy} from '../functionsCatalog';
 import {lifelinesDateToISO} from '../lifelinesFunctions'
 import moize from 'moize'
 import {testResultFlagsSNOMEDCodelist} from '../codes/snomedCodeLists';
-import assert from 'assert'
+
 
 export const referenceRangeLowerLimit = function():number{
     return 1

@@ -3,7 +3,7 @@ import { lifelinesDateToISO } from '../lifelinesFunctions'
 import moize from 'moize'
 import { cuffTypeManchetTypeCodeList } from '../codes/manchetCodeLists';
 import { measuringLocationSNOMEDCodelist } from '../codes/snomedCodeLists';
-import assert from 'assert'
+import {assertIsDefined} from '../unexpectedInputException'
 
 
 
@@ -183,7 +183,7 @@ export const arterialBloodPressure = function (wave: string): number|undefined {
  */
 export const collectedDateTime = function (wave: string): string|undefined {
     const date = inputValue("date",wave);
-    assert(date!=undefined,`Precondition failed - bloodpressure: missing date in assessment ${wave}`)
+    assertIsDefined(date,`Precondition failed - bloodpressure: missing date in assessment ${wave}`)
     return lifelinesDateToISO(date);    
     
 }

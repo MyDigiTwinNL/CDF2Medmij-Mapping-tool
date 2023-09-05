@@ -2,8 +2,8 @@ import {inputValue, inputValues,variableAssessments} from '../functionsCatalog';
 import moize from 'moize'
 import {lifelinesDateToISO, lifelinesMeanDate} from '../lifelinesFunctions'
 import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../codes/snomedCodeLists';
-import assert from 'assert'
-import {UnexpectedInputException} from '../unexpectedInputException'
+
+import {UnexpectedInputException, assertIsDefined} from '../unexpectedInputException'
 
 
 /*
@@ -115,10 +115,8 @@ export const onsetDateTime = ():string | undefined=> {
 
     const firstAssessmentDate = inputValue("date","1a");    
         
-
-    if (firstAssessmentDate==undefined) throw new UnexpectedInputException('non-null date expected for assessment 1a (TobaccoUse/smokingStart)');
-
-    //assert(firstAssessmentDate!==undefined, 'Precondition violated: age or date are undefined (Stroke)')
+    assertIsDefined(firstAssessmentDate,'non-null date expected for assessment 1a (TobaccoUse/smokingStart)')
+    //if (firstAssessmentDate==undefined) throw new UnexpectedInputException('non-null date expected for assessment 1a (TobaccoUse/smokingStart)');
 
     const firstAssessmentAge = inputValue("age","1a");
 
@@ -168,12 +166,14 @@ export const onsetDateTime = ():string | undefined=> {
 function findDatesBetweenStrokePresenceReport(): [string,string]|undefined{
 
     const strokeFollowUp:variableAssessments = inputValues('stroke_followup_adu_q_1')    
-
+    
     //find the first positive report on stroke_followup_adu_q_1, and its corresponding date
     const strokeWave = Object.keys(strokeFollowUp).find((key) => strokeFollowUp[key] === '1');
-    assert(strokeWave!==undefined,`A 'yes' value on stroke_followup_adu_q_1 was expected`)
+    
+    assertIsDefined(strokeWave,`A 'yes' value on stroke_followup_adu_q_1 was expected`)
+
     const strokeWaveDate = inputValue("date",strokeWave)
-    assert(strokeWaveDate!==undefined,`A non-null date is expected in the assessment where stroke_followup_adu_q_1 is reported`)
+    assertIsDefined(strokeWaveDate,`A non-null date is expected in the assessment where stroke_followup_adu_q_1 is reported`)
 
     //find the previous non-undefined assessment date
     const assessmentDates:variableAssessments = inputValues('date')            
@@ -181,8 +181,8 @@ function findDatesBetweenStrokePresenceReport(): [string,string]|undefined{
     const previousWaves = waves.slice(0,waves.indexOf(strokeWave))
     const previousAssessmentWave = previousWaves.reverse().find((pwave)=>assessmentDates[pwave]!==undefined)
     
-    if (previousAssessmentWave==undefined) throw new UnexpectedInputException(`Assessment (with a defined date) expected to exist previous to the one where stroke_followup_adu_q_1 is reported`);
-    
+    assertIsDefined(previousAssessmentWave,`Assessment (with a non-null date) expected to exist previous to the one where stroke_followup_adu_q_1 is reported`)
+
     const previousAssessmentDate:string = assessmentDates[previousAssessmentWave!]!;
     return [previousAssessmentDate,strokeWaveDate]
   }

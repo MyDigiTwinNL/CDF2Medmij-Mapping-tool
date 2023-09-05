@@ -2,7 +2,7 @@ import {inputValue, inputValues, variableAssessments} from '../functionsCatalog'
 import moize from 'moize'
 import {lifelinesDateToISO, lifelinesMeanDate} from '../lifelinesFunctions'
 import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../codes/snomedCodeLists';
-import assert from 'assert'
+import {assertIsDefined} from '../unexpectedInputException'
 
 /*
 Based on HCIM Problem resource:
@@ -108,7 +108,7 @@ const _clinicalStatus = moize((diab_presence:string|undefined,followup_assessmen
  */
 export const onsetDateTime = ():string|undefined => {
 
-    assert(inputValue("date","1a")!==undefined,'failed precondition: date and age are never missing values (is a default variable)')
+    assertIsDefined(inputValue("date","1a"),'failed precondition: non-null date is expected (Diabetes)')
 
     if (inputValue("diabetes_presence_adu_q_1","1a")==='1'){
         const surveyDateParts = inputValue("date","1a")!.split("-");
@@ -151,27 +151,28 @@ export const onsetDateTime = ():string|undefined => {
  * 
  */
 function findDatesBetweenDiabetesPresenceReport(): [string,string]|undefined{
-    const diabFollowUp=inputValues('diabetes_followup_adu_q_1')      
-    const waves = ['1a','1b',"1c",'2a', '3a', '3b'];
-    let previousWave = waves[0];
-  
-    for (let i = 1; i < waves.length; i++) {
-      const wave = waves[i];
-      const value = diabFollowUp[wave];
-      //find the first positive response
-      if (value === '1') {
-        const positiveResponseAssessmentDate = inputValue("date",wave)
-        const previousAssessmentDate = inputValue("date",previousWave)            
-        
-        assert(positiveResponseAssessmentDate!=undefined && previousAssessmentDate!=undefined,`failed precondition: date and age are never missing values (diabetes, assessment ${wave})`)
-        
-        return [previousAssessmentDate,positiveResponseAssessmentDate];        
-      }
-  
-      previousWave = wave;
-    }
+    
+    const diabFollowUp:variableAssessments = inputValues('diabetes_followup_adu_q_1')      
+    
+    //find the first positive report on diabetes_followup_adu_q_1, and its corresponding date
+    const diabetesRepWave = Object.keys(diabFollowUp).find((key) => diabFollowUp[key] === '1');
+    
+    assertIsDefined(diabetesRepWave,`A 'yes' value on diabetes_followup_adu_q_1 was expected`)    
 
-    return undefined    
+    const diabetesRepWaveDate = inputValue("date",diabetesRepWave)
+    assertIsDefined(diabetesRepWaveDate,`A non-null date is expected in the assessment where diabetes_followup_adu_q_1 is reported`)
+
+    //find the previous non-undefined assessment date
+    const assessmentDates:variableAssessments = inputValues('date')            
+    const waves = ['1a','1b','1c','2a','3a','3b'];    
+    const previousWaves = waves.slice(0,waves.indexOf(diabetesRepWave))
+    const previousAssessmentWave = previousWaves.reverse().find((pwave)=>assessmentDates[pwave]!==undefined)
+    
+    assertIsDefined(previousAssessmentWave,`Assessment (with a defined date) expected to exist previous to the one where diabetes_followup_adu_q_1 is reported`)
+
+    const previousAssessmentDate:string = assessmentDates[previousAssessmentWave]!;
+    return [previousAssessmentDate,diabetesRepWaveDate]
+
 
   }
 

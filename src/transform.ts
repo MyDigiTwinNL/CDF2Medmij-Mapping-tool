@@ -1,4 +1,5 @@
 import fs from 'fs';
+import * as afs from 'fs/promises'
 import * as path from 'path';
 import { MappingTarget, transform } from './mapper'
 import {InputSingleton} from './inputSingleton'
@@ -82,27 +83,68 @@ const inputFileToFolder = async (filePath: string, outputFolder: string) => {
  * @param outputFolder 
  * @throws 
  */
-const inputFolderToOutputFolder = (inputFolder: string, outputFolder: string) => {
+const inputFolderToOutputFolder = async (inputFolder: string, outputFolder: string) => {
+
+  const errList:string[] = []
+  const errFiles:string[] = []
 
   const fileNames: string[] = fs.readdirSync(inputFolder);
-  fileNames.forEach((fileName) => {
-    console.info(`Processing ${fileName}`);      
+
+  for (const fileName of fileNames) {
+    console.info(`Processing ${fileName}`);
     const filePath: string = path.join(inputFolder, fileName);
     const fileStats: fs.Stats = fs.statSync(filePath);
+
     if (fileStats.isFile() && fileName.toLowerCase().endsWith(".json")) {
-      
-      inputFileToFolder(filePath, outputFolder).catch((err)=> {
-        if (err instanceof UnexpectedInputException){
-          console.info(`Skipping ${filePath} due to unexpected input: ${err.message}`)
+      try {
+        await inputFileToFolder(filePath, outputFolder);
+      } catch (err) {
+        if (err instanceof UnexpectedInputException) {
+          console.info(`Skipping ${filePath} due to a variable that wasn't expected to be undefined: ${err.message}`);
+          errList.push(`Skipping ${filePath} due to a variable that wasn't expected to be undefined: ${err.message}`)
+          errFiles.push(`${filePath}`)
+        } else {
+          console.info(`Aborting transformation due to an error while processing ${filePath}: ${err}`);
+          process.exit(1)
+        }
+      }
+    }
+  }
+
+  //inputFileToFolder is performed asyncrhonously. Synchronize all the
+  //await Promise.all(promises);
+  if (errList.length > 0 ){
+    const now = new Date();
+    const timestamp = now.toISOString().replace(/[:T.-]/g, '_'); 
+    const errorLogPath = `/tmp/errors_${timestamp}.txt`; 
+    const failedFilesLogPath = `/tmp/failed_files_${timestamp}.txt`; 
+
+    fs.writeFile(errorLogPath,errList.join('\n'),
+      (error)=>{
+        if (error){
+          console.error(`Unable to save error files ${errorLogPath}`)
         }
         else{
-          console.info(`Aborting transformation due to an error while processing ${filePath}: ${err.message}`)
+          console.log(`Details of files with errors were written on ${errorLogPath}`)
         }
-        
-      });                  
-      
-    }
-  });
+      }
+    )
+
+    fs.writeFile(failedFilesLogPath,errFiles.join('\n'),
+      (error)=>{
+        if (error){
+          console.error(`Unable to save error files ${failedFilesLogPath}`)
+        }
+        else{
+          console.log(`The list of files with inconsistencies was written on ${failedFilesLogPath}`)
+        }
+      }
+    )
+  }
+  else{
+    console.info('Finished with no errors')
+  }
+  
 
 }
 
