@@ -1,4 +1,4 @@
-import {inputValue} from '../functionsCatalog';
+import {inputValue,createCheckedAccessProxy} from '../functionsCatalog';
 import {lifelinesDateToISO} from '../lifelinesFunctions'
 import moize from 'moize'
 import {testResultFlagsSNOMEDCodelist} from '../codes/snomedCodeLists';
@@ -9,12 +9,29 @@ export const referenceRangeUpperLimit = function():number{
     return 3
 };
 
+export type LDLCholesterolReadingEntry = {
+    "assessment":string,
+    "isLDLAboveReferenceRange": boolean|undefined,
+    "resultFlags": object|undefined,
+    "ldlResults": number|undefined,
+    "collectedDateTime": string|undefined
+}
+
 
 /*
 Based on HCIM Problem resource:
 https://simplifier.net/packages/nictiz.fhir.nl.stu3.zib2017/2.2.13/files/2039136
 
 */
+
+/**
+ * It is assumed (from Lifelines data analysis) that when 'date' is missing in an assessment, the
+ * participant dropped the study or missed the assessment.
+ * @param wave 
+ * @returns true if the assessment was missed 
+ */
+const missedAsssesment = (wave:string) => inputValue("date",wave)==undefined
+
 
 
 
@@ -31,40 +48,65 @@ https://simplifier.net/packages/nictiz.fhir.nl.stu3.zib2017/2.2.13/files/2039136
  * ------------------------------------------------------------------
  * 
  */
-export const results=function():object[]{
-    return [
-        {
-            "assessment":"1a",
-            "isLDLAboveReferenceRange": isLDLAboveReferenceRange("1a"),
-            "resultFlags": resultFlags("1a"),
-            "ldlResults": ldlResults("1a"),
-            "collectedDateTime": collectedDateTime("1a")
-        },
-        {
-            "assessment":"2a",
-            "isLDLAboveReferenceRange": isLDLAboveReferenceRange("2a"),
-            "resultFlags": resultFlags("2a"),
-            "ldlResults": ldlResults("2a"),
-            "collectedDateTime": collectedDateTime("2a")
-        },
-    
-    ]
+export const results=function():LDLCholesterolReadingEntry[]{
+
+    const waves=["1a","2a"]
+
+    //if the assessment was missed, do not evaluate/create the resource
+    return waves.filter((wave)=>!missedAsssesment(wave)).map((wave) =>
+        createCheckedAccessProxy({
+            "assessment":wave,
+            "isLDLAboveReferenceRange": isLDLAboveReferenceRange(wave),
+            "resultFlags": resultFlags(wave),
+            "ldlResults": ldlResults(wave),
+            "collectedDateTime": collectedDateTime(wave)
+        })        
+    )
 
 }
 
 
-const isLDLAboveReferenceRange = function(wave:string):boolean{
-    return Number(inputValue("ldlchol_result_all_m_1",wave)) > referenceRangeUpperLimit()
+const isLDLAboveReferenceRange = function(wave:string):boolean|undefined{
+
+    const hdlres = ldlResults(wave)    
+    if (ldlResults(wave)!=undefined){
+        return Number(inputValue("ldlchol_result_all_m_1",wave)) > referenceRangeUpperLimit()
+    }
+    else{
+        return undefined
+    }
 };
 
-const resultFlags = function(wave:string):object{
-    return isLDLAboveReferenceRange(wave)?testResultFlagsSNOMEDCodelist.above_reference_range:{}
+const resultFlags = function(wave:string):object|undefined{
+
+    if (isLDLAboveReferenceRange(wave)){
+        return testResultFlagsSNOMEDCodelist.above_reference_range
+    }
+    else{
+        return undefined
+    }
+
 };
 
-const ldlResults=function(wave:string):number{
-    return Number(inputValue("ldlchol_result_all_m_1",wave))
+const ldlResults=function(wave:string):number|undefined{
+
+    const ldlres = inputValue("ldlchol_result_all_m_1",wave);
+
+    if (ldlres!=undefined){
+        return Number(ldlres)    
+    }
+    else{
+        return undefined
+    }    
+
 };
 
-const collectedDateTime=function(wave:string):string{
-    return lifelinesDateToISO(inputValue("date",wave))
+const collectedDateTime=function(wave:string):string|undefined{
+    const coldate = inputValue("date",wave)
+    if (coldate!=undefined){
+        return lifelinesDateToISO(coldate)
+    }
+    else{
+        return undefined
+    }    
 };

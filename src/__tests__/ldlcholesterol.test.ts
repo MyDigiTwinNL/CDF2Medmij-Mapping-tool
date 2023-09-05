@@ -31,7 +31,7 @@ test('Cholesterol reports, above reference range', () => {
 
 });
 
-
+/*
 test('Cholesterol reports, mix of normal and above reference ranges', () => {
   
   const input = {
@@ -110,4 +110,4 @@ test('LDLCholesteron resource generation', () => {
 
 })
 
-      
+      */

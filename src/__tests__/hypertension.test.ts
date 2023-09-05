@@ -35,8 +35,6 @@ test('No hypertension reported', () => {
   expect(hypertensionmf.isPresent()).toBe(false);
   expect(hypertensionmf.clinicalStatus()).toStrictEqual({});
 
-
-
 });
 
 

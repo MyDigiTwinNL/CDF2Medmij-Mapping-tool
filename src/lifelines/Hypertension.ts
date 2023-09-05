@@ -49,10 +49,9 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  *      an 'empty' result is returned, as there is no such a thing as 'inactive' hypertension.
  * 
  */
-export const clinicalStatus = ():object|undefined => { 
+export const clinicalStatus = ():object => { 
     const hypertpres = inputValues('hypertension_presence_adu_q_1');
-
-    return hypertpres!==undefined?_clinicalStatus(hypertpres):undefined
+    return _clinicalStatus(hypertpres)
 
 }
 
@@ -102,14 +101,16 @@ const _clinicalStatus = moize((hypertension_presence_assessments:variableAssessm
 export const onsetDateTime = ():string|undefined => {
     const firstAssessmentDate = inputValue("date","1a");
     
-        
-    assertIsDefined(firstAssessmentDate, 'Non-null date expected (Hypertension)')
+    assertIsDefined(firstAssessmentDate, 'Non-null assessment date expected (Hypertension)')
 
     const firstAssessmentAge = inputValue("age","1a");
-    //find the first occurence of hypertension_presence_adu_q_1=yes
+    
+    //find the first assessment where hypertension_presence_adu_q_1=yes
     const hypPresence = Object.entries(inputValues("hypertension_presence_adu_q_1")).find(([key,value]) => value === "1")
     
-    const hypPresenceAssessment:string = hypPresence!==undefined?hypPresence[0]:"";   
+    assertIsDefined(hypPresence,`A 'yes' value in hypertension_presence_adu_q_1 is expected as the clinical status is active`)
+
+    const hypPresenceAssessment:string = hypPresence[0];   
 
     const hypStartAge:string|undefined = inputValue('hypertension_startage_adu_q_1',hypPresenceAssessment);
 

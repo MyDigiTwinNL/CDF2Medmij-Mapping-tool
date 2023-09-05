@@ -4,6 +4,7 @@ import {testResultFlagsSNOMEDCodelist} from '../codes/snomedCodeLists';
 import { MappingTarget, processInput } from '../mapper'
 import { transformVariables } from '../functionsCatalog';
 
+
 type HDLCholesterolProperties = {
   "assessment":string,
   "isHDLBelowReferenceRange":boolean,

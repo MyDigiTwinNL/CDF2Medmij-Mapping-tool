@@ -107,14 +107,17 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  },
+  }
+  /*,
   "exclude": [
     "src/__tests__",
     "src/lifelines"
   ],
   "files": [
     "src/__tests__/bloodpressure.test.ts",
+    "src/__tests__/diabetes.test.ts",
     "src/lifelines/HDLCholesterol.ts",
+    "src/lifelines/Hypertension.ts",
     "src/lifelines/Diabetes.ts",
     "src/lifelines/TobaccoUse.ts",
     "src/lifelines/BloodPressure.ts",
@@ -128,6 +131,6 @@
     "src/transformationParameters.ts",
     "src/viewerserver/server.ts",
     "src/viewerserver/serversettings.ts",
-  ]
+  ]*/
 
 }
