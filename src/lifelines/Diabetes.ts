@@ -2,7 +2,7 @@ import {inputValue, inputValues, variableAssessments} from '../functionsCatalog'
 import moize from 'moize'
 import {lifelinesDateToISO, lifelinesMeanDate} from '../lifelinesFunctions'
 import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../codes/snomedCodeLists';
-import {assertIsDefined} from '../unexpectedInputException'
+import {assertIsDefined, failIsDefined} from '../unexpectedInputException'
 
 /*
 Based on HCIM Problem resource:
@@ -257,8 +257,11 @@ export const code = ():object|undefined => {
             if (Object.values(t2dfollowup).some((wavereading) => wavereading === "1")){
                 return conditionsSNOMEDCodeList.diabetes_mellitus_type_2;
             }
-            else{
-                throw Error("Unexpected input (precondition violated): no 'yes' values in neither t2d_followup_adu_q_1 nor t2d_followup_adu_q_1")
+            else{                
+                failIsDefined(`Unexpected input:  diabetes reported as active in a follow-up assessment, but no 'yes' values in neither t2d_followup_adu_q_1 nor t2d_followup_adu_q_1 (diabetes type cannot be determined)`)
+                //return undefined
+                //@question 
+                //throw Error("Unexpected input (precondition violated): no 'yes' values in neither t2d_followup_adu_q_1 nor t2d_followup_adu_q_1")
             }
 
         }

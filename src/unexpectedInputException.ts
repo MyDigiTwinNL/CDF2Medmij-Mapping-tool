@@ -6,6 +6,10 @@ export class UnexpectedInputException extends Error {
     }
 }
 
+export function failIsDefined(message:string){
+    throw new UnexpectedInputException(message);
+}
+
 export function assertIsDefined(value: unknown, message: string): asserts value {
     if (value === undefined) {
         throw new UnexpectedInputException(message);
