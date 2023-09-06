@@ -29,8 +29,8 @@
     "bpavg_diastolic_all_m_1":      {"1a":"","2a":""},
     "bpavg_arterial_all_m_1":       {"1a":"","2a":"113"},
 
-    "hdlchol_result_all_m_1":       {"1a":"0.31","2a":"0.32"},
-    "ldlchol_result_all_m_1":       {"1a":"0.41","2a":"0.42"},
+    "hdlchol_result_all_m_1":       {"1a":"","2a":"0.32"},
+    "ldlchol_result_all_m_1":       {"1a":"0.41","2a":""},
     "cholesterol_result_all_m_1":   {"1a":"0.51","2a":"0.52"},
     
     "heartattack_startage_adu_q_1": {"1a":"33"},

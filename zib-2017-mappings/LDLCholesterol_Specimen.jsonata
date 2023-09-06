@@ -2,7 +2,7 @@
     
 $map($LDLCholesterol_results(), function($result) {
 
-    {
+    ($isDefined($result.ldlResults))?{
         "resourceType": "Specimen",
         
         "id": $waveSpecificResourceId('zib-laboratorytestresult-specimen-ldl',$result.assessment),
@@ -31,7 +31,7 @@ $map($LDLCholesterol_results(), function($result) {
         "collection": {
             "collectedDateTime": $result.collectedDateTime
         }
-    }
+    } : {}
 
 })
 

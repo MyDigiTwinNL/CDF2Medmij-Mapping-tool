@@ -31,7 +31,7 @@ test('Cholesterol reports, above reference range', () => {
 
 });
 
-/*
+
 test('Cholesterol reports, mix of normal and above reference ranges', () => {
   
   const input = {
@@ -44,7 +44,7 @@ test('Cholesterol reports, mix of normal and above reference ranges', () => {
   const results = cholesterolmf.results()
   expect(results.length).toBe(2);  
   expect((results[0] as LDLCholesterolProperties).isLDLAboveReferenceRange).toBe(false)
-  expect((results[0] as LDLCholesterolProperties).resultFlags).toStrictEqual({});
+  expect((results[0] as LDLCholesterolProperties).resultFlags).toStrictEqual(undefined);
   expect((results[1] as LDLCholesterolProperties).isLDLAboveReferenceRange).toBe(true)
   expect((results[1] as LDLCholesterolProperties).resultFlags).toBe(testResultFlagsSNOMEDCodelist.above_reference_range);
   
@@ -64,9 +64,9 @@ test('Cholesterol reports, within normal levels', () => {
   const results = cholesterolmf.results()
   expect(results.length).toBe(2);
   expect((results[0] as LDLCholesterolProperties).isLDLAboveReferenceRange).toBe(false)
-  expect((results[0] as LDLCholesterolProperties).resultFlags).toStrictEqual({});
+  expect((results[0] as LDLCholesterolProperties).resultFlags).toStrictEqual(undefined);
   expect((results[1] as LDLCholesterolProperties).isLDLAboveReferenceRange).toBe(false)
-  expect((results[1] as LDLCholesterolProperties).resultFlags).toStrictEqual({});
+  expect((results[1] as LDLCholesterolProperties).resultFlags).toStrictEqual(undefined);
   
 
 });
@@ -110,4 +110,4 @@ test('LDLCholesteron resource generation', () => {
 
 })
 
-      */
+      

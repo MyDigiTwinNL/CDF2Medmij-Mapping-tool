@@ -5,7 +5,7 @@
 
 $map($LDLCholesterol_results(), function($result) {
         
-    {
+    ($isDefined($result.ldlResults))?{
     "resourceType": "DiagnosticReport",
     "id": $waveSpecificResourceId('zib-laboratorytestresult-diagnosticreport-ldl',$result.assessment),
     "meta": {
@@ -77,7 +77,7 @@ $map($LDLCholesterol_results(), function($result) {
     ]
     
 
-    }
+    } : {}
 
 })
 
