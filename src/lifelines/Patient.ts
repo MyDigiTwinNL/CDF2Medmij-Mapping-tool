@@ -25,10 +25,10 @@ export const birthDate = () => {
 
 
 export const gender = ():object => {
-    if (inputValue("gender","1a")==="male"){
+    if (inputValue("gender","1a")==="MALE"){
         return genderFHIRV3Codes.male;
     }
-    else if (inputValue("gender","1a")==="female"){
+    else if (inputValue("gender","1a")==="FEMALE"){
         return genderFHIRV3Codes.female;
     }
     else{
