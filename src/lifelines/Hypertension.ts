@@ -138,5 +138,5 @@ export const verificationStatus = ():object => {
 
 
 export const code = ():object => (
-    conditionsSNOMEDCodeList.diabetes_mellitus
+    conditionsSNOMEDCodeList.hypertensive_disorder
 )
