@@ -27,7 +27,7 @@
             "reference": $idToUUID($resourceId('nl-core-patient')),
             "display": "Anonymized-"&$resourceId('nl-core-patient')
         },
-        "effectivePeriod": ($result.everSmoker)? {
+        "effectivePeriod": ($result.everSmoker and ($isDefined($result.smokingStartDate) or $isDefined($result.smokingEndDate)) )? {
             "start": $result.smokingStartDate,
             "end":($result.exSmoker)? $result.smokingEndDate
         },

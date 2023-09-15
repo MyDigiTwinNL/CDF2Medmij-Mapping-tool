@@ -14,8 +14,9 @@
             "status": "extensions",
             "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Undefined</div>"
         },
+        
         "gender": $Patient_gender().display,
-        "_gender": {
+        "_gender": $isDefined($Patient_gender())? {
             "extension": [
                 {
                     "url": "http://nictiz.nl/fhir/StructureDefinition/code-specification",
@@ -30,7 +31,8 @@
                     }
                 }
             ]
-        },
+        } : undefined
+        ,
         "birthDate": $Patient_birthDate()
     }
 

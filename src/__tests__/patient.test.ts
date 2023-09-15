@@ -9,12 +9,28 @@ test('Male patient', () => {
   const input = {
     "age": {"1a":"22"},
     "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
-    "gender": {"1a":"male"}
+    "gender": {"1a":"MALE"}
   }  
 
   InputSingleton.getInstance().setInput(input);
   expect(patientmf.birthDate()).toBe("1970");
   expect(patientmf.gender()).toBe(genderFHIRV3Codes.male)
+  
+
+});
+
+
+test('Female patient, undefined age', () => {
+  
+  const input = {
+    "age": {"1a":""},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
+    "gender": {"1a":"FEMALE"}
+  }  
+
+  InputSingleton.getInstance().setInput(input);
+  expect(patientmf.birthDate()).toBe(undefined);
+  expect(patientmf.gender()).toBe(genderFHIRV3Codes.female)
   
 
 });
@@ -28,7 +44,7 @@ test('Patient resource generation', () => {
         "project_pseudo_id": {"1a":"520681571"},
         "age": {"1a":"22"},
         "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
-        "gender": {"1a":"male"}
+        "gender": {"1a":"MALE"}
       }  
       
     const targets: MappingTarget[] = [

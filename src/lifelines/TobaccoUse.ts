@@ -83,7 +83,7 @@ export const results=function():TobaccoUseProperties[]{
  */
 const everSmoker = function(wave:string):boolean{
     const eversmk = inputValue("ever_smoker_adu_c_2",wave)
-    assertIsDefined(eversmk,`Expected value on ever_smoker_adu_c_2`)
+    assertIsDefined(eversmk,`Expected non-null value on ever_smoker_adu_c_2`)
     return eversmk==="1"    
 }
 
@@ -133,7 +133,6 @@ const  smokingStart = (wave:string):string|undefined => {
         const startAge = Number(smokingStartAge);
         //Age is only on baseline assessment 1A
         const surveyAge = Number(partAge);   
-        
         return (surveyYear - surveyAge + startAge).toString()
     }
     else{
@@ -197,7 +196,7 @@ const typeOfTobaccoUsed = (wave:string):object|undefined =>{
  * @return the SNOMED code corresponding to the related variables. If the related variables
  *         are undefined, returns 'other'
  * 
- *         Note: the related variables do not follow the standard coding (1=yes, 2=no)
+ *         ***Note***: the Smoking derivatives variables do not follow the standard coding (1=yes, 2=no)
  *               Instead, yes = 1, no = 0.
  * 
  *              "current_smoker_adu_c_2","0","no","nee"
