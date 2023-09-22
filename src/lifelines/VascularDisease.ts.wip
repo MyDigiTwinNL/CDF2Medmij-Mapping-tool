@@ -17,7 +17,7 @@ http://wiki.lifelines.nl/doku.php?id=cardiovascular_diseases
  * 
  *                                      [1A][1B][1C][2A][3A][3B]
  *   heartattack_startage_adu_q_1:      [X ][  ][  ][  ][  ][  ]    
- *   angioplasty_bypass_adu_q_1_a:       [X ][  ][  ][  ][X ][X ]    
+ *   angioplasty_bypass_adu_q_1_a:      [X ][  ][  ][  ][X ][X ]    
  *   heartattack_presence_adu_q_1:      [X ][  ][  ][  ][  ][  ]    
  *   heartattack_followup_adu_q_1:      [  ][X ][X ][X ][X ][X ]    
  *   angioplasty_bypass_adu_q_1:        [X ][  ][  ][  ][X ][X ]    
@@ -44,7 +44,7 @@ export const code = ():object => {
  *   heartattack_presence_adu_q_1:      [X ][  ][  ][  ][  ][  ]    
  *   heartattack_followup_adu_q_1:      [  ][X ][X ][X ][X ][X ]
  *   angioplasty_bypass_adu_q_1:        [X ][  ][  ][  ][X ][X ]     
- *   angioplasty_bypass_adu_q_1_a:       [X ][  ][  ][  ][X ][X ]  how old were you when you had the (first) balloon angioplasty/bypass surgery?       
+ *   angioplasty_bypass_adu_q_1_a:      [X ][  ][  ][  ][X ][X ]  how old were you when you had the (first) balloon angioplasty/bypass surgery?       
  *   carotid_stenosis_adu_q_1:          [X ][  ][  ][  ][  ][  ]    
  *   claudication_followup_adu_q_1:     [  ][X ][X ][X ][X ][X ]    
  *   cvd_followup_adu_q_1:              [  ][X ][X ][X ][X ][X ]    
@@ -107,17 +107,6 @@ export const clinicalStatus = ():object => {
 
 }
 
-
-
-
-
-type ObjectWithProperties = 
-{
-    [key: string]: {
-      [key: string]: string;
-    };
-};
-
   
 /**
  * Find the first assessment (given the series of assessment 1A, 1B, 1C, 2A, 3A, 3B) where
@@ -167,7 +156,7 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  *   heartattack_presence_adu_q_1:      [X ][  ][  ][  ][  ][  ]    
  *   heartattack_startage_adu_q_1:      [X ][  ][  ][  ][  ][  ]    
  *   angioplasty_bypass_adu_q_1:        [X ][  ][  ][  ][X ][X ]  have you ever had a balloon angioplasty (stretching of artery with balloon) and/or bypass surgery? 
- *   angioplasty_bypass_adu_q_1_a:       [X ][  ][  ][  ][X ][X ]  if so, how old were you when you had the (first) balloon angioplasty/bypass surgery?  
+ *   angioplasty_bypass_adu_q_1_a:      [X ][  ][  ][  ][X ][X ]  if so, how old were you when you had the (first) balloon angioplasty/bypass surgery?  
  * 
  *   heartattack_followup_adu_q_1:      [  ][X ][X ][X ][X ][X ]    
  *   carotid_stenosis_adu_q_1:          [X ][  ][  ][  ][  ][  ]    
