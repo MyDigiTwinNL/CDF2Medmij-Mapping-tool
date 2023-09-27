@@ -6,14 +6,14 @@ import {testResultFlagsSNOMEDCodelist} from '../codes/snomedCodeLists';
 
 
 export const referenceRangeUpperLimit = function():number{
-    return 3
+    return 5
 };
 
-export type LDLCholesterolReadingEntry = {
+export type TotalCholesterolReadingEntry = {
     "assessment":string,
-    "isLDLAboveReferenceRange": boolean|undefined,
+    "isTotalCholAboveReferenceRange": boolean|undefined,
     "resultFlags": object|undefined,
-    "ldlResults": number|undefined,
+    "totalCholResults": number|undefined,
     "collectedDateTime": string|undefined
 }
 
@@ -44,11 +44,11 @@ const missedAsssesment = (wave:string) => inputValue("date",wave)==undefined
  * Related variables:
  * ------------------------------------------------------------------
  *                                [1A][1B][1C][2A][3A][3B]
- * ldlchol_result_all_m_1         [X ][  ][  ][X ][  ][  ]
+ * cholesterol_result_all_m_1     [X ][  ][  ][X ][  ][  ]
  * ------------------------------------------------------------------
  * 
  */
-export const results=function():LDLCholesterolReadingEntry[]{
+export const results=function():TotalCholesterolReadingEntry[]{
 
     const waves=["1a","2a"]
 
@@ -56,9 +56,9 @@ export const results=function():LDLCholesterolReadingEntry[]{
     return waves.filter((wave)=>!missedAsssesment(wave)).map((wave) =>
         createCheckedAccessProxy({
             "assessment":wave,
-            "isLDLAboveReferenceRange": isLDLAboveReferenceRange(wave),
+            "isTotalCholAboveReferenceRange": isTotalCholAboveReferenceRange(wave),
             "resultFlags": resultFlags(wave),
-            "ldlResults": ldlResults(wave),
+            "totalCholResults": totalCholResults(wave),
             "collectedDateTime": collectedDateTime(wave)
         })        
     )
@@ -66,10 +66,10 @@ export const results=function():LDLCholesterolReadingEntry[]{
 }
 
 
-const isLDLAboveReferenceRange = function(wave:string):boolean|undefined{
-
-    if (ldlResults(wave)!=undefined){
-        return Number(inputValue("ldlchol_result_all_m_1",wave)) > referenceRangeUpperLimit()
+const isTotalCholAboveReferenceRange = function(wave:string):boolean|undefined{
+    
+    if (totalCholResults(wave)!=undefined){
+        return Number(inputValue("cholesterol_result_all_m_1",wave)) > referenceRangeUpperLimit()
     }
     else{
         return undefined
@@ -78,7 +78,7 @@ const isLDLAboveReferenceRange = function(wave:string):boolean|undefined{
 
 const resultFlags = function(wave:string):object|undefined{
 
-    if (isLDLAboveReferenceRange(wave)){
+    if (isTotalCholAboveReferenceRange(wave)){
         return testResultFlagsSNOMEDCodelist.above_reference_range
     }
     else{
@@ -87,12 +87,12 @@ const resultFlags = function(wave:string):object|undefined{
 
 };
 
-const ldlResults=function(wave:string):number|undefined{
+const totalCholResults=function(wave:string):number|undefined{
 
-    const ldlres = inputValue("ldlchol_result_all_m_1",wave);
+    const totalCholRes = inputValue("cholesterol_result_all_m_1",wave);
 
-    if (ldlres!=undefined){
-        return Number(ldlres)    
+    if (totalCholRes!=undefined){
+        return Number(totalCholRes)    
     }
     else{
         return undefined

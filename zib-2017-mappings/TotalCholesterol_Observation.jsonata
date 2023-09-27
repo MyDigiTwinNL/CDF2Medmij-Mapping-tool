@@ -3,7 +3,7 @@
 
 $map($TotalCholesterol_results(), function($result) {
 
-        {
+    ($isDefined($result.totalCholResults))?{
         "resourceType": "Observation",        
         "id": $waveSpecificResourceId('zib-laboratorytestresult-observation-total-chol',$result.assessment),    
         "meta": {
@@ -84,7 +84,7 @@ $map($TotalCholesterol_results(), function($result) {
                 
             }
         ]
-        }
+        }  : {}
 
 })
 

@@ -1,15 +1,8 @@
 import { InputSingleton } from '../inputSingleton';
 import * as cholesterolmf from '../lifelines/LDLCholesterol'
+import {LDLCholesterolReadingEntry} from '../lifelines/LDLCholesterol'
 import {testResultFlagsSNOMEDCodelist} from '../codes/snomedCodeLists';
 import { MappingTarget, processInput } from '../mapper'
-
-type LDLCholesterolProperties = {
-  "assessment":string,
-  "isLDLAboveReferenceRange":boolean,
-  "resultFlags": object,
-  "ldlResults": number,
-  "collectedDateTime": string
-}
 
 
 test('Cholesterol reports, above reference range', () => {
@@ -23,10 +16,10 @@ test('Cholesterol reports, above reference range', () => {
   InputSingleton.getInstance().setInput(input);
   const results = cholesterolmf.results()
   expect(results.length).toBe(2);  
-  expect((results[0] as LDLCholesterolProperties).isLDLAboveReferenceRange).toBe(true)
-  expect((results[0] as LDLCholesterolProperties).resultFlags).toBe(testResultFlagsSNOMEDCodelist.above_reference_range);
-  expect((results[1] as LDLCholesterolProperties).isLDLAboveReferenceRange).toBe(true)
-  expect((results[1] as LDLCholesterolProperties).resultFlags).toBe(testResultFlagsSNOMEDCodelist.above_reference_range);
+  expect((results[0] as LDLCholesterolReadingEntry).isLDLAboveReferenceRange).toBe(true)
+  expect((results[0] as LDLCholesterolReadingEntry).resultFlags).toBe(testResultFlagsSNOMEDCodelist.above_reference_range);
+  expect((results[1] as LDLCholesterolReadingEntry).isLDLAboveReferenceRange).toBe(true)
+  expect((results[1] as LDLCholesterolReadingEntry).resultFlags).toBe(testResultFlagsSNOMEDCodelist.above_reference_range);
   
 
 });
@@ -43,10 +36,10 @@ test('Cholesterol reports, mix of normal and above reference ranges', () => {
   InputSingleton.getInstance().setInput(input);
   const results = cholesterolmf.results()
   expect(results.length).toBe(2);  
-  expect((results[0] as LDLCholesterolProperties).isLDLAboveReferenceRange).toBe(false)
-  expect((results[0] as LDLCholesterolProperties).resultFlags).toStrictEqual(undefined);
-  expect((results[1] as LDLCholesterolProperties).isLDLAboveReferenceRange).toBe(true)
-  expect((results[1] as LDLCholesterolProperties).resultFlags).toBe(testResultFlagsSNOMEDCodelist.above_reference_range);
+  expect((results[0] as LDLCholesterolReadingEntry).isLDLAboveReferenceRange).toBe(false)
+  expect((results[0] as LDLCholesterolReadingEntry).resultFlags).toStrictEqual(undefined);
+  expect((results[1] as LDLCholesterolReadingEntry).isLDLAboveReferenceRange).toBe(true)
+  expect((results[1] as LDLCholesterolReadingEntry).resultFlags).toBe(testResultFlagsSNOMEDCodelist.above_reference_range);
   
 
 });
@@ -63,10 +56,10 @@ test('Cholesterol reports, within normal levels', () => {
   InputSingleton.getInstance().setInput(input);
   const results = cholesterolmf.results()
   expect(results.length).toBe(2);
-  expect((results[0] as LDLCholesterolProperties).isLDLAboveReferenceRange).toBe(false)
-  expect((results[0] as LDLCholesterolProperties).resultFlags).toStrictEqual(undefined);
-  expect((results[1] as LDLCholesterolProperties).isLDLAboveReferenceRange).toBe(false)
-  expect((results[1] as LDLCholesterolProperties).resultFlags).toStrictEqual(undefined);
+  expect((results[0] as LDLCholesterolReadingEntry).isLDLAboveReferenceRange).toBe(false)
+  expect((results[0] as LDLCholesterolReadingEntry).resultFlags).toStrictEqual(undefined);
+  expect((results[1] as LDLCholesterolReadingEntry).isLDLAboveReferenceRange).toBe(false)
+  expect((results[1] as LDLCholesterolReadingEntry).resultFlags).toStrictEqual(undefined);
   
 
 });

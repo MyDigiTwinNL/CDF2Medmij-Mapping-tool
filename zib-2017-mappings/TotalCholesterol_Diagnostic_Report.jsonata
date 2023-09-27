@@ -5,7 +5,7 @@
 
 $map($TotalCholesterol_results(), function($result) {
         
-    {
+    ($isDefined($result.totalCholResults))?{
     "resourceType": "DiagnosticReport",
     "id": $waveSpecificResourceId('zib-laboratorytestresult-diagnosticreport-total-chol',$result.assessment),
     "meta": {
@@ -65,19 +65,19 @@ $map($TotalCholesterol_results(), function($result) {
     "effectiveDateTime": $result.collectedDateTime,
     "specimen": [
         {
-            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-ldl',$result.assessment)),
+            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-total-chol',$result.assessment)),
             "display": "Blood"
         }
     ],
     "result": [
-        {
-            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-observation-ldl',$result.assessment)),
+        {        
+            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-observation-total-chol',$result.assessment)),
             "display": "Laboratory test finding"
         }
     ]
     
 
-    }
+    } : {}
 
 })
 

@@ -2,7 +2,7 @@
     
 $map($TotalCholesterol_results(), function($result) {
 
-    {
+    ($isDefined($result.totalCholResults))?{
         "resourceType": "Specimen",
         
         "id": $waveSpecificResourceId('zib-laboratorytestresult-specimen-total-chol',$result.assessment),
@@ -31,7 +31,7 @@ $map($TotalCholesterol_results(), function($result) {
         "collection": {
             "collectedDateTime": $result.collectedDateTime
         }
-    }
+    } : {}
 
 })
 
