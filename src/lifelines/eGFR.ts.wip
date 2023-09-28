@@ -30,13 +30,18 @@ https://www.umcg.nl/bw/7f1121a4-bc7d-4c82-92e9-163fd7c41162
  *          - result: creatinine_result_all_m_1 in assessment_N
  *          - resultcoding: {"system": "http://loinc.org","code": "14682-9","display": "Creat SerPl-sCnc"}
  *          - resultunits: {"unit": "umol/l","system": "http://unitsofmeasure.org","code": "umol/L"}
- *          - resultFlag: {code:281302008, system:http://snomed.info/sct} if 
- *              creatinine_result_all_m_1 in assessment_N > [insert value] [units]
+ *          - resultFlag: if gender == male:
+ *                            if creatinine_result_all_m_1 in assessment_N > 110.0 mmol/L:
+ *                               {code:281302008, system:http://snomed.info/sct}
+ *                            elif creatinine_result_all_m_1 in assessment_N < 50.0 mmol/L:
+ *                               {code:281300000, system:http://snomed.info/sct}
+ *                        elif gender == female:
+ *                            if creatinine_result_all_m_1 in assessment_N > 90.0 mmol/L:
+ *                               {code:281302008, system:http://snomed.info/sct}
+ *                            elif creatinine_result_all_m_1 in assessment_N < 50.0 mmol/L:
+ *                               {code:281300000, system:http://snomed.info/sct}
  *          - collectedDateTime: date of assessment_N         
  * 
- * Reference values
- * Vrouwen	50 - 90 umol/l
- * Mannen	50 - 110 umol/l
  * /
 export const results=function():LaboratoryResultsEntry[]{
 
