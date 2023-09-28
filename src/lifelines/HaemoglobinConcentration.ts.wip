@@ -30,12 +30,18 @@ https://www.umcg.nl/bw/42976573-722a-48fc-a650-5ea718fd1717
  *          - result: hemoglobin_result_all_m_1 in assessment_N
  *          - resultcoding: {"system": "http://loinc.org","code": "718-7","display": "Hgb Bld-mCnc"}
  *          - resultunits: {"unit": "mmol/l","system": "http://unitsofmeasure.org","code": "mmol/L"}
- *          - resultFlag: {code:281302008, system:http://snomed.info/sct} if 
- *              hemoglobin_result_all_m_1 in assessment_N > [insert value] [units]
+ *          - resultFlag: if gender == male:
+ *                            if hemoglobin_result_all_m_1 in assessment_N > 11.0 mmol/L:
+ *                               {code:281302008, system:http://snomed.info/sct}
+ *                            elif hemoglobin_result_all_m_1 in assessment_N < 8.5 mmol/L:
+ *                               {code:281300000, system:http://snomed.info/sct}
+ *                        elif gender == female:
+ *                            if hemoglobin_result_all_m_1 in assessment_N > 10.0 mmol/L:
+ *                               {code:281302008, system:http://snomed.info/sct}
+ *                            elif hemoglobin_result_all_m_1 in assessment_N < 7.5 mmol/L:
+ *                               {code:281300000, system:http://snomed.info/sct}
  *          - collectedDateTime: date of assessment_N         
  * 
- *          Reference values for men: 8.5-11.0 mmol/L
- *          Reference values for women: 7.5-10.0 mmol/L
  * /
 export const results=function():LaboratoryResultsEntry[]{
 
