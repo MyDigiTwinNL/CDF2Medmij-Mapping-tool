@@ -29,7 +29,7 @@ https://www.umcg.nl/bw/7f1121a4-bc7d-4c82-92e9-163fd7c41162
  *      [[assessment_N]:
  *          - result: creatinine_result_all_m_1 in assessment_N
  *          - resultcoding: {"system": "http://loinc.org","code": "14682-9","display": "Creat SerPl-sCnc"}
- *          - resultunits: {"unit": "mmol/l","system": "http://unitsofmeasure.org","code": "umol/L"}
+ *          - resultunits: {"unit": "umol/l","system": "http://unitsofmeasure.org","code": "umol/L"}
  *          - resultFlag: {code:281302008, system:http://snomed.info/sct} if 
  *              creatinine_result_all_m_1 in assessment_N > [insert value] [units]
  *          - collectedDateTime: date of assessment_N         
