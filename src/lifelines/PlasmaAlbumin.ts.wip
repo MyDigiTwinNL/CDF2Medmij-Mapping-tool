@@ -34,6 +34,8 @@ https://www.umcg.nl/bw/503e8554-bf74-47c9-b175-9fc3792ba9b4
  *              albumin_result_all_m_1 in assessment_N > 50 g/l
  *          - collectedDateTime: date of assessment_N         
  * 
+ * Reference values
+ * 35 - 50 g/l
  * /
 export const results=function():LaboratoryResultsEntry[]{
 
