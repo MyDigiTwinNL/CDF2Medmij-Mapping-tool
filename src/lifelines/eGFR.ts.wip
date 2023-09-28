@@ -5,7 +5,8 @@ https://zibs.nl/wiki/LaboratoryTestResult-v4.1(2017EN)
 
 ADD URL OF THE VARIABLES DOCUMENTATION INVOLVED IN THE PAIRING RULES
 Related Lifelines variables:
-http://wiki.lifelines.nl/doku.php...
+http://wiki.lifelines.nl/doku.php?id=blood_analyses
+https://www.umcg.nl/bw/7f1121a4-bc7d-4c82-92e9-163fd7c41162
 */
 
 
@@ -20,19 +21,22 @@ http://wiki.lifelines.nl/doku.php...
  * Related variables:
  * ------------------------------------------------------------------
  *                                [1A][1B][1C][2A][3A][3B]
- * hdlchol_result_all_m_1         [X ][  ][  ][X ][  ][  ]
+ * creatinine_result_all_m_1      [X ][  ][  ][X ][  ][  ]
  * date                           [X ][X ][X ][X ][X ][X ]
  * ------------------------------------------------------------------
  * 
  * @return, for each assessment:
  *      [[assessment_N]:
- *          - result: hdlchol_result_all_m_1 in assessment_N
- *          - resultcoding: {"system": "http://loinc.org","code": "14646-4","display": "HDLc SerPl-sCnc"}
- *          - resultunits: {"unit": "mmol/l","system": "http://unitsofmeasure.org","code": "mmol/L"}
+ *          - result: creatinine_result_all_m_1 in assessment_N
+ *          - resultcoding: {"system": "http://loinc.org","code": "14682-9","display": "Creat SerPl-sCnc"}
+ *          - resultunits: {"unit": "mmol/l","system": "http://unitsofmeasure.org","code": "umol/L"}
  *          - resultFlag: {code:281302008, system:http://snomed.info/sct} if 
- *              hdlchol_result_all_m_1 in assessment_N > [insert value] [units]
+ *              creatinine_result_all_m_1 in assessment_N > [insert value] [units]
  *          - collectedDateTime: date of assessment_N         
  * 
+ * Reference values
+ * Vrouwen	50 - 90 umol/l
+ * Mannen	50 - 110 umol/l
  * /
 export const results=function():LaboratoryResultsEntry[]{
 
