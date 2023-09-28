@@ -29,6 +29,7 @@ https://www.umcg.nl/bw/a20a8160-9c17-4866-a9eb-191dddb43d8b
  *      [[assessment_N]:
  *          - result: hba1cconc_result_all_m_1 in assessment_N
  *          - resultcoding: {"system": "http://loinc.org","code": "14646-4","display": "HbA1c MFr Bld"}
+ *          - resultunits: {"unit": "mmol/mol","system": "http://unitsofmeasure.org","code": "mmol/mol"}
  *          - resultFlag: {code:281302008, system:http://snomed.info/sct} if 
  *              hba1cconc_result_all_m_1 in assessment_N > 42 mmol/mol
  *          - collectedDateTime: date of assessment_N         
