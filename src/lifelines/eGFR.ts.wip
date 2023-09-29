@@ -22,15 +22,31 @@ https://www.umcg.nl/bw/7f1121a4-bc7d-4c82-92e9-163fd7c41162
  * ------------------------------------------------------------------
  *                                [1A][1B][1C][2A][3A][3B]
  * creatinine_result_all_m_1      [X ][  ][  ][X ][  ][  ]
- * age
- * gender
+ * age                            [X ][X ][X ][X ][X ][X ]
+ * gender                         [X ][X ][X ][X ][X ][X ]
+ * ethnicity_category_adu_q_1     [  ][X ][  ][  ][  ][  ]
  * date                           [X ][X ][X ][X ][X ][X ]
  * ------------------------------------------------------------------
  * 
+ * Calculation
+ * gender_constant = 
+ *   1 if gender == "male"
+ *   1.018 if gender == "female"
+ * race_constant =
+ *   1.159 if race == "black"
+ *   1 if race != "black"
+ * kappa = 
+ *   0.9 if gender == "male"
+ *   0.7 if gender == "female"
+ * alpha =
+ *   -0.411 if gender == "male"
+ *   -0.329 if gender == "female"
+ * egfr = 141 * (min(((creatinine_result_all_m_1 * 0.011312217194570135) / kappa), 1)^alpha) * (max(((creatinine_result_all_m_1 * 0.011312217194570135) / kappa), 1)^-1.209) * (0.993^age) * gender_constant * race_constant
+ *
  * @return, for each assessment:
  *      [[assessment_N]:
- *          - result: creatinine_result_all_m_1 in assessment_N
- *          - resultcoding: {"system": "http://loinc.org","code": "77147-7","display": "GFR/BSA.pred SerPlBld MDRD-ArVRat"}
+ *          - result: egfr in assessment_N
+ *          - resultcoding: {"system": "http://loinc.org","code": "62238-1","display": "GFR/BSA.pred SerPlBld CKD-EPI-ArVRat"}
  *          - resultunits: {"unit": "mL/min/{1.73_m2}","system": "http://unitsofmeasure.org","code": "mL/min/{1.73_m2}"}
  *          - resultFlag: {code:281300000, system:http://snomed.info/sct}
  *                           if egfr in assessment_N < 60.0 mL/min/{1.73_m2}
