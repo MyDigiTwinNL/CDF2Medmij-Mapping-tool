@@ -16,17 +16,55 @@ import {UnexpectedInputException} from './unexpectedInputException'
 
 
 /**
- * Registers a JS function into a JSONata expression
- * @param moduleObject an module whose functions will be registered on the expression 
+ * Get the functions associated to a given object
+ * @param object 
+ * @returns 
+ */
+function getFunctionProperties(object: any): Function[] {
+  const functionProperties: Function[] = []
+  Object.getOwnPropertyNames(object).forEach(name => {
+      if (typeof object[name] === 'function') {
+          functionProperties.push(object[name])            
+      }
+  });
+  return functionProperties;
+}
+
+
+
+/**
+ * Register all the functions of the given object (a pairing rule module) on a JSONata expressions
+ * These functions can be the ones explicitly exported in the module, or the ones from an object
+ * exported by this module (this is the case when the function follows a given JS interface)
+ * 
+ * @param moduleObject an module whose functions will be registered on the expression
+ * @param prefix prefix that will be used refer to the functions within a JSONata template
  * @param expression jsonata expression where functions will be regitered
  */
 function registerModuleFunctions(moduleObject: object, expression: jsonata.Expression) {
+  
   for (const rfunc of Object.values(moduleObject)) {
-    //console.info(`registering ${prefix}_${rfunc.name}`)
-    expression.registerFunction(`${rfunc.name}`, rfunc);
-  }
 
+    //The function is a root element of the module
+    if ((typeof rfunc)==='function'){
+      //console.info(`Registering regular function ${(rfunc as Function).name} for ${prefix}`)
+      expression.registerFunction(`${rfunc.name}`, rfunc);      
+    }
+    //The function is defined within a module's object (this is used when the module 
+    //implementation is based on an interface.    
+    else if ((typeof rfunc)==='object'){
+      //console.info(`Registering functions from exported JS object ${rfunc}`)
+      const funcs = getFunctionProperties(rfunc);
+      funcs.forEach((f)=>{
+        const plainF = f as () => void;
+        //console.info(`...... Function ${plainF.name} for ${prefix}`)        
+        expression.registerFunction(`${plainF.name}`, plainF);      
+        
+      })
+    }
+  }
 }
+  
 
 /**
  * Setting up a collection of JSOnata expressions based on the given MappingTargets (templates and related modules)
@@ -109,11 +147,11 @@ export async function processInput(input: transformVariables, mappings:MappingTa
         }
         catch (error) {          
           if (error instanceof UnexpectedInputException){            
-            throw error;
-            //console.info('@@@@@@@@@@@@@@@@@@@@ Input data error - to skip')
+            throw error;            
           }
           else{
-            throw new Error(`Error while transforming a JSonata expression [${JSON.stringify(expression.ast())}]`, { cause: error })  
+            throw new Error(`Error while transforming a JSonata expression `, { cause: error })  
+            //throw new Error(`Error while transforming a JSonata expression [${JSON.stringify(expression.ast())}]`, { cause: error })  
           }                    
           
         }

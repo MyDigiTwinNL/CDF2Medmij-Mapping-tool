@@ -16,7 +16,7 @@ export type TestResultEntry= {
     assessment: string;
     isAboveReferenceRange: boolean | undefined;
     isBelowReferenceRange: boolean | undefined;
-    resultFlags: object | undefined;
+    resultFlags: CodeProperties | undefined;
     testResults: number | undefined;
     collectedDateTime: string | undefined;
   };
