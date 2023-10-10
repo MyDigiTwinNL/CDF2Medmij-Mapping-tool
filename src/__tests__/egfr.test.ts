@@ -26,7 +26,10 @@ test('eGFRS for male, black participant', () => {
   const results = eGFRS.results();
   expect(results.length).toBe(2);  
   expect((results[0] as TestResultEntry).testResult).toBeCloseTo(124,0)
+  expect((results[0] as TestResultEntry).resultFlags).toBe(undefined)
   expect((results[1] as TestResultEntry).testResult).toBeCloseTo(81,0)  
+  expect((results[1] as TestResultEntry).resultFlags).toBe(undefined)
+
   
 
 });
@@ -49,7 +52,9 @@ test('eGFRS for female, black participant', () => {
     const results = eGFRS.results();
     expect(results.length).toBe(2);  
     expect((results[0] as TestResultEntry).testResult).toBeCloseTo(80,0)
+    expect((results[0] as TestResultEntry).resultFlags).toBe(undefined)
     expect((results[1] as TestResultEntry).testResult).toBeCloseTo(53,0)  
+    expect((results[1] as TestResultEntry).resultFlags?.display).toBe("Below reference range")  
     
   
   });
