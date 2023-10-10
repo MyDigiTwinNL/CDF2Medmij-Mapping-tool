@@ -29,9 +29,9 @@ $map($results(), function($result) {
         "effectiveDateTime": $result.collectedDateTime,
         "valueQuantity": {
             "value": $result.testResult,
-            "unit": $resultUnit.code,
-            "system": $resultUnit.system,
-            "code": $resultUnit.code
+            "unit": $resultUnit().code,
+            "system": $resultUnit().system,
+            "code": $resultUnit().code
         },
         
         
@@ -54,17 +54,17 @@ $map($results(), function($result) {
             ($isDefined($referenceRangeLowerLimit()))?{
                 "low":{
                     "value": $referenceRangeLowerLimit(),
-                    "unit": $resultUnit.code,
-                    "system": $resultUnit.system,
-                    "code": $resultUnit.code
+                    "unit": $resultUnit().code,
+                    "system": $resultUnit().system,
+                    "code": $resultUnit().code
                 }                
             },
             ($isDefined($referenceRangeUpperLimit()))?{
                 "high":{
                     "value": $referenceRangeUpperLimit(),
-                    "unit": $resultUnit.code,
-                    "system": $resultUnit.system,
-                    "code": $resultUnit.code        
+                    "unit": $resultUnit().code,
+                    "system": $resultUnit().system,
+                    "code": $resultUnit().code        
                 }                
             }
 

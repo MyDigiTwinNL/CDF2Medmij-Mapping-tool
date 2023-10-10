@@ -27,7 +27,7 @@ export const lifelinesDateToISO = (lifelinesdate: string) => {
  * @param date1 
  * @param date2 
  * @returns The mean between date1 and date2 that follow the lifelines format
- * MM/YYYY
+ * YYYY-M
  */
 export const lifelinesMeanDate = (date1: string, date2: string): string => {
     const [year1,month1] = date1.split('-');
@@ -44,3 +44,20 @@ export const lifelinesMeanDate = (date1: string, date2: string): string => {
   
     return `${meanYear}-${meanMonth}`;
   }
+
+
+/**
+ * Return the difference, in months, between to dates that follow Lifeline's format 
+ * YYYY-MM. To get a positive result, the earliest date should be given as the
+ * first argument.
+ * 
+ * @param date1
+ * @param date2  
+ * @returns the difference
+ */
+export const substractDates = (date1: string, date2: string): number => {
+    const [year1, month1] = date1.split('-').map(Number);
+    const [year2, month2] = date2.split('-').map(Number);
+  
+    return (year2 - year1) * 12 + (month2 - month1);
+}

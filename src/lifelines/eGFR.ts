@@ -1,5 +1,5 @@
 import {inputValue,createCheckedAccessProxy} from '../functionsCatalog';
-import {lifelinesDateToISO} from '../lifelinesFunctions'
+import {lifelinesDateToISO,substractDates} from '../lifelinesFunctions'
 import {LaboratoryTestResult, TestResultEntry} from '../fhir-resource-interfaces/laboratoryTestResult'
 import {getSNOMEDCode,getLOINCCode,CodeProperties} from '../codes/codesCollection'
 
@@ -29,18 +29,20 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2763564/
  * ------------------------------------------------------------------
  *                                [1A][1B][1C][2A][3A][3B]
  * creatinine_result_all_m_1      [X ][  ][  ][X ][  ][  ]
- * age                            [X ][X ][X ][X ][X ][X ]
- * gender                         [X ][X ][X ][X ][X ][X ]
+ * age                            [X ][  ][  ][  ][  ][  ]
+ * gender                         [X ][  ][  ][  ][  ][  ]
  * ethnicity_category_adu_q_1     [  ][X ][  ][  ][  ][  ]
  * date                           [X ][X ][X ][X ][X ][X ]
  * ------------------------------------------------------------------
+ * 
+ * 1 umol/L = 0.011312217194570135 mg/dL
  * 
  * Calculation
  * gender_constant = 
  *   1 if gender == "male"
  *   1.018 if gender == "female"
  * race_constant =
- *   1.159 if race == "black"
+ *   1.159 if race == "black"  (black/negroid)
  *   1 if race != "black"
  * kappa = 
  *   0.9 if gender == "male"
@@ -63,10 +65,10 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2763564/
 export const eGFRS:LaboratoryTestResult = {
 
     referenceRangeUpperLimit: function (): number | undefined {
-        return undefined
+        return undefined;
     },
     referenceRangeLowerLimit: function (): number | undefined {
-        return 60
+        return 60;
     },
     diagnosticCategoryCoding: function (): CodeProperties[] {
         //laboratory_report,microbiology_procedure
@@ -77,7 +79,7 @@ export const eGFRS:LaboratoryTestResult = {
         return [getLOINCCode('62238-1')];
     },
     diagnosticCodeText: function (): string {
-        return "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI)"
+        return "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI)";
     },
     observationCategoryCoding: function (): object[] {
         //"Laboratory test finding (finding)","display": "Serum chemistry test"
@@ -94,14 +96,21 @@ export const eGFRS:LaboratoryTestResult = {
         return waves.filter((wave) => !missedAsssesment(wave)).map((wave) => createCheckedAccessProxy({
             "assessment": wave,
             "isAboveReferenceRange": undefined,
-            "isBelowReferenceRange": isHDLBelowReferenceRange(wave),
-            "resultFlags": resultFlags(wave),
-            "testResults": eGFRResult(wave),
+            "isBelowReferenceRange": isBelowReferenceRange(wave,this.referenceRangeLowerLimit()!),
+            "resultFlags": resultFlags(wave,this.referenceRangeLowerLimit()!),
+            "testResult": eGFRResult(wave),
             "collectedDateTime": collectedDateTime(wave)
         })
         );
+    },
+    resultUnit: function (): CodeProperties {
+        throw new Error('Function not implemented.');
     }
 }
+
+
+
+
 
 
 /**
@@ -113,36 +122,55 @@ export const eGFRS:LaboratoryTestResult = {
 const missedAsssesment = (wave:string) => inputValue("date",wave)==undefined
 
 
-const eGFRResult = (wave:string):number|undefined{
+const isBelowReferenceRange = (wave:string,lowerLimit:number):boolean|undefined => {
+    return true;
+}
 
-    const gender = inputValue("gender",wave);
+/**
+ * 
+ * @param wave 
+ * @precondition date is defined for the given wave
+ * @returns 
+ */
+const eGFRResult = (wave:string):number|undefined => {
+
+    // Gender only available on '1a'
+    const gender = inputValue("gender","1a");
     
-    // Ethnicity available on 1B
-    //                                [1A][1B][1C][2A][3A][3B]
-    // ethnicity_category_adu_q_1     [  ][X ][  ][  ][  ][  ]
+    // Ethnicity (ethnicity_category_adu_q_1) available only on 1B
     const race = inputValue("ethnicity_category_adu_q_1",'1b');    
 
     const creatinine = inputValue('creatinine_result_all_m_1', wave)
-    const age = inputValue("age",wave);    
+    
+    const age = inputValue("age","1a");    
 
     if (gender===undefined || race===undefined || creatinine===undefined || age === undefined){
         return undefined        
     }
     else{
-        const gender_constant = (gender === "male")?1:1.018
-        const race_constant = (race === "black")?1.159:1
+        const baslineAge = Number(age)
+
+        //the age is only available on the first assessment(wave), so it is estimated
+        //for the follow-up assessments based on the date it was performed        
+        const monthsSinceBaseline = substractDates(inputValue("date","1a")!,inputValue("date",wave)!)
+        const ageOnGivenWave = (wave==="1a")?baslineAge:(baslineAge + Math.floor(monthsSinceBaseline/12))
+
+        const genderConstant = (gender === "male")?1:1.018
+        const raceConstant = (race === "black")?1.159:1
         const kappa = (gender === "male")?0.9:0.7
         const alpha = (gender === "male")?-0.411:-0.329
         const creatinineValue = Number(creatinine)
-        const ageValue = Number(age)
+        
 
-        const egfr = 141 * (Math.min((creatinineValue * 0.011312217194570135) / kappa), 1) ** alpha) * (Math.max(((creatinineValue * 0.011312217194570135) / kappa), 1) ** -1.209) * (0.993 ** ageValue) * gender_constant * race_constant
+        const egfr = 141 * (Math.min((creatinineValue * 0.011312217194570135) / kappa,1) ** alpha) * (Math.max((creatinineValue * 0.011312217194570135) / kappa,1) ** -1.209) * (0.993 ** ageOnGivenWave) * genderConstant * raceConstant
         
         return egfr;
     }
 
 
 }
+
+
 
 /**
  * 
@@ -164,14 +192,15 @@ const collectedDateTime=function(wave:string):string|undefined{
 
 /**
  * 
- * @precondition isHDLBelowReferenceRange is true
  * @param wave 
  * @returns 
  */
-const resultFlags = function(wave:string):object|undefined{
+const resultFlags = function(wave:string,limit:number):CodeProperties|undefined{
+    const eGFR = eGFRResult(wave)
 
-    if (isHDLBelowReferenceRange(wave)){
-        return snomed.testResultFlagsSNOMEDCodelist.below_reference_range
+    if (eGFR!==undefined && eGFR < limit){
+        //Below reference range
+        return getSNOMEDCode('281300000')
     }
     else{
         return undefined
