@@ -9,6 +9,7 @@ export interface LaboratoryTestResult {
     diagnosticCodeText():string;    
     observationCategoryCoding():object[];
     observationCodeCoding():CodeProperties[];
+    resultUnit(): CodeProperties;
     results(): TestResultEntry[];
 }
 
@@ -17,7 +18,7 @@ export type TestResultEntry= {
     isAboveReferenceRange: boolean | undefined;
     isBelowReferenceRange: boolean | undefined;
     resultFlags: CodeProperties | undefined;
-    testResults: number | undefined;
+    testResult: number | undefined;
     collectedDateTime: string | undefined;
   };
 

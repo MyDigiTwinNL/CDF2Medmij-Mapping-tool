@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import  {parse}  from 'csv-parse/sync';
 
+
 /**
  * Type that defines the details that are provided for a code in any coding system
  */
@@ -27,6 +28,12 @@ export const getLOINCCode = (code:string):CodeProperties => {
     return CodesCollection.getInstance().getLOINCCode(code);
 }
 
+export const getUCUMCode = (code:string):CodeProperties => {
+    return CodesCollection.getInstance().getUCUMCode(code);
+}
+
+
+
 /**
  * Singleton to access the details (CodeProperties) of the currently available codes
  */
@@ -36,7 +43,7 @@ export class CodesCollection {
     private loincMap = new Map<string, CodeProperties>();
     private manchetMap = new Map<string, CodeProperties>();
     private fhirv3Map = new Map<string, CodeProperties>();
-    
+    private ucumMap = new Map<string, CodeProperties>();
 
     private loadCodesFile = (filePath:string):Map<string, CodeProperties> =>{
         const codesMap = new Map<string, CodeProperties>();
@@ -56,6 +63,7 @@ export class CodesCollection {
         this.loincMap = this.loadCodesFile(path.resolve(__dirname, '../../codefiles/loinc.csv'))
         this.manchetMap = this.loadCodesFile(path.resolve(__dirname, '../../codefiles/manchet.csv'))
         this.fhirv3Map = this.loadCodesFile(path.resolve(__dirname, '../../codefiles/fhirv3.csv'))
+        this.ucumMap = this.loadCodesFile(path.resolve(__dirname, '../../codefiles/ucum.csv'))
     };
 
     public static getInstance(): CodesCollection {
@@ -76,6 +84,13 @@ export class CodesCollection {
         if (codeProp!==undefined) return codeProp;
         throw Error(`Error while trying to access an undefined LOINC code ${code}`)
     }
+
+    public getUCUMCode(code:string): CodeProperties {
+        const codeProp = this.ucumMap.get(code);
+        if (codeProp!==undefined) return codeProp;
+        throw Error(`Error while trying to access an undefined UCUM (units of measurement) code ${code}`)
+    }
+
 
 
 }

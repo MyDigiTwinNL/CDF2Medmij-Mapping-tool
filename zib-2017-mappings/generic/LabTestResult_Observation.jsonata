@@ -3,7 +3,7 @@
 
 $map($results(), function($result) {
 
-    ($isDefined($result.testResults))?{
+    ($isDefined($result.testResult))?{
         "resourceType": "Observation",        
         "id": $waveSpecificResourceId('zib-laboratorytestresult-observation-hdl',$result.assessment),    
         "meta": {
@@ -28,10 +28,10 @@ $map($results(), function($result) {
         },
         "effectiveDateTime": $result.collectedDateTime,
         "valueQuantity": {
-            "value": $result.testResults,
-            "unit": "mmol/l",
-            "system": "http://unitsofmeasure.org",
-            "code": "mmol/L"
+            "value": $result.testResult,
+            "unit": $resultUnit.code,
+            "system": $resultUnit.system,
+            "code": $resultUnit.code
         },
         
         
@@ -54,17 +54,17 @@ $map($results(), function($result) {
             ($isDefined($referenceRangeLowerLimit()))?{
                 "low":{
                     "value": $referenceRangeLowerLimit(),
-                    "unit": "mmol/l",
-                    "system": "http://unitsofmeasure.org",
-                    "code": "mmol/L"
+                    "unit": $resultUnit.code,
+                    "system": $resultUnit.system,
+                    "code": $resultUnit.code
                 }                
             },
             ($isDefined($referenceRangeUpperLimit()))?{
                 "high":{
                     "value": $referenceRangeUpperLimit(),
-                    "unit": "mmol/l",
-                    "system": "http://unitsofmeasure.org",
-                    "code": "mmol/L"
+                    "unit": $resultUnit.code,
+                    "system": $resultUnit.system,
+                    "code": $resultUnit.code        
                 }                
             }
 

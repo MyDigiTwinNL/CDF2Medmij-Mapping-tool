@@ -1,7 +1,7 @@
 import {inputValue,createCheckedAccessProxy} from '../functionsCatalog';
 import {lifelinesDateToISO} from '../lifelinesFunctions'
 import {LaboratoryTestResult, TestResultEntry} from '../fhir-resource-interfaces/laboratoryTestResult'
-import {getSNOMEDCode,getLOINCCode,CodeProperties} from '../codes/codesCollection'
+import {getSNOMEDCode,getLOINCCode,getUCUMCode,CodeProperties} from '../codes/codesCollection'
 
 /**
  * A laboratory result describes the result of a laboratory analysis. These are specimen-oriented 
@@ -38,7 +38,7 @@ export const hdlCholesterol:LaboratoryTestResult = {
             "isAboveReferenceRange": undefined,
             "isBelowReferenceRange": isHDLBelowReferenceRange(wave),
             "resultFlags": resultFlags(wave),
-            "testResults": hdlResults(wave),
+            "testResult": hdlResults(wave),
             "collectedDateTime": collectedDateTime(wave)
         })
         );
@@ -60,6 +60,9 @@ export const hdlCholesterol:LaboratoryTestResult = {
     },
     observationCodeCoding: function (): CodeProperties[] {
         return [getLOINCCode('14646-4')];
+    },
+    resultUnit: function (): CodeProperties {
+        return getUCUMCode('mmol/L');
     }
 }
 

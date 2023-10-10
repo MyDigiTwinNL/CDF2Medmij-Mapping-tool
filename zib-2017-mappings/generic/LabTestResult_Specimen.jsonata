@@ -2,7 +2,7 @@
     
 $map($results(), function($result) {
 
-    ($isDefined($result.testResults))?{
+    ($isDefined($result.testResult))?{
         "resourceType": "Specimen",
         
         "id": $waveSpecificResourceId('zib-laboratorytestresult-specimen-hdl',$result.assessment),

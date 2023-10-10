@@ -16,8 +16,8 @@ const targets: MappingTarget[] = [
   { "template": '../zib-2017-mappings/Hypertension.jsonata', "module": './lifelines/Hypertension' },
   
   { "template": '../zib-2017-mappings/generic/LabTestResult_Diagnostic_Report.jsonata', "module": './lifelines/HDLCholesterol' },
-  //{ "template": '../zib-2017-mappings/generic/LabTestResult_Observation.jsonata', "module": './lifelines/HDLCholesterol' },
-  //{ "template": '../zib-2017-mappings/generic/LabTestResult_Specimen.jsonata', "module": './lifelines/HDLCholesterol' },
+  { "template": '../zib-2017-mappings/generic/LabTestResult_Observation.jsonata', "module": './lifelines/HDLCholesterol' },
+  { "template": '../zib-2017-mappings/generic/LabTestResult_Specimen.jsonata', "module": './lifelines/HDLCholesterol' },
   
   { "template": '../zib-2017-mappings/TobaccoUse.jsonata', "module": './lifelines/TobaccoUse' },
   { "template": '../zib-2017-mappings/Stroke.jsonata', "module": './lifelines/Stroke' },
