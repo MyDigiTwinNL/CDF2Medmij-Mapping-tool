@@ -1,7 +1,7 @@
 (
     
     /*Output*/
-    ($Hypertension_isPresent())?{
+    ($isPresent())?{
         "resourceType": "Condition",
         "id": $resourceId('zib-hypertension'),
         "meta": {
@@ -13,7 +13,7 @@
             "status": "extensions",
             "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Undefined</div>"
         },
-        "clinicalStatus": $Hypertension_clinicalStatus().hl7_code,
+        "clinicalStatus": $clinicalStatus().hl7_code,
         "_clinicalStatus": {
             "extension": [
                 {
@@ -21,16 +21,16 @@
                     "valueCodeableConcept": {
                         "coding": [
                             {
-                                "system": $Hypertension_clinicalStatus().system,
-                                "code": $Hypertension_clinicalStatus().code,
-                                "display": $Hypertension_clinicalStatus().display
+                                "system": $clinicalStatus().system,
+                                "code": $clinicalStatus().code,
+                                "display": $clinicalStatus().display
                             }
                         ]
                     }
                 }
             ]
         },
-        "verificationStatus": $Hypertension_verificationStatus().hl7_code,
+        "verificationStatus": $verificationStatus().hl7_code,
         "_verificationStatus": {
             "extension": [
                 {
@@ -38,9 +38,9 @@
                     "valueCodeableConcept": {
                         "coding": [
                             {
-                                "system": $Hypertension_verificationStatus().system,
-                                "code": $Hypertension_verificationStatus().code,
-                                "display": $Hypertension_verificationStatus().display
+                                "system": $verificationStatus().system,
+                                "code": $verificationStatus().code,
+                                "display": $verificationStatus().display
                             }
                         ]
                     }
@@ -50,9 +50,9 @@
         "code": {
             "coding": [
                 {
-                    "system": $Hypertension_code().system,
-                    "code": $Hypertension_code().code,
-                    "display": $Hypertension_code().display
+                    "system": $code().system,
+                    "code": $code().code,
+                    "display": $code().display
                 }
             ]
         },
@@ -60,7 +60,7 @@
             "reference": $idToUUID($resourceId('nl-core-patient')),
             "display": "Anonymized-"&$resourceId('nl-core-patient')
         },
-        "onsetDateTime": $Hypertension_onsetDateTime()
+        "onsetDateTime": $onsetDateTime()
     }:{}
             
 )

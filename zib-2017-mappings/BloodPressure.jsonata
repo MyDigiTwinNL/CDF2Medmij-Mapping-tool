@@ -1,5 +1,5 @@
 (
-    $map($BloodPressure_results(), function($result) { 
+    $map($results(), function($result) { 
 
         {
             "resourceType": "Observation",

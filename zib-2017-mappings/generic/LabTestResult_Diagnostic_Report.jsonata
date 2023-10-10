@@ -2,7 +2,7 @@
 
 
 (
-$map($HDLCholesterol_results(), function($result) {
+$map($results(), function($result) {
         
     ($isDefined($result.testResults))?{
     "resourceType": "DiagnosticReport",
@@ -34,11 +34,11 @@ $map($HDLCholesterol_results(), function($result) {
         ]
     },
     "category": {
-        "coding": $HDLCholesterol_diagnosticCategoryCoding()
+        "coding": $diagnosticCategoryCoding()
     },
     "code": {
-        "coding": $HDLCholesterol_diagnosticCodeCoding(),
-        "text": $HDLCholesterol_diagnosticCodeText()
+        "coding": $diagnosticCodeCoding(),
+        "text": $diagnosticCodeText()
     },
     "subject": {
         "reference": $idToUUID($resourceId('nl-core-patient')),

@@ -1,7 +1,7 @@
 (
 
 
-$map($TotalCholesterol_results(), function($result) {
+$map($results(), function($result) {
 
     ($isDefined($result.totalCholResults))?{
         "resourceType": "Observation",        
@@ -76,7 +76,7 @@ $map($TotalCholesterol_results(), function($result) {
         "referenceRange": [
             {
                 "low": {
-                    "value": $TotalCholesterol_referenceRangeUpperLimit(),
+                    "value": $referenceRangeUpperLimit(),
                     "unit": "mmol/l",
                     "system": "http://unitsofmeasure.org",
                     "code": "mmol/L"

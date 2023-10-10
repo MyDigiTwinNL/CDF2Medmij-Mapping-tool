@@ -1,7 +1,7 @@
 (
 
 
-$map($HDLCholesterol_results(), function($result) {
+$map($results(), function($result) {
 
     ($isDefined($result.testResults))?{
         "resourceType": "Observation",        
@@ -16,11 +16,11 @@ $map($HDLCholesterol_results(), function($result) {
             "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Undefined</div>"
         },
         "status": "final",
-        "category": $map($HDLCholesterol_observationCategoryCoding(),function($catCoding){
+        "category": $map($observationCategoryCoding(),function($catCoding){
             {"coding":[$catCoding]}
         }),
         "code": {
-            "coding": $HDLCholesterol_observationCodeCoding()            
+            "coding": $observationCodeCoding()            
         },
         "subject": {
             "reference": $idToUUID($resourceId('nl-core-patient')),
@@ -51,17 +51,17 @@ $map($HDLCholesterol_results(), function($result) {
             "display": "Blood (substance)"
         },
         "referenceRange": [
-            ($isDefined($HDLCholesterol_referenceRangeLowerLimit()))?{
+            ($isDefined($referenceRangeLowerLimit()))?{
                 "low":{
-                    "value": $HDLCholesterol_referenceRangeLowerLimit(),
+                    "value": $referenceRangeLowerLimit(),
                     "unit": "mmol/l",
                     "system": "http://unitsofmeasure.org",
                     "code": "mmol/L"
                 }                
             },
-            ($isDefined($HDLCholesterol_referenceRangeUpperLimit()))?{
+            ($isDefined($referenceRangeUpperLimit()))?{
                 "high":{
-                    "value": $HDLCholesterol_referenceRangeUpperLimit(),
+                    "value": $referenceRangeUpperLimit(),
                     "unit": "mmol/l",
                     "system": "http://unitsofmeasure.org",
                     "code": "mmol/L"

@@ -2,7 +2,7 @@
 
     
     
-    ($Stroke_isPresent())?{
+    ($isPresent())?{
         "resourceType": "Condition",
         "id": $resourceId('zib-stroke'),
         "meta": {
@@ -14,7 +14,7 @@
             "status": "extensions",
             "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Undefined</div>"
         },
-        "clinicalStatus": $Stroke_clinicalStatus().hl7_code,
+        "clinicalStatus": $clinicalStatus().hl7_code,
         "_clinicalStatus": {
             "extension": [
                 {
@@ -22,16 +22,16 @@
                     "valueCodeableConcept": {
                         "coding": [
                             {
-                                "system": $Stroke_clinicalStatus().system,
-                                "code": $Stroke_clinicalStatus().code,
-                                "display": $Stroke_clinicalStatus().display
+                                "system": $clinicalStatus().system,
+                                "code": $clinicalStatus().code,
+                                "display": $clinicalStatus().display
                             }
                         ]
                     }
                 }
             ]
         },
-        "verificationStatus": $Stroke_verificationStatus().hl7_code,
+        "verificationStatus": $verificationStatus().hl7_code,
         "_verificationStatus": {
             "extension": [
                 {
@@ -39,9 +39,9 @@
                     "valueCodeableConcept": {
                         "coding": [
                             {
-                                "system": $Stroke_verificationStatus().system,
-                                "code": $Stroke_verificationStatus().code,
-                                "display": $Stroke_verificationStatus().display
+                                "system": $verificationStatus().system,
+                                "code": $verificationStatus().code,
+                                "display": $verificationStatus().display
                             }
                         ]
                     }
@@ -51,9 +51,9 @@
         "code": {
             "coding": [
                 {
-                    "system": $Stroke_code().system,
-                    "code": $Stroke_code().code,
-                    "display": $Stroke_code().display
+                    "system": $code().system,
+                    "code": $code().code,
+                    "display": $code().display
                 }
             ]
         },
@@ -61,7 +61,7 @@
             "reference": $idToUUID($resourceId('nl-core-patient')),
             "display": "Anonymized-"&$resourceId('nl-core-patient')
         },
-        "onsetDateTime": $Stroke_onsetDateTime()
+        "onsetDateTime": $onsetDateTime()
     }:{}
             
 )

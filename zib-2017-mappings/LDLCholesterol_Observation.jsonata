@@ -1,7 +1,7 @@
 (
 
 
-$map($LDLCholesterol_results(), function($result) {
+$map($results(), function($result) {
 
     ($isDefined($result.ldlResults))?{
         "resourceType": "Observation",        
@@ -76,7 +76,7 @@ $map($LDLCholesterol_results(), function($result) {
         "referenceRange": [
             {
                 "low": {
-                    "value": $LDLCholesterol_referenceRangeUpperLimit(),
+                    "value": $referenceRangeUpperLimit(),
                     "unit": "mmol/l",
                     "system": "http://unitsofmeasure.org",
                     "code": "mmol/L"

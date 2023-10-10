@@ -3,7 +3,7 @@
 
 (
 
-$map($LDLCholesterol_results(), function($result) {
+$map($results(), function($result) {
         
     ($isDefined($result.ldlResults))?{
     "resourceType": "DiagnosticReport",

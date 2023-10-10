@@ -1,6 +1,6 @@
 (
 
-    $map($TobaccoUse_results(), function($result) {
+    $map($results(), function($result) {
         {
         "resourceType": "Observation",
         "id": $waveSpecificResourceId('zib-tobaccouse',$result.assessment),    

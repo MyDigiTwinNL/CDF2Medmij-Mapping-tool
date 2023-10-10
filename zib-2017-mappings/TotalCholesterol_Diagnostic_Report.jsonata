@@ -3,7 +3,7 @@
 
 (
 
-$map($TotalCholesterol_results(), function($result) {
+$map($results(), function($result) {
         
     ($isDefined($result.totalCholResults))?{
     "resourceType": "DiagnosticReport",

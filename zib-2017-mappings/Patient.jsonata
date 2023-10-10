@@ -15,8 +15,8 @@
             "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Undefined</div>"
         },
         
-        "gender": $Patient_gender().display,
-        "_gender": $isDefined($Patient_gender())? {
+        "gender": $gender().display,
+        "_gender": $isDefined($gender())? {
             "extension": [
                 {
                     "url": "http://nictiz.nl/fhir/StructureDefinition/code-specification",
@@ -24,8 +24,8 @@
                         "coding": [
                             {
                                 "system": "http://hl7.org/fhir/v3/AdministrativeGender",
-                                "code": $Patient_gender().code,
-                                "display": $Patient_gender().display
+                                "code": $gender().code,
+                                "display": $gender().display
                             }
                         ]
                     }
@@ -33,7 +33,7 @@
             ]
         } : undefined
         ,
-        "birthDate": $Patient_birthDate()
+        "birthDate": $birthDate()
     }
 
 )
