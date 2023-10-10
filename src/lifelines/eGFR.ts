@@ -1,7 +1,7 @@
 import {inputValue,createCheckedAccessProxy} from '../functionsCatalog';
 import {lifelinesDateToISO,substractDates} from '../lifelinesFunctions'
 import {LaboratoryTestResult, TestResultEntry} from '../fhir-resource-interfaces/laboratoryTestResult'
-import {getSNOMEDCode,getLOINCCode,CodeProperties} from '../codes/codesCollection'
+import {getSNOMEDCode,getLOINCCode,getUCUMCode,CodeProperties} from '../codes/codesCollection'
 
 
 /*
@@ -68,7 +68,7 @@ export const eGFRS:LaboratoryTestResult = {
         return undefined;
     },
     referenceRangeLowerLimit: function (): number | undefined {
-        return 60;
+        return REFERENCE_RANGE_LOWER_LIMIT;
     },
     diagnosticCategoryCoding: function (): CodeProperties[] {
         //laboratory_report,microbiology_procedure
@@ -96,21 +96,20 @@ export const eGFRS:LaboratoryTestResult = {
         return waves.filter((wave) => !missedAsssesment(wave)).map((wave) => createCheckedAccessProxy({
             "assessment": wave,
             "isAboveReferenceRange": undefined,
-            "isBelowReferenceRange": isBelowReferenceRange(wave,this.referenceRangeLowerLimit()!),
-            "resultFlags": resultFlags(wave,this.referenceRangeLowerLimit()!),
+            "isBelowReferenceRange": isBelowReferenceRange(wave,REFERENCE_RANGE_LOWER_LIMIT),
+            "resultFlags": resultFlags(wave,REFERENCE_RANGE_LOWER_LIMIT),
             "testResult": eGFRResult(wave),
             "collectedDateTime": collectedDateTime(wave)
         })
         );
     },
     resultUnit: function (): CodeProperties {
-        throw new Error('Function not implemented.');
+        return getUCUMCode("mL/min/{1.73_m2}")
     }
 }
 
 
-
-
+const REFERENCE_RANGE_LOWER_LIMIT = 60;
 
 
 /**
@@ -123,7 +122,8 @@ const missedAsssesment = (wave:string) => inputValue("date",wave)==undefined
 
 
 const isBelowReferenceRange = (wave:string,lowerLimit:number):boolean|undefined => {
-    return true;
+    const eGFR = eGFRResult(wave)
+    return (eGFR!==undefined && eGFR < lowerLimit);
 }
 
 /**
@@ -138,6 +138,11 @@ const eGFRResult = (wave:string):number|undefined => {
     const gender = inputValue("gender","1a");
     
     // Ethnicity (ethnicity_category_adu_q_1) available only on 1B
+    //1:white/eastern and western european
+    //2:white/mediterranean or arabic
+    //3:black/negroid
+    //4:asian
+    //5:other:
     const race = inputValue("ethnicity_category_adu_q_1",'1b');    
 
     const creatinine = inputValue('creatinine_result_all_m_1', wave)
@@ -156,7 +161,7 @@ const eGFRResult = (wave:string):number|undefined => {
         const ageOnGivenWave = (wave==="1a")?baslineAge:(baslineAge + Math.floor(monthsSinceBaseline/12))
 
         const genderConstant = (gender === "male")?1:1.018
-        const raceConstant = (race === "black")?1.159:1
+        const raceConstant = (race === "3")?1.159:1
         const kappa = (gender === "male")?0.9:0.7
         const alpha = (gender === "male")?-0.411:-0.329
         const creatinineValue = Number(creatinine)

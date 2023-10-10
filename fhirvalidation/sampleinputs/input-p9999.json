@@ -1,10 +1,15 @@
 {
     "project_pseudo_id": {"1a":"9999"},
     "variant_id": {},
-    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","2b":"2002-5","3a":"2003-5","3b":"2009-6"},
-    "age": {"1a":"22"},
-    "gender": {"1a":"male"},
-    "zip_code": {"1a":"male"},
+
+    "date": {"1a":"1990-1","1b":"1995-5","1c":"1997-5","2a":"2000-1","2b":"2001-1","3a":"2003-5","3b":"2005-5"},
+    "age": { "1a": "40" },  
+    "gender": {"1a":"female"},
+
+    "creatinine_result_all_m_1":{ "1a": "79.2", "2a":"106.1"},
+    "ethnicity_category_adu_q_1":{"1b":"1"},
+    
+    "zip_code": {"1a":"11111"},
 
     "hypertension_startage_adu_q_1":{"1a":"","3a":"23","3b":"23"},
     "hypertension_presence_adu_q_1":{"1a":"2","3a":"1","3b":"1"},

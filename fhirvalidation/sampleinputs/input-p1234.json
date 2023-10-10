@@ -8,6 +8,10 @@
     "gender": {"1a":"male"},
     "zip_code": {"1a":"male"},
 
+    "creatinine_result_all_m_1":{ "1a": "79.2", "2a":"106.1"},
+    "ethnicity_category_adu_q_1":{"1b":"3"},
+
+
     "hypertension_startage_adu_q_1":{"1a":"","3a":"23","3b":"23"},
     "hypertension_presence_adu_q_1":{"1a":"2","3a":"1","3b":"1"},
 
