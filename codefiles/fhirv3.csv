@@ -1,0 +1,5 @@
+code,display,system
+M,male,http://hl7.org/fhir/v3/AdministrativeGender
+F,female,http://hl7.org/fhir/v3/AdministrativeGender
+UN,undifferentiated,http://hl7.org/fhir/v3/AdministrativeGender
+UNK,unknown,http://hl7.org/fhir/v3/AdministrativeGender

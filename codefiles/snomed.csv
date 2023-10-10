@@ -1,0 +1,52 @@
+code,display,system
+OTH,Other,http://snomed.info/sct
+UNK,Unknown,http://hl7.org/fhir/v3/NullFlavor
+4241000179101,Laboratory report (record artifact),http://snomed.info/sct
+49581000146104,Laboratory test finding (finding),http://snomed.info/sct
+65568007,Cigarette smoker (finding),http://snomed.info/sct
+59978006,Cigar smoker (finding),http://snomed.info/sct
+82302008,Pipe smoker (finding),http://snomed.info/sct
+160619003,Rolls own cigarettes (finding),http://snomed.info/sct
+449868002,Smokes tobacco daily (finding),http://snomed.info/sct
+230059006,Occasional cigarette smoker (finding),http://snomed.info/sct
+43381005,Passive smoker (finding),http://snomed.info/sct
+8517006,Ex-smoker (finding),http://snomed.info/sct
+405746006,Current non-smoker but past smoking history unknown (finding),http://snomed.info/sct
+266919005,Never smoked tobacco (finding),http://snomed.info/sct
+73211009,Diabetes mellitus (disorder),http://snomed.info/sct
+46635009,Diabetes mellitus type 1 (disorder),http://snomed.info/sct
+44054006,Diabetes mellitus type 2 (disorder),http://snomed.info/sct
+59621000,Essential hypertension (disorder),http://snomed.info/sct
+400047006,Peripheral vascular disease (disorder),http://snomed.info/sct
+230690007,Cerebrovascular accident (disorder),http://snomed.info/sct
+415684004,Suspected,http://snomed.info/sct
+410590009,Known possible,http://snomed.info/sct
+410605003,Confirmed present,http://snomed.info/sct
+410516002,Known absent,http://snomed.info/sct
+252275004,Hematology test,http://snomed.info/sct
+275711006,Serum chemistry test,http://snomed.info/sct
+68793005,Serologic test,http://snomed.info/sct
+395124008,Viral studies,http://snomed.info/sct
+314076009,Toxicology screening test,http://snomed.info/sct
+19851009,Microbiology procedure,http://snomed.info/sct
+405825005,Molecular genetic test,http://snomed.info/sct
+281302008,Above reference range,http://snomed.info/sct
+281300000,Below reference range,http://snomed.info/sct
+11896004,Intermediate,http://snomed.info/sct
+30714006,Resistant,http://snomed.info/sct
+131196009,Susceptible,http://snomed.info/sct
+10179008,Invasive,http://snomed.info/sct
+22762002,Non-invasive,http://snomed.info/sct
+40983000,Upper arm structure,http://snomed.info/sct
+368209003,Right upper arm structure,http://snomed.info/sct
+368208006,Left upper arm structure,http://snomed.info/sct
+68367000,Thigh structure,http://snomed.info/sct
+11207009,Structure of right thigh,http://snomed.info/sct
+61396006,Structure of left thigh,http://snomed.info/sct
+8205005,Wrist region structure,http://snomed.info/sct
+9736006,Structure of right wrist,http://snomed.info/sct
+5951000,Structure of left wrist,http://snomed.info/sct
+7569003,Finger structure,http://snomed.info/sct
+344001,Ankle region structure,http://snomed.info/sct
+6685009,Structure of right ankle,http://snomed.info/sct
+51636004,Structure of left ankle,http://snomed.info/sct

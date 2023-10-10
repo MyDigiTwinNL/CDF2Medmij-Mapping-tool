@@ -1,0 +1,76 @@
+(
+
+
+$map($HDLCholesterol_results(), function($result) {
+
+    ($isDefined($result.testResults))?{
+        "resourceType": "Observation",        
+        "id": $waveSpecificResourceId('zib-laboratorytestresult-observation-hdl',$result.assessment),    
+        "meta": {
+            "profile": [
+                "http://nictiz.nl/fhir/StructureDefinition/zib-LaboratoryTestResult-Observation"
+            ]
+        },
+        "text": {
+            "status": "extensions",
+            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Undefined</div>"
+        },
+        "status": "final",
+        "category": $map($HDLCholesterol_observationCategoryCoding(),function($catCoding){
+            {"coding":[$catCoding]}
+        }),
+        "code": {
+            "coding": $HDLCholesterol_observationCodeCoding()            
+        },
+        "subject": {
+            "reference": $idToUUID($resourceId('nl-core-patient')),
+            "display": "Anonymized-"&$resourceId('nl-core-patient')
+        },
+        "effectiveDateTime": $result.collectedDateTime,
+        "valueQuantity": {
+            "value": $result.testResults,
+            "unit": "mmol/l",
+            "system": "http://unitsofmeasure.org",
+            "code": "mmol/L"
+        },
+        
+        
+        "interpretation": ($result.isBelowReferenceRange)?{
+            "coding": [                                    
+                    {
+                        "system": $result.resultFlags.system,
+                        "code": $result.resultFlags.code,
+                        "display": $result.resultFlags.display
+                    } 
+                        
+            ]
+        },
+        
+        "specimen": {
+            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-hdl',$result.assessment)),
+            "display": "Blood (substance)"
+        },
+        "referenceRange": [
+            ($isDefined($HDLCholesterol_referenceRangeLowerLimit()))?{
+                "low":{
+                    "value": $HDLCholesterol_referenceRangeLowerLimit(),
+                    "unit": "mmol/l",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mmol/L"
+                }                
+            },
+            ($isDefined($HDLCholesterol_referenceRangeUpperLimit()))?{
+                "high":{
+                    "value": $HDLCholesterol_referenceRangeUpperLimit(),
+                    "unit": "mmol/l",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mmol/L"
+                }                
+            }
+
+        ]
+    }   : {}
+
+})
+
+)

@@ -17,14 +17,13 @@ import {UnexpectedInputException} from './unexpectedInputException'
 
 /**
  * Registers a JS function into a JSONata expression
- * @param moduleObject an module whose functions will be registered on the expression
- * @param prefix prefix that will be used refer to the functions within a JSONata template
+ * @param moduleObject an module whose functions will be registered on the expression 
  * @param expression jsonata expression where functions will be regitered
  */
-function registerFunctions(moduleObject: object, prefix: string, expression: jsonata.Expression) {
+function registerModuleFunctions(moduleObject: object, expression: jsonata.Expression) {
   for (const rfunc of Object.values(moduleObject)) {
     //console.info(`registering ${prefix}_${rfunc.name}`)
-    expression.registerFunction(`${prefix}_${rfunc.name}`, rfunc);
+    expression.registerFunction(`${rfunc.name}`, rfunc);
   }
 
 }
@@ -54,7 +53,7 @@ async function setup(targets: MappingTarget[]): Promise<jsonata.Expression[]> {
 
     //register resource-specific functions, set the modulename as a prefix
     await import(target.module).then(      
-      (rfuncs) => registerFunctions(rfuncs, target.module.split('/').pop() || "", expression)
+      (rfuncs) => registerModuleFunctions(rfuncs, expression)
     ).then(() => {      
       resourceExpressions.push(expression);
     })
