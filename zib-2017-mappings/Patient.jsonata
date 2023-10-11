@@ -33,7 +33,8 @@
             ]
         } : undefined
         ,
-        "birthDate": $birthDate()
+        "birthDate": $birthDate(),
+        "deceasedDateTime": $deceasedDateTime()
     }
 
 )

@@ -1,5 +1,6 @@
 import {inputValue} from '../functionsCatalog';
 import {genderFHIRV3Codes} from '../codes/fhirv3codes'
+import {lifelinesDateToISO} from '../lifelinesFunctions'
 import {UnexpectedInputException,assertIsDefined} from '../unexpectedInputException'
 
 /*
@@ -38,6 +39,16 @@ export const birthDate = ():string|undefined => {
 }
 
 
+export const deceasedDateTime = ():string|undefined => {
+    const dod = inputValue("date_of_death","summary")
+    if (dod!==undefined){
+        return lifelinesDateToISO(dod)
+    }
+    else{
+        return undefined;    
+    }
+    
+}
 
 export const gender = ():object|undefined => {
     if (inputValue("gender","1a")==="MALE"){

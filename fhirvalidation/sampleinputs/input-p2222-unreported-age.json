@@ -7,6 +7,7 @@
     "age": {"1a":""},
     "gender": {"1a":"male"},
     "zip_code": {"1a":"male"},
+    "date_of_death": {"summary":""},
 
     "albumin_result_all_m_1" :{ "1a": "51", "2a":"60"},
     "creatinine_result_all_m_1":{ "1a": "79.2", "2a":"106.1"},
