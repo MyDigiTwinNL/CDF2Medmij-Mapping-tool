@@ -147,10 +147,10 @@ const eGFRResult = (wave:string):number|undefined => {
         const monthsSinceBaseline = substractDates(inputValue("date","1a")!,inputValue("date",wave)!)
         const ageOnGivenWave = (wave==="1a")?baslineAge:(baslineAge + Math.floor(monthsSinceBaseline/12))
 
-        const genderConstant = (gender === "male")?1:1.018
+        const genderConstant = (gender === "MALE")?1:1.018
         const raceConstant = (race === "3")?1.159:1
-        const kappa = (gender === "male")?0.9:0.7
-        const alpha = (gender === "male")?-0.411:-0.329
+        const kappa = (gender === "MALE")?0.9:0.7
+        const alpha = (gender === "MALE")?-0.411:-0.329
         const creatinineValue = Number(creatinine)
         
 

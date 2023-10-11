@@ -15,7 +15,7 @@ test('eGFRS for male, black participant', () => {
    
     "creatinine_result_all_m_1":{ "1a": "79.2", "2a":"106.1"},//in umol/L
     "ethnicity_category_adu_q_1":{"1b":"3"},
-    "gender" : { "1a":"male"},
+    "gender" : { "1a":"MALE"},
     "date": {/*date1*/ "1a":"1990-1","1b":"1995-5","1c":"1997-5",/*date2*/"2a":"2000-1","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "40" },  //age on "2a": 50  
     "project_pseudo_id": { "1a": "520681571" },
@@ -40,7 +40,7 @@ test('eGFRS for female, non-black participant', () => {
      
       "creatinine_result_all_m_1":{ "1a": "79.2", "2a":"106.1"},//in umol/L
       "ethnicity_category_adu_q_1":{"1b":"1"},
-      "gender" : { "1a":"female"},
+      "gender" : { "1a":"FEMALE"},
       "date": {/*date1*/ "1a":"1990-1","1b":"1995-5","1c":"1997-5",/*date2*/"2a":"2000-1","3a":"2003-5","3b":"2005-5"},
       "age": { "1a": "40" },  //age on "2a": 50  
       "project_pseudo_id": { "1a": "520681571" },

@@ -12,7 +12,7 @@ test('Plasma albumin above reference range', () => {
   const input = {
    
     "albumin_result_all_m_1" :{ "1a": "51", "2a":"60"},
-    "gender" : { "1a":"male"},
+    "gender" : { "1a":"MALE"},
     "date": {/*date1*/ "1a":"1990-1","1b":"1995-5","1c":"1997-5",/*date2*/"2a":"2000-1","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "40" },  //age on "2a": 50  
     "project_pseudo_id": { "1a": "520681571" },
@@ -36,7 +36,7 @@ test('Plasma albumin below reference range', () => {
   const input = {
    
     "albumin_result_all_m_1" :{ "1a": "34", "2a":"30"},
-    "gender" : { "1a":"male"},
+    "gender" : { "1a":"MALE"},
     "date": {/*date1*/ "1a":"1990-1","1b":"1995-5","1c":"1997-5",/*date2*/"2a":"2000-1","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "40" },  //age on "2a": 50  
     "project_pseudo_id": { "1a": "520681571" },
@@ -60,7 +60,7 @@ test('Plasma albumin within the reference range (border case)', () => {
   const input = {
    
     "albumin_result_all_m_1" :{ "1a": "50", "2a":"35"},
-    "gender" : { "1a":"male"},
+    "gender" : { "1a":"MALE"},
     "date": {/*date1*/ "1a":"1990-1","1b":"1995-5","1c":"1997-5",/*date2*/"2a":"2000-1","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "40" },  //age on "2a": 50  
     "project_pseudo_id": { "1a": "520681571" },
@@ -83,7 +83,7 @@ test('Plasma albumin within the reference range ', () => {
   const input = {
    
     "albumin_result_all_m_1" :{ "1a": "45", "2a":"40"},
-    "gender" : { "1a":"male"},
+    "gender" : { "1a":"MALE"},
     "date": {/*date1*/ "1a":"1990-1","1b":"1995-5","1c":"1997-5",/*date2*/"2a":"2000-1","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "40" },  //age on "2a": 50  
     "project_pseudo_id": { "1a": "520681571" },

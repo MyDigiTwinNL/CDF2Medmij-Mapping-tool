@@ -10,7 +10,7 @@ test('Male patient', () => {
     "age": {"1a":"22"},
     "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
     "gender": {"1a":"MALE"},
-    "date_of_death": {"summary":"2010-2"}
+    "date_of_death": {"global":"2010-2"}
   }  
 
   InputSingleton.getInstance().setInput(input);
@@ -28,7 +28,7 @@ test('Female patient, undefined age', () => {
     "age": {"1a":""},
     "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
     "gender": {"1a":"FEMALE"},
-    "date_of_death": {"summary":"2010-2"}
+    "date_of_death": {"global":"2010-2"}
   }  
 
   InputSingleton.getInstance().setInput(input);
@@ -48,7 +48,7 @@ test('Patient resource generation', () => {
         "age": {"1a":"22"},
         "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","3a":"2003-5","3b":"2005-5"},
         "gender": {"1a":"MALE"},
-        "date_of_death": {"summary":"2010-2"}
+        "date_of_death": {"global":"2010-2"}
         
       }  
       

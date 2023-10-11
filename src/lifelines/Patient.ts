@@ -40,7 +40,7 @@ export const birthDate = ():string|undefined => {
 
 
 export const deceasedDateTime = ():string|undefined => {
-    const dod = inputValue("date_of_death","summary")
+    const dod = inputValue("date_of_death","global")
     if (dod!==undefined){
         return lifelinesDateToISO(dod)
     }

@@ -114,7 +114,7 @@ const resultFlag = (wave:string):CodeProperties|undefined => {
         return undefined        
     }
     else{
-        if (gender=="male"){
+        if (gender=="MALE"){
             if (Number(creatinine) > 110){
                 return getSNOMEDCode('281302008')
             }

@@ -12,7 +12,7 @@ test('Haemoglobine conceptration for male participant, above limit', () => {
   const input = {
    
     "hemoglobin_result_all_m_1" :{ "1a": "11.1", "2a":"12"},//in mmol/L
-    "gender" : { "1a":"male"},
+    "gender" : { "1a":"MALE"},
     "date": {/*date1*/ "1a":"1990-1","1b":"1995-5","1c":"1997-5",/*date2*/"2a":"2000-1","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "40" },  //age on "2a": 50  
     "project_pseudo_id": { "1a": "520681571" },
@@ -36,7 +36,7 @@ test('Haemoglobine conceptration for male participant, below reference range', (
   const input = {
    
     "hemoglobin_result_all_m_1" :{ "1a": "8", "2a":"8.4"},//in mmol/L
-    "gender" : { "1a":"male"},
+    "gender" : { "1a":"MALE"},
     "date": {/*date1*/ "1a":"1990-1","1b":"1995-5","1c":"1997-5",/*date2*/"2a":"2000-1","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "40" },  //age on "2a": 50  
     "project_pseudo_id": { "1a": "520681571" },
@@ -60,7 +60,7 @@ test('Haemoglobine conceptration for male participant, within the reference rang
   const input = {
    
     "hemoglobin_result_all_m_1" :{ "1a": "11", "2a":"8.5"},//in mmol/L
-    "gender" : { "1a":"male"},
+    "gender" : { "1a":"MALE"},
     "date": {/*date1*/ "1a":"1990-1","1b":"1995-5","1c":"1997-5",/*date2*/"2a":"2000-1","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "40" },  //age on "2a": 50  
     "project_pseudo_id": { "1a": "520681571" },
@@ -83,7 +83,7 @@ test('Haemoglobine conceptration for male participant, within the reference rang
   const input = {
    
     "hemoglobin_result_all_m_1" :{ "1a": "10", "2a":"9"},//in mmol/L
-    "gender" : { "1a":"male"},
+    "gender" : { "1a":"MALE"},
     "date": {/*date1*/ "1a":"1990-1","1b":"1995-5","1c":"1997-5",/*date2*/"2a":"2000-1","3a":"2003-5","3b":"2005-5"},
     "age": { "1a": "40" },  //age on "2a": 50  
     "project_pseudo_id": { "1a": "520681571" },

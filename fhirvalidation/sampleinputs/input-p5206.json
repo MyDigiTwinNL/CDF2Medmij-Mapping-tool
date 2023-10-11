@@ -3,9 +3,9 @@
     "variant_id": {},
     "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","2b":"2002-5","3a":"2003-5","3b":"2009-6"},
     "age": {"1a":"22"},
-    "gender": {"1a":"male"},
-    "zip_code": {"1a":"male"},
-    "date_of_death": {"summary":"2010-2"},
+    "gender": {"1a":"MALE"},
+    "zip_code": {"1a":"2222"},
+    "date_of_death": {"global":"2010-2"},
 
 
     "albumin_result_all_m_1" :{ "1a": "51", "2a":"60"},

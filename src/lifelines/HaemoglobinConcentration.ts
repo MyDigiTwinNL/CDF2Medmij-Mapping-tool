@@ -116,7 +116,7 @@ const resultFlag = (wave:string):CodeProperties|undefined=> {
         return undefined        
     }
     else{
-        if (gender=="male"){
+        if (gender=="MALE"){
             if (Number(hemoglobin) > 11.0){
                 return getSNOMEDCode('281302008')
             }
