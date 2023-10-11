@@ -35,8 +35,6 @@ export const hdlCholesterol:LaboratoryTestResult = {
         //if the assessment was missed, do not evaluate/create the resource
         return waves.filter((wave) => !missedAsssesment(wave)).map((wave) => createCheckedAccessProxy({
             "assessment": wave,
-            "isAboveReferenceRange": undefined,
-            "isBelowReferenceRange": isHDLBelowReferenceRange(wave),
             "resultFlags": resultFlags(wave),
             "testResult": hdlResults(wave),
             "collectedDateTime": collectedDateTime(wave)

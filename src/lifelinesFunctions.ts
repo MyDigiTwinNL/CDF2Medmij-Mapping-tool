@@ -26,6 +26,23 @@ export const echo = (text:string):void => (console.info(text))
  */
 export const assesmentMissed = (wave:string) => inputValue("date",wave)==undefined
 
+/**
+ * 
+ * @precondition date in the given wave is never undefined
+ * @param wave 
+ * @returns 
+ */
+export const collectedDateTime=function(wave:string):string|undefined{
+    const coldate = inputValue("date",wave)
+    if (coldate!=undefined){
+        return lifelinesDateToISO(coldate)
+    }
+    else{
+        return undefined
+    }    
+    
+};
+
 
 
 /**

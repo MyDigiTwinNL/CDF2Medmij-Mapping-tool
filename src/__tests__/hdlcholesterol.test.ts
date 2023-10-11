@@ -18,9 +18,7 @@ test('HDL Cholesterol reports, below reference lower limit', () => {
   InputSingleton.getInstance().setInput(input);
   const results = hdlcholesterolmf.hdlCholesterol.results()
   expect(results.length).toBe(2);  
-  expect((results[0] as TestResultEntry).isBelowReferenceRange).toBe(true)
   expect((results[0] as TestResultEntry).resultFlags?.display).toBe("Below reference range");
-  expect((results[1] as TestResultEntry).isBelowReferenceRange).toBe(true)
   expect((results[1] as TestResultEntry).resultFlags?.display).toBe("Below reference range");
   
 
@@ -38,9 +36,7 @@ test('HDL Cholesterol reports, mix of normal and above reference ranges', () => 
   InputSingleton.getInstance().setInput(input);
   const results = hdlcholesterolmf.hdlCholesterol.results()
   expect(results.length).toBe(2);  
-  expect((results[0] as TestResultEntry).isBelowReferenceRange).toBe(false)
   expect((results[0] as TestResultEntry).resultFlags).toStrictEqual(undefined);
-  expect((results[1] as TestResultEntry).isBelowReferenceRange).toBe(true)
   expect((results[1] as TestResultEntry).resultFlags?.display).toBe("Below reference range");
   
 
@@ -58,9 +54,7 @@ test('HDL cholesterol reports, within normal levels', () => {
   InputSingleton.getInstance().setInput(input);
   const results = hdlcholesterolmf.hdlCholesterol.results()
   expect(results.length).toBe(2);  
-  expect((results[0] as TestResultEntry).isBelowReferenceRange).toBe(false)
   expect((results[0] as TestResultEntry).resultFlags).toStrictEqual(undefined)
-  expect((results[1] as TestResultEntry).isBelowReferenceRange).toBe(false)
   expect((results[1] as TestResultEntry).resultFlags).toStrictEqual(undefined)
     
 

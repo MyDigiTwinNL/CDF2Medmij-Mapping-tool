@@ -16,8 +16,6 @@ export interface LaboratoryTestResult {
 
 export type TestResultEntry= {
     assessment: string;
-    isAboveReferenceRange: boolean | undefined;
-    isBelowReferenceRange: boolean | undefined;
     resultFlags: CodeProperties | undefined;
     testResult: number | undefined;
     collectedDateTime: string | undefined;

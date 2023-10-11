@@ -94,8 +94,6 @@ export const eGFRS:LaboratoryTestResult = {
         //if the assessment was missed, do not evaluate/create the resource
         return waves.filter((wave) => !missedAsssesment(wave)).map((wave) => createCheckedAccessProxy({
             "assessment": wave,
-            "isAboveReferenceRange": undefined,
-            "isBelowReferenceRange": isBelowReferenceRange(wave, REFERENCE_RANGE_LOWER_LIMIT),
             "resultFlags": resultFlags(wave, REFERENCE_RANGE_LOWER_LIMIT),
             "testResult": eGFRResult(wave),
             "collectedDateTime": collectedDateTime(wave)
@@ -122,11 +120,6 @@ const REFERENCE_RANGE_LOWER_LIMIT = 60;
  */
 const missedAsssesment = (wave:string) => inputValue("date",wave)==undefined
 
-
-const isBelowReferenceRange = (wave:string,lowerLimit:number):boolean|undefined => {
-    const eGFR = eGFRResult(wave)
-    return (eGFR!==undefined && eGFR < lowerLimit);
-}
 
 /**
  * 

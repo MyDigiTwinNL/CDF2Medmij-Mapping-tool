@@ -1,5 +1,5 @@
 import {inputValue,createCheckedAccessProxy} from '../functionsCatalog';
-import {lifelinesDateToISO,substractDates,assesmentMissed} from '../lifelinesFunctions'
+import {assesmentMissed,collectedDateTime} from '../lifelinesFunctions'
 import {LaboratoryTestResult, TestResultEntry} from '../fhir-resource-interfaces/laboratoryTestResult'
 import {getSNOMEDCode,getLOINCCode,getUCUMCode,CodeProperties} from '../codes/codesCollection'
 
@@ -50,10 +50,10 @@ https://www.umcg.nl/bw/42976573-722a-48fc-a650-5ea718fd1717
  */
 export const haemoglobinConcentration:LaboratoryTestResult = {
     referenceRangeUpperLimit: function (): number | undefined {
-        return undefined
+        return undefined;
     },
     referenceRangeLowerLimit: function (): number | undefined {
-        return undefined
+        return undefined;
     },
     diagnosticCategoryCoding: function (): CodeProperties[] {
         //laboratory_report,microbiology_procedure
@@ -61,7 +61,7 @@ export const haemoglobinConcentration:LaboratoryTestResult = {
     },
     diagnosticCodeCoding: function (): CodeProperties[] {
         //"718-7" - "Hgb Bld-mCnc"
-        return [getLOINCCode('718-7')];        
+        return [getLOINCCode('718-7')];
     },
     diagnosticCodeText: function (): string {
         throw new Error('Function not implemented.');
@@ -72,11 +72,11 @@ export const haemoglobinConcentration:LaboratoryTestResult = {
     },
     observationCodeCoding: function (): CodeProperties[] {
         //"718-7" - "Hgb Bld-mCnc"
-        return [getLOINCCode('718-7')];        
+        return [getLOINCCode('718-7')];
     },
     resultUnit: function (): CodeProperties {
         //*"mmol/l
-        return getUCUMCode("mmol/l")
+        return getUCUMCode("mmol/l");
     },
     results: function (): TestResultEntry[] {
         const waves = ["1a", "2a"];
@@ -84,13 +84,60 @@ export const haemoglobinConcentration:LaboratoryTestResult = {
         //if the assessment was missed, do not evaluate/create the resource
         return waves.filter((wave) => !assesmentMissed(wave)).map((wave) => createCheckedAccessProxy({
             "assessment": wave,
-            "isAboveReferenceRange": ,
-            "isBelowReferenceRange": ,
-            "resultFlags": 
-            "testResult": 
+            "resultFlags": resultFlag(wave),
+            "testResult": function(){
+                const hemoglobin = inputValue("hemoglobin_result_all_m_1",wave);                
+                return hemoglobin!==undefined?Number(hemoglobin):undefined
+            }(),
             "collectedDateTime": collectedDateTime(wave)
         })
         );
 
+    },
+    labTestName: function (): string {
+        return "Haemoglobin-concentration"
+    }
+}
+
+
+/**
+ * Result flag calculation for Haemoglobin concentration
+ * @param wave 
+ * @returns SNOMED code for above/below limit
+ */
+const resultFlag = (wave:string):CodeProperties|undefined=> {
+
+    // Gender only available on '1a'
+    const gender = inputValue("gender","1a");
+    const hemoglobin = inputValue("hemoglobin_result_all_m_1",wave);
+
+
+    if (gender===undefined || hemoglobin===undefined){
+        return undefined        
+    }
+    else{
+        if (gender=="male"){
+            if (Number(hemoglobin) > 11.0){
+                return getSNOMEDCode('281302008')
+            }
+            else if (Number(hemoglobin) < 8.5){
+                return getSNOMEDCode('281300000')                
+            }
+            else{
+                return undefined;
+            }
+        }
+        else{
+            if (Number(hemoglobin) > 10.0){
+                return getSNOMEDCode('281302008')
+            }
+            else if (Number(hemoglobin) < 7.5){
+                return getSNOMEDCode('281300000')                
+            }
+            else{
+                return undefined;
+            }
+
+        }
     }
 }
