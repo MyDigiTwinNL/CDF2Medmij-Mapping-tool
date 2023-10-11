@@ -6,10 +6,13 @@ export interface LaboratoryTestResult {
     referenceRangeUpperLimit(): number|undefined;
     referenceRangeLowerLimit(): number|undefined;
     diagnosticCategoryCoding(): CodeProperties[];
+    
     diagnosticCodeCoding(): CodeProperties[];
+    observationCodeCoding():CodeProperties[];
+    
     diagnosticCodeText():string;    
     observationCategoryCoding():object[];
-    observationCodeCoding():CodeProperties[];
+    
     resultUnit(): CodeProperties;
     results(): TestResultEntry[];
 }
