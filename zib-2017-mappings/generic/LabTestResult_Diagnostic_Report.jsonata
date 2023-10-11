@@ -5,8 +5,8 @@
 $map($results(), function($result) {
         
     ($isDefined($result.testResult))?{
-    "resourceType": "DiagnosticReport",
-    "id": $waveSpecificResourceId('zib-laboratorytestresult-diagnosticreport-hdl',$result.assessment),
+    "resourceType": "DiagnosticReport",    
+    "id": $waveSpecificResourceId('zib-laboratorytestresult-diagnostic-'&$labTestName(),$result.assessment),    
     "meta": {
         "profile": [
             "http://nictiz.nl/fhir/StructureDefinition/zib-LaboratoryTestResult-DiagnosticReport"
@@ -47,13 +47,13 @@ $map($results(), function($result) {
     "effectiveDateTime": $result.collectedDateTime,
     "specimen": [
         {
-            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-hdl',$result.assessment)),
+            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-'&$labTestName(),$result.assessment)),
             "display": "Blood"
         }
     ],
     "result": [
         {
-            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-observation-hdl',$result.assessment)),
+            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-observation-'&$labTestName(),$result.assessment)),
             "display": "Laboratory test finding"
         }
     ]

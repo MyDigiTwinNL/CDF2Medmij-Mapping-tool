@@ -63,7 +63,6 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2763564/
  * 
  **/
 export const eGFRS:LaboratoryTestResult = {
-
     referenceRangeUpperLimit: function (): number | undefined {
         return undefined;
     },
@@ -96,15 +95,18 @@ export const eGFRS:LaboratoryTestResult = {
         return waves.filter((wave) => !missedAsssesment(wave)).map((wave) => createCheckedAccessProxy({
             "assessment": wave,
             "isAboveReferenceRange": undefined,
-            "isBelowReferenceRange": isBelowReferenceRange(wave,REFERENCE_RANGE_LOWER_LIMIT),
-            "resultFlags": resultFlags(wave,REFERENCE_RANGE_LOWER_LIMIT),
+            "isBelowReferenceRange": isBelowReferenceRange(wave, REFERENCE_RANGE_LOWER_LIMIT),
+            "resultFlags": resultFlags(wave, REFERENCE_RANGE_LOWER_LIMIT),
             "testResult": eGFRResult(wave),
             "collectedDateTime": collectedDateTime(wave)
         })
         );
     },
     resultUnit: function (): CodeProperties {
-        return getUCUMCode("mL/min/{1.73_m2}")
+        return getUCUMCode("mL/min/{1.73_m2}");
+    },
+    labTestName: function (): string {
+        return "eGFR-CKD-EPI-2009"
     }
 }
 

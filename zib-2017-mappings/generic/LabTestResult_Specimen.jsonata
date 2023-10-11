@@ -3,9 +3,8 @@
 $map($results(), function($result) {
 
     ($isDefined($result.testResult))?{
-        "resourceType": "Specimen",
-        
-        "id": $waveSpecificResourceId('zib-laboratorytestresult-specimen-hdl',$result.assessment),
+        "resourceType": "Specimen",                
+        "id": $waveSpecificResourceId('zib-laboratorytestresult-specimen-'&$labTestName(),$result.assessment),            
         "meta": {
             "profile": [
                 "http://nictiz.nl/fhir/StructureDefinition/zib-LaboratoryTestResult-Specimen"

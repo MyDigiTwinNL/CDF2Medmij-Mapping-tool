@@ -2,6 +2,7 @@ import {CodeProperties} from '../codes/codesCollection'
 
 
 export interface LaboratoryTestResult {
+    labTestName():string;
     referenceRangeUpperLimit(): number|undefined;
     referenceRangeLowerLimit(): number|undefined;
     diagnosticCategoryCoding(): CodeProperties[];

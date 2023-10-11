@@ -63,6 +63,9 @@ export const hdlCholesterol:LaboratoryTestResult = {
     },
     resultUnit: function (): CodeProperties {
         return getUCUMCode('mmol/L');
+    },
+    labTestName: function (): string {
+        return "hdl-cholesterol"
     }
 }
 

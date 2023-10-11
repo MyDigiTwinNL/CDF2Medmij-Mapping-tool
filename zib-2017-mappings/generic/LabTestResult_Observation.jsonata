@@ -5,7 +5,7 @@ $map($results(), function($result) {
 
     ($isDefined($result.testResult))?{
         "resourceType": "Observation",        
-        "id": $waveSpecificResourceId('zib-laboratorytestresult-observation-hdl',$result.assessment),    
+        "id": $waveSpecificResourceId('zib-laboratorytestresult-observation-'&$labTestName(),$result.assessment),    
         "meta": {
             "profile": [
                 "http://nictiz.nl/fhir/StructureDefinition/zib-LaboratoryTestResult-Observation"
@@ -35,7 +35,7 @@ $map($results(), function($result) {
         },
         
         
-        "interpretation": ($result.isBelowReferenceRange)?{
+        "interpretation": ($isDefined($result.resultFlags))?{
             "coding": [                                    
                     {
                         "system": $result.resultFlags.system,
@@ -47,7 +47,7 @@ $map($results(), function($result) {
         },
         
         "specimen": {
-            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-hdl',$result.assessment)),
+            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-'&$labTestName(),$result.assessment)),
             "display": "Blood (substance)"
         },
         "referenceRange": [

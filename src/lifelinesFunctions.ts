@@ -1,9 +1,31 @@
 import {inputValue} from './functionsCatalog';
 
+/**
+ * The following general-purpose functions are not intended to be used directly, as
+ * they are context-dependant (given which JSON document is being processed by
+ * a JSONata expression). 
+ * These are loaded as'bindings' to each JSONata expression (see mapper module), 
+ * so that they can be called within the templates, or from the other loaded
+ * modules. 
+ * 
+ */
+
 
 export const resourceId = (resourceName:string):string => `${resourceName}-${inputValue('project_pseudo_id',"1a")}`
 
 export const waveSpecificResourceId = (resourceName:string,wave:string):string => `${resourceName}-${wave}-${inputValue('project_pseudo_id','1a')}`
+
+export const echo = (text:string):void => (console.info(text))
+
+/**
+ * 
+ * It is assumed (from Lifelines data analysis) that when 'date' is missing in an assessment, the
+ * participant dropped the study or missed the assessment.
+ * @param wave 
+ * @returns true if the assessment was missed, for the
+ */
+export const assesmentMissed = (wave:string) => inputValue("date",wave)==undefined
+
 
 
 /**
@@ -61,3 +83,5 @@ export const substractDates = (date1: string, date2: string): number => {
   
     return (year2 - year1) * 12 + (month2 - month1);
 }
+
+
