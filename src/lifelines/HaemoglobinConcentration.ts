@@ -64,7 +64,7 @@ export const haemoglobinConcentration:LaboratoryTestResult = {
         return [getLOINCCode('718-7')];
     },
     diagnosticCodeText: function (): string {
-        throw new Error('Function not implemented.');
+        return "Hemoglobin [Mass/volume] in Blood"
     },
     observationCategoryCoding: function (): object[] {
         //"Laboratory test finding (finding)","display": "Serum chemistry test"
@@ -76,7 +76,7 @@ export const haemoglobinConcentration:LaboratoryTestResult = {
     },
     resultUnit: function (): CodeProperties {
         //*"mmol/l
-        return getUCUMCode("mmol/l");
+        return getUCUMCode("mmol/L");
     },
     results: function (): TestResultEntry[] {
         const waves = ["1a", "2a"];
@@ -95,7 +95,7 @@ export const haemoglobinConcentration:LaboratoryTestResult = {
 
     },
     labTestName: function (): string {
-        return "Haemoglobin-concentration"
+        return "Haemoglobin"
     }
 }
 

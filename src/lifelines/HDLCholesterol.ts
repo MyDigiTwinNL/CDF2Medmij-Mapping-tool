@@ -1,5 +1,5 @@
 import {inputValue,createCheckedAccessProxy} from '../functionsCatalog';
-import {lifelinesDateToISO} from '../lifelinesFunctions'
+import {assesmentMissed,collectedDateTime} from '../lifelinesFunctions'
 import {LaboratoryTestResult, TestResultEntry} from '../fhir-resource-interfaces/laboratoryTestResult'
 import {getSNOMEDCode,getLOINCCode,getUCUMCode,CodeProperties} from '../codes/codesCollection'
 
@@ -33,7 +33,7 @@ export const hdlCholesterol:LaboratoryTestResult = {
         const waves = ["1a", "2a"];
 
         //if the assessment was missed, do not evaluate/create the resource
-        return waves.filter((wave) => !missedAsssesment(wave)).map((wave) => createCheckedAccessProxy({
+        return waves.filter((wave) => !assesmentMissed(wave)).map((wave) => createCheckedAccessProxy({
             "assessment": wave,
             "resultFlags": resultFlags(wave),
             "testResult": hdlResults(wave),
@@ -79,15 +79,6 @@ Based on HCIM Problem resource:
 https://simplifier.net/packages/nictiz.fhir.nl.stu3.zib2017/2.2.13/files/2039136
 
 */
-
-
-/**
- * It is assumed (from Lifelines data analysis) that when 'date' is missing in an assessment, the
- * participant dropped the study or missed the assessment.
- * @param wave 
- * @returns true if the assessment was missed 
- */
-const missedAsssesment = (wave:string) => inputValue("date",wave)==undefined
 
 
 
@@ -139,22 +130,5 @@ const hdlResults=function(wave:string):number|undefined{
     else{
         return undefined
     }    
-};
-
-/**
- * 
- * @precondition date in the given wave is never undefined
- * @param wave 
- * @returns 
- */
-const collectedDateTime=function(wave:string):string|undefined{
-    const coldate = inputValue("date",wave)
-    if (coldate!=undefined){
-        return lifelinesDateToISO(coldate)
-    }
-    else{
-        return undefined
-    }    
-    
 };
 

@@ -1,5 +1,5 @@
 import {inputValue,createCheckedAccessProxy} from '../functionsCatalog';
-import {lifelinesDateToISO,substractDates} from '../lifelinesFunctions'
+import {lifelinesDateToISO,substractDates,collectedDateTime} from '../lifelinesFunctions'
 import {LaboratoryTestResult, TestResultEntry} from '../fhir-resource-interfaces/laboratoryTestResult'
 import {getSNOMEDCode,getLOINCCode,getUCUMCode,CodeProperties} from '../codes/codesCollection'
 
@@ -104,7 +104,7 @@ export const eGFRS:LaboratoryTestResult = {
         return getUCUMCode("mL/min/{1.73_m2}");
     },
     labTestName: function (): string {
-        return "eGFR-CKD-EPI-2009"
+        return "eGFR-2009"
     }
 }
 
@@ -169,25 +169,6 @@ const eGFRResult = (wave:string):number|undefined => {
 
 
 }
-
-
-
-/**
- * 
- * @precondition date in the given wave is never undefined
- * @param wave 
- * @returns 
- */
-const collectedDateTime=function(wave:string):string|undefined{
-    const coldate = inputValue("date",wave)
-    if (coldate!=undefined){
-        return lifelinesDateToISO(coldate)
-    }
-    else{
-        return undefined
-    }    
-    
-};
 
 
 /**

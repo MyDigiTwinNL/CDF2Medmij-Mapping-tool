@@ -16,6 +16,9 @@ export const targets:MappingTarget[] = [
     { "module": './lifelines/eGFR', "template": '../../zib-2017-mappings/generic/LabTestResult_Diagnostic_Report.jsonata' },
     { "module": './lifelines/eGFR', "template": '../../zib-2017-mappings/generic/LabTestResult_Observation.jsonata' },
     { "module": './lifelines/eGFR', "template": '../../zib-2017-mappings/generic/LabTestResult_Specimen.jsonata' },
-  
+    { "module": './lifelines/HaemoglobinConcentration', "template": '../../zib-2017-mappings/generic/LabTestResult_Diagnostic_Report.jsonata' },
+    { "module": './lifelines/HaemoglobinConcentration', "template": '../../zib-2017-mappings/generic/LabTestResult_Observation.jsonata' },
+    { "module": './lifelines/HaemoglobinConcentration', "template": '../../zib-2017-mappings/generic/LabTestResult_Specimen.jsonata' },
+
     
   ]
