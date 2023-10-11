@@ -1,5 +1,5 @@
 import {inputValue,createCheckedAccessProxy} from '../functionsCatalog';
-import {lifelinesDateToISO,substractDates,collectedDateTime} from '../lifelinesFunctions'
+import {lifelinesDateToISO,substractDates,collectedDateTime,assesmentMissed} from '../lifelinesFunctions'
 import {LaboratoryTestResult, TestResultEntry} from '../fhir-resource-interfaces/laboratoryTestResult'
 import {getSNOMEDCode,getLOINCCode,getUCUMCode,CodeProperties} from '../codes/codesCollection'
 
@@ -92,7 +92,7 @@ export const eGFRS:LaboratoryTestResult = {
         const waves = ["1a", "2a"];
 
         //if the assessment was missed, do not evaluate/create the resource
-        return waves.filter((wave) => !missedAsssesment(wave)).map((wave) => createCheckedAccessProxy({
+        return waves.filter((wave) => !assesmentMissed(wave)).map((wave) => createCheckedAccessProxy({
             "assessment": wave,
             "resultFlags": resultFlags(wave, REFERENCE_RANGE_LOWER_LIMIT),
             "testResult": eGFRResult(wave),
@@ -111,14 +111,6 @@ export const eGFRS:LaboratoryTestResult = {
 
 const REFERENCE_RANGE_LOWER_LIMIT = 60;
 
-
-/**
- * It is assumed (from Lifelines data analysis) that when 'date' is missing in an assessment, the
- * participant dropped the study or missed the assessment.
- * @param wave 
- * @returns true if the assessment was missed 
- */
-const missedAsssesment = (wave:string) => inputValue("date",wave)==undefined
 
 
 /**

@@ -9,6 +9,7 @@
     "creatinine_result_all_m_1":{ "1a": "79.2", "2a":"106.1"},
     "ethnicity_category_adu_q_1":{"1b":"3"},
     "hemoglobin_result_all_m_1" :{ "1a": "11.1", "2a":"12"},
+    "hba1cconc_result_all_m_1":{ "1a": "43", "2a":"44"},
 
     "hypertension_startage_adu_q_1":{"1a":"","3a":"23","3b":"23"},
     "hypertension_presence_adu_q_1":{"1a":"2","3a":"1","3b":"1"},
