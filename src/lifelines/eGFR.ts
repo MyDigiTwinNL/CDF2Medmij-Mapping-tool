@@ -2,6 +2,7 @@ import {inputValue,createCheckedAccessProxy} from '../functionsCatalog';
 import {lifelinesDateToISO,substractDates,collectedDateTime,assesmentMissed} from '../lifelinesFunctions'
 import {LaboratoryTestResult, TestResultEntry} from '../fhir-resource-interfaces/laboratoryTestResult'
 import {getSNOMEDCode,getLOINCCode,getUCUMCode,CodeProperties} from '../codes/codesCollection'
+import {assertIsDefined} from '../unexpectedInputException'
 
 
 /*
@@ -140,6 +141,9 @@ const eGFRResult = (wave:string):number|undefined => {
         return undefined        
     }
     else{
+        
+        assertIsDefined(inputValue("date","1a"),`Precondition failed: date of baseline assessment (1a) is expected to be not-null for eGFR calculations`)
+        
         const baslineAge = Number(age)
 
         //the age is only available on the first assessment(wave), so it is estimated
