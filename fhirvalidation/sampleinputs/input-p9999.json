@@ -7,7 +7,7 @@
     "gender": {"1a":"FEMALE"},
     "date_of_death": {"global":""},
 
-    "albumin_result_all_m_1" :{ "1a": "34", "2a":"30"},
+    "albumin_result_all_m_1" :{ "1a": "34"},
     "creatinine_result_all_m_1":{ "1a": "79.2", "2a":"106.1"},
     "ethnicity_category_adu_q_1":{"1b":"1"},
     "hemoglobin_result_all_m_1" :{ "1a": "6", "2a":"12"},  

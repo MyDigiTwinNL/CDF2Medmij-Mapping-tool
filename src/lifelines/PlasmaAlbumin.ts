@@ -28,7 +28,7 @@ https://www.umcg.nl/bw/503e8554-bf74-47c9-b175-9fc3792ba9b4
  * Related variables:
  * ------------------------------------------------------------------
  *                                [1A][1B][1C][2A][3A][3B]
- * albumin_result_all_m_1         [X ][  ][  ][X ][  ][  ]
+ * albumin_result_all_m_1         [X ][  ][  ][  ][  ][  ]
  * date                           [X ][X ][X ][X ][X ][X ]
  * ------------------------------------------------------------------
  * 
@@ -79,7 +79,7 @@ export const plasmaAlbumin:LaboratoryTestResult = {
         return getUCUMCode('g/L')        
     },
     results: function (): TestResultEntry[] {
-        const waves = ["1a", "2a"];
+        const waves = ["1a"];
 
         //if the assessment was missed, do not evaluate/create the resource
         return waves.filter((wave) => !assesmentMissed(wave)).map((wave) => createCheckedAccessProxy({
