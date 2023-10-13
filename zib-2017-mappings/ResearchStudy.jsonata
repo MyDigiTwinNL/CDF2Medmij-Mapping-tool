@@ -1,7 +1,7 @@
 (
     {
         "resourceType": "ResearchStudy",
-        "id": "hl7-research-study"&$studyName(),
+        "id": 'hl7-research-study-'&$studyName(),
         "identifier": [
             {
                 "type": {

@@ -18,7 +18,7 @@
         },
         "status": "candidate",
         "study": {
-            "reference": "urn:uuid:7d01edee-33e5-5115-a5db-5829e35d5999"
+            "reference": $idToUUID("hl7-research-study-"&$studyName())
         },
         "individual": {
             "reference": $idToUUID($resourceId('nl-core-patient'))

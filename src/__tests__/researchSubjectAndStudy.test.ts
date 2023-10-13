@@ -1,6 +1,5 @@
 import { InputSingleton } from '../inputSingleton';
-import {researchSubject} from '../lifelines/ResearchSubject'
-import {researchStudy} from '../lifelines/ResearchStudy'
+import {researchSubjectAndStudy} from '../lifelines/ResearchSubjectAndStudy'
 import { MappingTarget, processInput } from '../mapper'
 
 
@@ -16,8 +15,8 @@ test('Skipped one or more assessment, but participated in the last one', () => {
 
   InputSingleton.getInstance().setInput(input);
 
-  expect(researchSubject.dateOfInclusion()).toBe("2010-02")
-  expect(researchSubject.dateOfLastResponse()).toBe("2005-05")
+  expect(researchSubjectAndStudy.dateOfInclusion()).toBe("2010-02")
+  expect(researchSubjectAndStudy.dateOfLastResponse()).toBe("2005-05")
   
 
 });
@@ -34,8 +33,8 @@ test('Skipped one or more assessment, including the last one', () => {
   
     InputSingleton.getInstance().setInput(input);
   
-    expect(researchSubject.dateOfInclusion()).toBe("2010-02")
-    expect(researchSubject.dateOfLastResponse()).toBe("2003-05")
+    expect(researchSubjectAndStudy.dateOfInclusion()).toBe("2010-02")
+    expect(researchSubjectAndStudy.dateOfLastResponse()).toBe("2003-05")
     
 });
 
@@ -52,8 +51,8 @@ test('Skipped all the assessment but the baseline one', () => {
   
     InputSingleton.getInstance().setInput(input);
   
-    expect(researchSubject.dateOfInclusion()).toBe("2010-02")
-    expect(researchSubject.dateOfLastResponse()).toBe("1992-05")
+    expect(researchSubjectAndStudy.dateOfInclusion()).toBe("2010-02")
+    expect(researchSubjectAndStudy.dateOfLastResponse()).toBe("1992-05")
     
 });
 
@@ -73,7 +72,7 @@ test('Subject and study resource generation', () => {
       }  
     
     let targets: MappingTarget[] = [
-      { "template": './zib-2017-mappings/ResearchStudy.jsonata', "module": './lifelines/ResearchStudy.ts'},
+      { "template": './zib-2017-mappings/ResearchStudy.jsonata', "module": './lifelines/ResearchSubjectAndStudy.ts'},
     ]
     
     processInput(input,targets).then((output:object[]) => {
@@ -81,7 +80,7 @@ test('Subject and study resource generation', () => {
     })
 
     targets = [
-        { "template": './zib-2017-mappings/ResearchSubject.jsonata', "module": './lifelines/ResearchSubject.ts'},
+        { "template": './zib-2017-mappings/ResearchStudy.jsonata', "module": './lifelines/ResearchSubjectAndStudy.ts'},
     ]
       
     processInput(input,targets).then((output:object[]) => {

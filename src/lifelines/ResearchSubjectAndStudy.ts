@@ -1,7 +1,7 @@
-import { inputValue, inputValues, variableAssessments } from '../functionsCatalog'
-import { lifelinesDateToISO } from '../lifelinesFunctions'
-import {ResearchSubject} from '../fhir-resource-interfaces/researchSubject'
+import {ResearchSubjectAndStudy, StudyStatus} from '../fhir-resource-interfaces/researchSubjectAndStudy'
 import { assertIsDefined } from '../unexpectedInputException'
+import { lifelinesDateToISO } from '../lifelinesFunctions'
+import { inputValue, inputValues, variableAssessments } from '../functionsCatalog'
 
 /**
  *                       [global][1a][1b][1c][2a][3a][3b]
@@ -11,7 +11,13 @@ import { assertIsDefined } from '../unexpectedInputException'
  *  
  * 
  */
-export const researchSubject:ResearchSubject = {
+export const researchSubjectAndStudy:ResearchSubjectAndStudy = {
+    studyName: function (): string {
+        return "Lifelines-Netherlands";
+    },
+    studyStatus: function (): StudyStatus {
+        return StudyStatus.COMPLETED;
+    },
     dateOfInclusion: function (): string {
         const dateOfInclusion = inputValue('date_of_inclusion','global')
         assertIsDefined(dateOfInclusion,`Date of inclusion is expected to be not null for all participants`)
@@ -29,5 +35,3 @@ export const researchSubject:ResearchSubject = {
            
     }
 }
-
-

@@ -47,8 +47,8 @@ const targets: MappingTarget[] = [
   { "template": '../zib-2017-mappings/TotalCholesterol_Specimen.jsonata', "module": './lifelines/TotalCholesterol' },
   { "template": '../zib-2017-mappings/Patient.jsonata', "module": './lifelines/Patient' },
 
-  { "module": './lifelines/ResearchStudy', "template": '../zib-2017-mappings/ResearchStudy.jsonata' },
-  { "module": './lifelines/ResearchSubject', "template": '../zib-2017-mappings/ResearchSubject.jsonata' },
+  { "module": './lifelines/ResearchSubjectAndStudy', "template": '../zib-2017-mappings/ResearchStudy.jsonata' },
+  { "module": './lifelines/ResearchSubjectAndStudy', "template": '../zib-2017-mappings/ResearchSubject.jsonata' },
 
 
 
