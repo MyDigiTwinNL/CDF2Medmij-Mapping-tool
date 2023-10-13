@@ -1,0 +1,16 @@
+(
+    {
+        "resourceType": "ResearchStudy",
+        "id": "hl7-research-study"&$studyName(),
+        "identifier": [
+            {
+                "type": {
+                    "text": "Study name"
+                },
+                "value": $studyName()
+            }
+        ],
+        "title": $studyName(),
+        "status": $studyStatus()
+    }
+)

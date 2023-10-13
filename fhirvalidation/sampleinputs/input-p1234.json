@@ -8,7 +8,8 @@
     "gender": {"1a":"MALE"},
     "zip_code": {"1a":"11111"},
     "date_of_death": {"global":"2010-2"},
-
+    "date_of_inclusion": {"global":"1991-2"},
+    
     "albumin_result_all_m_1" :{ "1a": "51"},
     "creatinine_result_all_m_1":{ "1a": "79.2", "2a":"106.1"},
     "ethnicity_category_adu_q_1":{"1b":"3"},
