@@ -34,7 +34,7 @@ https://www.umcg.nl/bw/a20a8160-9c17-4866-a9eb-191dddb43d8b
  * @return, for each assessment:
  *      [[assessment_N]:
  *          - result: hba1cconc_result_all_m_1 in assessment_N
- *          - resultcoding: {"system": "http://loinc.org","code": "14646-4","display": "HbA1c MFr Bld"}
+ *          - resultcoding: {"system": "http://loinc.org","code": "4548-4","display": "HbA1c MFr Bld"}
  *          - resultunits: {"unit": "mmol/mol","system": "http://unitsofmeasure.org","code": "mmol/mol"}
  *          - resultFlag: {code:281302008, system:http://snomed.info/sct} if 
  *              hba1cconc_result_all_m_1 in assessment_N > 42 mmol/mol
@@ -59,7 +59,7 @@ export const hbA1c:LaboratoryTestResult = {
     },
     diagnosticCodeCoding: function (): CodeProperties[] {
         //HbA1c MFr Bld
-        return [getLOINCCode('14646-4')];        
+        return [getLOINCCode('4548-4')];        
     },
     diagnosticCodeText: function (): string {
         return "Cholesterol in HDL [Moles/volume] in Serum or Plasma"
@@ -70,7 +70,7 @@ export const hbA1c:LaboratoryTestResult = {
     },
     observationCodeCoding: function (): CodeProperties[] {
         //HbA1c MFr Bld
-        return [getLOINCCode('14646-4')];
+        return [getLOINCCode('4548-4')];
     },
     resultUnit: function (): CodeProperties {
         return getUCUMCode('mmol/mol')
