@@ -95,8 +95,4 @@ To configure which pairing-rule modules will be used on which JSON output-templa
 The developer documentation with the description of the tool design, and further details for creating new templates/pairing rules [can be found here](./docs/development.md) (still under development).
 
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
 

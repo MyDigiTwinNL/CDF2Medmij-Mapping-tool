@@ -16,7 +16,7 @@ theme:
       name: "Switch to dark mode"
   - media: "(prefers-color-scheme: dark)"
     scheme: slate
-    primary: deep orange
+    primary: light blue
     accent: indigo
     toggle:
       icon: material/weather-night
@@ -74,8 +74,6 @@ markdown_extensions:
 - pymdownx.tabbed:
     alternate_style: true
 - pymdownx.magiclink
-- pymdownx.snippets: # use files outside of docs folder 
-    base_path: [., ./src/nplinker, ./src/nplinker/data]
 
 watch:
 - docs
