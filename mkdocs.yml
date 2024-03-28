@@ -1,0 +1,84 @@
+site_name: CDF2FHIR
+site_description: Data Harmonization Framework for Cohort Studies
+strict: true
+site_url: https://github.com/MyDigiTwinNL/CDF2Medmij-Mapping-tool
+
+theme:
+  # https://squidfunk.github.io/mkdocs-material/
+  name: 'material'
+  palette:
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: deep orange
+    accent: indigo
+    toggle:
+      icon: material/weather-sunny
+      name: "Switch to dark mode"
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: deep orange
+    accent: indigo
+    toggle:
+      icon: material/weather-night
+      name: "Switch to light mode"
+  features:
+    - content.tabs.link
+    - content.code.annotate
+    - content.code.copy
+    - announce.dismiss
+    - navigation.tabs
+  icon:
+    logo: 'material/library-outline'
+    previous: fontawesome/solid/angle-left
+    next: fontawesome/solid/angle-right
+  favicon: 'favicon.png'
+
+repo_name: MyDigiTwinNL/CDF2Medmij-Mapping-tool
+repo_url: https://github.com/MyDigiTwinNL/CDF2Medmij-Mapping-tool
+edit_uri: edit/dev/docs/
+
+# https://www.mkdocs.org/user-guide/configuration/#validation
+#validation:
+#  omitted_files: warn
+#  absolute_links: warn
+#  unrecognized_links: warn
+
+nav:
+- Get Started:
+  - Introduction: index.md
+  - Architecture description: arch.md
+- Developer documentation:
+  - Creating new FHIR templates: ftemplates.md
+  - Specifying pairing rules: prules.md
+  - UI for transformations inspection and validation: uienv.md
+  - Test-driven development of pairing rules: tddprules.md
+  - FHIR-profiles validation: fhirvalidation.md
+
+
+markdown_extensions:
+# https://python-markdown.github.io/extensions/
+- toc:
+    permalink: true
+- admonition
+# https://facelessuser.github.io/pymdown-extensions
+- pymdownx.details
+- pymdownx.highlight:
+    anchor_linenums: true
+    pygments_lang_class: true
+- pymdownx.extra:
+    pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+- pymdownx.tabbed:
+    alternate_style: true
+- pymdownx.magiclink
+- pymdownx.snippets: # use files outside of docs folder 
+    base_path: [., ./src/nplinker, ./src/nplinker/data]
+
+watch:
+- docs
+
+plugins:
+- search

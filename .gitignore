@@ -1,3 +1,5 @@
+venv
+site
 cdf2fhir.*
 .DS_Store
 **/.DS_Store
