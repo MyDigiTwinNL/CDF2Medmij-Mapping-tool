@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - wip/gitpagesdoc
+      - wip/documentation
 
 jobs:
   deploy:
