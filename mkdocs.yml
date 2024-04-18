@@ -9,7 +9,7 @@ theme:
   palette:
   - media: "(prefers-color-scheme: light)"
     scheme: default
-    primary: deep orange
+    primary: light blue
     accent: indigo
     toggle:
       icon: material/weather-sunny
@@ -49,9 +49,8 @@ nav:
   - Architecture description: arch.md
 - Developer documentation:
   - Creating new FHIR templates: ftemplates.md
-  - Specifying pairing rules: prules.md
+  - Development process of new pairing rules: prules.md
   - UI for transformations inspection and validation: uienv.md
-  - Test-driven development of pairing rules: tddprules.md
   - FHIR-profiles validation: fhirvalidation.md
 
 
