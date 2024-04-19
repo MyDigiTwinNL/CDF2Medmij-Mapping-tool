@@ -84,15 +84,9 @@ npm run transform -- ./fhirvalidation/sampleinputs/input-p1234.json -o /tmp/out
 npm run transform -- ./fhirvalidation/sampleinputs -o /tmp/out
 ```
 
+## End-user and Developer documentation
 
-
-## Configuration
-
-To configure which pairing-rule modules will be used on which JSON output-templates, edit the file ...
-
-## Developer documentation
-
-The developer documentation with the description of the tool design, and further details for creating new templates/pairing rules [can be found here](./docs/development.md) (still under development).
+The developer documentation with the description of the tool design, and further details for creating new templates/pairing rules [can be found here](https://mydigitwinnl.github.io/CDF2Medmij-Mapping-tool/) (still under development).
 
 
 
