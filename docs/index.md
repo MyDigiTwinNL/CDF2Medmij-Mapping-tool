@@ -1,6 +1,7 @@
 # FHIR-compliant Data Harmonization Framework for Cohort Studies
 
-The FHIR Cohort Data Transformer is a TypeScript tool designed to transform cohort-study data into FHIR-compliant data. This tool allows you to specify and test the pairing rules between the cohort-study data and the properties of a given FHIR resource. Once you have defined these rules, you can link them to one or more FHIR-compliant templates.
+CDF2FHIR is a tool that transforms data from cohort studies given on a [standard intermediate format](https://github.com/MyDigiTwinNL/LifelinesCSV2CDF) into FHIR-compliant one in a way that (1) improves reusability by decoupling the transformation pairing rules from both input and output (FHIR) data formats, and (2) ensures a robust transformation process by enabling a test-driven approach for the development of these rules, in addition to other included run-time consistency validation features.
+
 
 
 !!! warning "Under Development"

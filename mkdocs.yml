@@ -44,15 +44,13 @@ edit_uri: edit/dev/docs/
 #  unrecognized_links: warn
 
 nav:
-- Get Started:
-  - Introduction: index.md
-  - Architecture description: arch.md
 - Developer documentation:
-  - Creating new FHIR templates: ftemplates.md
-  - Development process of new pairing rules: prules.md
-  - UI for transformations inspection and validation: uienv.md
-  - FHIR-profiles validation: fhirvalidation.md
-
+  - Introduction: index.md
+  - Architecture overview: arch.md  
+- Data harmonization documentation:
+  - Developing pairing rules: prules.md
+  - Adding support for new FHIR resources: ftemplates.md
+  
 
 markdown_extensions:
 # https://python-markdown.github.io/extensions/

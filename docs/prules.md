@@ -1,4 +1,4 @@
-# Pairing rules
+# Creating new pairing rules
 
 
 !!! warning "Under Development"
@@ -6,7 +6,8 @@
     This tool is under active development. The documentation is not complete yet. If you have any 
     questions, please contact us via [GitHub Issues](https://github.com/MyDigiTwinNL/CDF2Medmij-Mapping-tool/issues)
 
-Work in progress
+
+As described on the architecture section, the CDF2FHIR performs a batch process where a set of previously defined pairing rules are applied 
 
 - Existing interfaces
         
@@ -68,4 +69,106 @@ test('eGFRS for male, black participant', () => {
 
 
 
-4. 
+## Defining a module
+
+
+import the following libraries:
+
+````
+import {inputValue, inputValues} from '../functionsCatalog';
+import moize from 'moize'
+import {lifelinesDateToISO, lifelinesMeanDate} from '../lifelinesFunctions'
+import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../snomedCodeLists';
+````
+
+* inputValue: get the input value from a given wave/assessment
+
+````
+inputValue(<variable name>,<wave>)
+````
+
+* inputValues: get the map of all the wave values
+
+````
+const val = inputValue(<variable name>)
+````
+* moize
+
+caching expensive computations (used multiple times within the template)
+
+* Coding system libraries
+
+
+### FHIR resources (1 <-> 0..1)
+
+From the available data, the output is a single resource (e.g., Diabetes condition )
+
+
+
+
+### FHIR resources (1 <-> 0..N)
+
+
+
+Resources that represent a change over time. Multiple resources are generated.
+
+
+
+## Testing
+
+resource.test.ts
+
+Testing the module functions independently (not using then in the mapping)
+
+````
+//To set the input of the transformation
+import { InputSingleton } from '../inputSingleton';
+//The module to be tested
+import * as problemXmod from '../lifelines/MyProbXModule'
+//Other modules required for the test, e.g., modules with codes
+import { clinicalStatusSNOMEDCodeList, conditionsSNOMEDCodeList, verificationStatusSNOMEDCodeList } from '../snomedCodeLists';
+
+//set the input
+const input = {
+    "varOne":{"W1":"2","W2":"5"},
+    "varTwo":{"W1":"1","W2":"9"},
+}
+
+InputSingleton.getInstance().setInput(input);
+
+expect(problemXmod.functionToBeTested()).toBe(<expected value>);
+
+````
+
+Testing the functions through the mapping process
+
+````
+//To set the input of the transformation
+import { InputSingleton } from '../inputSingleton';
+//The module to be tested
+import * as problemXmod from '../lifelines/MyProbXModule'
+//Other modules required for the test, e.g., modules with codes
+import { clinicalStatusSNOMEDCodeList, conditionsSNOMEDCodeList, verificationStatusSNOMEDCodeList } from '../snomedCodeLists';
+//The mapper, to generate the FHIR bundle with the given input
+import { MappingTarget, processInput } from '../mapper'
+
+//set the input
+const input = {
+    "varOne":{"W1":"2","W2":"5"},
+    "varTwo":{"W1":"1","W2":"9"},
+}
+
+
+const targets: MappingTarget[] = [
+    { "template": './zib-2017-mappings/ProblemXtemplate', "module": './lifelines/MyProbXModule' },
+  ]
+
+//Process the template, using the module, then evaluate the output (an array of FHIR resources to be included in the bundle). Ref to description of 1-to-* and 1-to-1.
+processInput(input, targets).then((output: object[]) => {
+    //test
+    expect(output.length).toBe(1);
+
+})
+
+
+````
