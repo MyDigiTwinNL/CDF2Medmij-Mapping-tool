@@ -9,7 +9,7 @@ theme:
   palette:
   - media: "(prefers-color-scheme: light)"
     scheme: default
-    primary: deep orange
+    primary: light blue
     accent: indigo
     toggle:
       icon: material/weather-sunny
@@ -44,16 +44,15 @@ edit_uri: edit/dev/docs/
 #  unrecognized_links: warn
 
 nav:
-- Get Started:
-  - Introduction: index.md
-  - Architecture description: arch.md
 - Developer documentation:
-  - Creating new FHIR templates: ftemplates.md
-  - Specifying pairing rules: prules.md
-  - UI for transformations inspection and validation: uienv.md
-  - Test-driven development of pairing rules: tddprules.md
-  - FHIR-profiles validation: fhirvalidation.md
-
+  - Introduction: index.md
+  - Design overview: arch.md  
+- Data harmonization documentation:
+  #- Developing pairing rules: prules.md
+  - Developing pairing rules: wip.md
+  #- Adding support for new FHIR resources: ftemplates.md
+  - Adding support for new FHIR resources: wip.md
+  
 
 markdown_extensions:
 # https://python-markdown.github.io/extensions/

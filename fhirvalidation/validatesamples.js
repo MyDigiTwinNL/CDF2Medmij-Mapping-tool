@@ -19,7 +19,7 @@ if (!fhirvpath) {
 
   let errorMsg = `ERROR: The environment variable [fhirvpath] is not defined. 
   This variable should have the path where the HL7 FHIR validator (validator_cli.jar) is located. 
-  The validator can be downloaded at https://github.com/hapifhir/org.hl7.fhir.core/releases/latest/download/validator_cli.jar
+  The validator can be downloaded at https://github.com/hapifhir/org.hl7.fhir.core/releases/download/6.0.10/validator_cli.jar
   `
   console.error(errorMsg);
   process.exit(1);
