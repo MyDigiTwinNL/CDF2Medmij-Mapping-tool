@@ -46,10 +46,12 @@ edit_uri: edit/dev/docs/
 nav:
 - Developer documentation:
   - Introduction: index.md
-  - Architecture overview: arch.md  
+  - Design overview: arch.md  
 - Data harmonization documentation:
-  - Developing pairing rules: prules.md
-  - Adding support for new FHIR resources: ftemplates.md
+  #- Developing pairing rules: prules.md
+  - Developing pairing rules: wip.md
+  #- Adding support for new FHIR resources: ftemplates.md
+  - Adding support for new FHIR resources: wip.md
   
 
 markdown_extensions:
