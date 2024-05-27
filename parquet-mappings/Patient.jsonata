@@ -1,9 +1,0 @@
-(
-
-    {
-        "patient.id": $resourceId('nl-core-patient'),
-        "patient.gender":$Patient_gender().display,
-        "patient.birthDate": $Patient_birthDate()
-    }
-
-)
