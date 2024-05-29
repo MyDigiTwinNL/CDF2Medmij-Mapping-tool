@@ -61,7 +61,7 @@ tsc
 * To transform the available input samples (./fhirvalidation/sampleinputs), and check the validity of their corresponding transformations against a FHIR profile:
 
   ```bash  
-  npm run validatesamples
+  npm run testprofile
   ```
 
 2. To preview a transformation of a given input

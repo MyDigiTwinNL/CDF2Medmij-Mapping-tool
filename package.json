@@ -26,7 +26,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint . --ext .ts",
-    "validatesamples": "node fhirvalidation/validatesamples.js",
+    "testprofile": "node fhirvalidation/validatesamples.js",
     "transform": "node dist/transform",
     "dev-viewer": "node_modules/nodemon/bin/nodemon.js dist/viewerserver/server"
   }
