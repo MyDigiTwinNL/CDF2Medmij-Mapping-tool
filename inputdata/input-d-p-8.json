@@ -1,0 +1,66 @@
+{
+    "project_pseudo_id": {"1a":"1234"},
+    "variant_id": {},
+
+    "date": {"1a":"","1b":"1995-5","1c":"1997-5","2a":"2001-5","2b":"2002-5","3a":"2003-5","3b":"2005-5"},
+    
+    "age": {"1a":"22"},
+    "gender": {"1a":"MALE"},
+    "zip_code": {"1a":"11111"},
+    "date_of_death": {"global":"2010-2"},
+    "date_of_inclusion": {"global":"1991-2"},
+    
+    "albumin_result_all_m_1" :{ "1a": "51"},
+    "creatinine_result_all_m_1":{ "1a": "79.2", "2a":"106.1"},
+    "ethnicity_category_adu_q_1":{"1b":"3"},
+    "hemoglobin_result_all_m_1" :{ "1a": "11.1", "2a":"12"},
+    "hba1cconc_result_all_m_1":{ "1a": "43", "2a":"44"},
+
+    "hypertension_startage_adu_q_1":{"1a":"","3a":"23","3b":"23"},
+    "hypertension_presence_adu_q_1":{"1a":"2","3a":"1","3b":"1"},
+
+    "stroke_startage_adu_q_1":{ "1a": "12" },
+    "stroke_presence_adu_q_1": { "1a": "1" },
+    "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"},
+
+
+    "diabetes_presence_adu_q_1":    {"1a":"1"},
+    "diabetes_startage_adu_q_1":    {"1a":"28"},
+    "diabetes_followup_adu_q_1":        {"1b":"2","1c":"2","2a":"2","3a":"2","3b":"2"},
+    "diabetes_type_adu_q_1":        {"1a":"2"},
+    "diabetes_type_adu_q_1_a":      {"1a":""},
+    "t1d_followup_adu_q_1":                 {"2a":"2","3a":"2","3b":"2"},
+    "t2d_followup_adu_q_1":                 {"2a":"2","3a":"2","3b":"2"},
+
+    "bp_entrytype_all_m_1":         {"1a":"2","2a":"2"},
+    "bp_bandsize_all_m_1":          {"1a":"1","2a":"1","3a":"1"},
+    "bp_arm_all_m_1":                           {"3a":"2"},
+    "bpavg_systolic_all_m_1":       {"1a":"130","2a":"130"},
+    "bpavg_diastolic_all_m_1":      {"1a":"140","2a":"140"},
+    "bpavg_arterial_all_m_1":       {"1a":"113","2a":"113"},
+
+    "hdlchol_result_all_m_1":       {"1a":"0.31","2a":"0.22"},
+    "ldlchol_result_all_m_1":       {"1a":"0.41","2a":"0.42"},
+    "cholesterol_result_all_m_1":   {"1a":"0.51","2a":"0.52"},
+    
+    "heartattack_startage_adu_q_1": {"1a":"33"},
+    "angioplasty_bypass_adu_q_1_a":  {"1a":"1","3a":"1","3b":"1"},
+    "heartattack_presence_adu_q_1": {"1a":"1"},
+    "heartattack_followup_adu_q_1":     {"1b":"2","1c":"2","2a":"2","3a":"2","3b":"2"},
+    "angioplasty_bypass_adu_q_1":   {"1a":"1","3a":"1","3b":"1"},
+    "carotid_stenosis_adu_q_1":     {"1a":"1"},
+    "claudication_followup_adu_q_1":            {"2a":"2","3a":"2","3b":"2"},
+    "cvd_followup_adu_q_1":             {"1b":"2","1c":"2","2a":"2","3a":"2","3b":"2"},
+
+    "current_smoker_adu_c_2": { "1a": "0", "1b": "0", "1c": "0", "2a": "0", "2b": "0", "3a": "0" },
+    "smoking_startage_adu_c_2": { "1a": "5", "1b": "5", "1c": "5", "2a": "5", "2b": "5", "3a": "5" },
+    "ex_smoker_adu_c_2": { "1a": "1", "1b": "1", "1c": "1", "2a": "1", "2b": "1", "3a": "1" },
+    "smoking_endage_adu_c_2": { "1a": "8", "1b": "8", "1c": "8", "2a": "8", "2b": "8", "3a": "8"},
+    "ever_smoker_adu_c_2": { "1a": "1", "1b": "1", "1c": "1", "2a": "1", "2b": "1", "3a": "1"},
+    "total_frequency_adu_c_1": { "1a": "", "1b": "", "1c": "", "2a": "", "2b": "", "3a": ""},
+    "packyears_cumulative_adu_c_2": { "1a": "", "1b": "", "1c": "", "2a": "", "2b": "", "3a": ""}
+
+
+
+}
+

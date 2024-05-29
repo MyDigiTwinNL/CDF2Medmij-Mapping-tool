@@ -97,7 +97,7 @@ const inputFileToFolder = async (filePath: string, outputFolder: string) => {
 
     fs.writeFileSync(outputFilePath, JSON.stringify(output));
   
-    console.info(`${filePath} ====> ${outputFilePath}`);
+    console.info(`[${filePath}] \n      ====> [${outputFilePath}]`);
 
   } finally {
     InputSingleton.getInstance().getMutex().release();
@@ -120,7 +120,7 @@ const inputFolderToOutputFolder = async (inputFolder: string, outputFolder: stri
   const fileNames: string[] = fs.readdirSync(inputFolder);
 
   for (const fileName of fileNames) {
-    console.info(`Processing ${fileName}`);
+    console.info(`Processing [${fileName}]`);
     const filePath: string = path.join(inputFolder, fileName);
     const fileStats: fs.Stats = fs.statSync(filePath);
 
@@ -171,7 +171,7 @@ const inputFolderToOutputFolder = async (inputFolder: string, outputFolder: stri
     )
   }
   else{
-    console.info('Finished with no errors')
+    console.info('\n\n**Finished with no errors**')
   }
   
 
