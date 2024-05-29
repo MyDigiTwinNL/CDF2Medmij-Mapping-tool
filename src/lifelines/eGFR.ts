@@ -76,10 +76,11 @@ export const eGFRS:LaboratoryTestResult = {
     },
     diagnosticCodeCoding: function (): CodeProperties[] {
         //GFR/BSA.pred SerPlBld CKD-EPI-ArVRat
-        return [getLOINCCode('62238-1')];
+        return [getLOINCCode('62238-1')];        
     },
     diagnosticCodeText: function (): string {
-        return "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI)";
+        //return "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (CKD-EPI)";
+        return "";
     },
     observationCategoryCoding: function (): object[] {
         //"Laboratory test finding (finding)","display": "Serum chemistry test"
@@ -101,8 +102,8 @@ export const eGFRS:LaboratoryTestResult = {
         })
         );
     },
-    resultUnit: function (): CodeProperties {
-        return getUCUMCode("mL/min/{1.73_m2}");
+    resultUnit: function (): CodeProperties {        
+        return getUCUMCode("mL/min/{1.73_m2}");        
     },
     labTestName: function (): string {
         return "eGFR-2009"
@@ -158,7 +159,7 @@ const eGFRResult = (wave:string):number|undefined => {
         const creatinineValue = Number(creatinine)
         
 
-        const egfr = 141 * (Math.min((creatinineValue * 0.011312217194570135) / kappa,1) ** alpha) * (Math.max((creatinineValue * 0.011312217194570135) / kappa,1) ** -1.209) * (0.993 ** ageOnGivenWave) * genderConstant * raceConstant
+        const egfr = 141 * (Math.min((creatinineValue * 0.011312217194570135) / kappa,1) * alpha) * (Math.max((creatinineValue * 0.011312217194570135) / kappa,1) ** -1.209) * (0.993 ** ageOnGivenWave) * genderConstant * raceConstant
         
         return egfr;
     }
@@ -180,7 +181,7 @@ const resultFlags = function(wave:string,limit:number):CodeProperties|undefined{
         return getSNOMEDCode('281300000')
     }
     else{
-        return undefined
+        return undefined        
     }
     
 };
