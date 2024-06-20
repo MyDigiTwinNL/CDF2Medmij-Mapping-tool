@@ -191,6 +191,7 @@ export const isPresent = ():boolean => clinicalStatus() === clinicalStatusSNOMED
  * 
  * @pairingrule
  * 
+ *      if there is a 'yes' value in 'heartattack_presence_adu_q_1' @ 1A, or in 'angioplasty_bypass_adu_q_1' @ 1A or there is 'atheresclerosis' value on 'atherosclerosis_presence_adu_q_q' @ 1A => earliest date of the three
  *      if heartattack_presence_adu_q_1 in 1A = yes AND angioplasty_bypass_adu_q_1 in 1A = yes => earliest date calculated based on (heartattack_startage_adu_q_1, angioplasty_bypass_adu_q_1_a)
  *      else
  *          if there is a 'yes' in any heartattack_followup_adu_q_1 => mean date between the date of the assessment 
