@@ -1,3 +1,4 @@
+*.jar
 venv
 site
 cdf2fhir.*
