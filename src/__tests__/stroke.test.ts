@@ -1,8 +1,7 @@
 import { InputSingleton } from '../inputSingleton';
 import * as strokemf from '../lifelines/Stroke'
-import { clinicalStatusSNOMEDCodeList, conditionsSNOMEDCodeList, verificationStatusSNOMEDCodeList } from '../codes/snomedCodeLists';
 import { MappingTarget, processInput } from '../mapper'
-
+import {getSNOMEDCode} from '../codes/codesCollection'
 
 test('stroke, when reported positive in 1A', () => {
 
@@ -15,10 +14,12 @@ test('stroke, when reported positive in 1A', () => {
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(strokemf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-  expect(strokemf.isPresent()).toBe(true);
-  expect(strokemf.code()).toBe(conditionsSNOMEDCodeList.cerebrovascular_accident);
-  expect(strokemf.onsetDateTime()).toBe("1982");
+  
+
+  expect(strokemf.stroke.clinicalStatus()?.display).toBe("Active");
+  expect(strokemf.stroke.isPresent()).toBe(true);
+  expect(strokemf.stroke.code().display).toBe("Cerebrovascular accident (disorder)");
+  expect(strokemf.stroke.onsetDateTime()).toBe("1982");
   
 });
 
@@ -34,10 +35,10 @@ test('stroke, when reported in 2A', () => {
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(strokemf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-  expect(strokemf.isPresent()).toBe(true);
-  expect(strokemf.code()).toBe(conditionsSNOMEDCodeList.cerebrovascular_accident);
-  expect(strokemf.onsetDateTime()).toBe("1999-05");
+  expect(strokemf.stroke.clinicalStatus()?.display).toBe("Active");
+  expect(strokemf.stroke.isPresent()).toBe(true);
+  expect(strokemf.stroke.code().display).toBe("Cerebrovascular accident (disorder)");
+  expect(strokemf.stroke.onsetDateTime()).toBe("1999-05");
   
 });
 
@@ -53,10 +54,10 @@ test('stroke, when reported right after baseline (1B)', () => {
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(strokemf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-  expect(strokemf.isPresent()).toBe(true);
-  expect(strokemf.code()).toBe(conditionsSNOMEDCodeList.cerebrovascular_accident);
-  expect(strokemf.onsetDateTime()).toBe("1993-05");
+  expect(strokemf.stroke.clinicalStatus()?.display).toBe("Active");
+  expect(strokemf.stroke.isPresent()).toBe(true);
+  expect(strokemf.stroke.code().display).toBe("Cerebrovascular accident (disorder)");
+  expect(strokemf.stroke.onsetDateTime()).toBe("1993-05");
   
 });
 
@@ -72,10 +73,10 @@ test('stroke, when reported in 2A, after skipping one assessment', () => {
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(strokemf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-  expect(strokemf.isPresent()).toBe(true);
-  expect(strokemf.code()).toBe(conditionsSNOMEDCodeList.cerebrovascular_accident);
-  expect(strokemf.onsetDateTime()).toBe("1998-05");
+  expect(strokemf.stroke.clinicalStatus()?.display).toBe("Active");
+  expect(strokemf.stroke.isPresent()).toBe(true);
+  expect(strokemf.stroke.code().display).toBe("Cerebrovascular accident (disorder)");
+  expect(strokemf.stroke.onsetDateTime()).toBe("1998-05");
   
 });
 
@@ -91,10 +92,10 @@ test('stroke, when reported in 2A, after skipping multiple assessments', () => {
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(strokemf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-  expect(strokemf.isPresent()).toBe(true);
-  expect(strokemf.code()).toBe(conditionsSNOMEDCodeList.cerebrovascular_accident);
-  expect(strokemf.onsetDateTime()).toBe("1997-05");
+  expect(strokemf.stroke.clinicalStatus()?.display).toBe("Active");
+  expect(strokemf.stroke.isPresent()).toBe(true);
+  expect(strokemf.stroke.code().display).toBe("Cerebrovascular accident (disorder)");
+  expect(strokemf.stroke.onsetDateTime()).toBe("1997-05");
   
 });
 
@@ -111,7 +112,7 @@ test('stroke, when no reported', () => {
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(strokemf.clinicalStatus()).toStrictEqual({})
+  expect(strokemf.stroke.clinicalStatus()).toStrictEqual(undefined)
   
 });
 
@@ -132,7 +133,7 @@ test('Stroke resource generation when not reported', () => {
   }
 
   const targets: MappingTarget[] = [
-    { "template": './zib-2017-mappings/Stroke.jsonata', "module": './lifelines/Stroke' },
+    { "template": './zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/Stroke' },
   ]
 
   processInput(input, targets).then((output: object[]) => {
@@ -161,7 +162,7 @@ test('Stroke resource generation when reported', () => {
   }
 
   const targets: MappingTarget[] = [
-    { "template": './zib-2017-mappings/Stroke.jsonata', "module": './lifelines/Stroke' },
+    { "template": './zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/Stroke' },
   ]
 
   processInput(input, targets).then((output: object[]) => {
