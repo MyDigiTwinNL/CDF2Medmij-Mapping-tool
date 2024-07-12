@@ -50,3 +50,5 @@ UNK,Unknown,http://hl7.org/fhir/v3/NullFlavor
 344001,Ankle region structure,http://snomed.info/sct
 6685009,Structure of right ankle,http://snomed.info/sct
 51636004,Structure of left ankle,http://snomed.info/sct
+55561003,Active,http://snomed.info/sct
+73425007,Inactive,http://snomed.info/sct

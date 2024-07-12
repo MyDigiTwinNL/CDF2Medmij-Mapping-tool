@@ -1,4 +1,9 @@
-
+/**
+ * This module is deprecated. 
+ * It will be removed once all the pairing rules are updated to use the
+ * strongly-typed methods provided by the codesCollection module.
+ * 
+ */
 
 
 export const typeOfTobaccoUsedSNOMEDCodelist = {
