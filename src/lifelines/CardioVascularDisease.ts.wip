@@ -1,0 +1,85 @@
+
+import {lifelinesDateToISO, lifelinesMeanDate} from '../lifelinesFunctions'
+import {clinicalStatusSNOMEDCodeList,conditionsSNOMEDCodeList,verificationStatusSNOMEDCodeList} from '../codes/snomedCodeLists';
+import {inputValue, inputValues,variableAssessments} from '../functionsCatalog';
+import {assesmentMissed,collectedDateTime} from '../lifelinesFunctions'
+import {Condition} from '../fhir-resource-interfaces/condition'
+import {getSNOMEDCode,getLOINCCode,getUCUMCode,CodeProperties} from '../codes/codesCollection'
+import {UnexpectedInputException, assertIsDefined} from '../unexpectedInputException'
+
+
+export const cvd:Condition = {
+    conditionName: function (): string {
+        throw new Error('Function not implemented.');
+    },
+    isPresent: function (): boolean {
+        throw new Error('Function not implemented.');
+    },
+    
+    
+    /**
+     * Related variables:
+     * ------------------------------------------------------------------
+     *                                  [1A][1B][1C][2A][3A][3B][GL]
+     * promas_chronicdisease_adu_q_01_b [  ][  ][  ][  ][X ][  ] *Note
+     * heartfailure_presence_adu_q_2_a  [X ][  ][  ][  ][  ][  ] *Proxy 
+     * heartfailure_presence_adu_q_2    [X ][  ][  ][  ][  ][  ] *Proxy 
+     * heartfailure_presence_adu_q_1    [X ][  ][  ][  ][  ][  ]
+     * heartfailure_followup_adu_q_1    [  ][X ][X ][X ][X ][X ]
+     * cvd_followup_adu_q_1             [  ][  ][  ][X ][X ][X ]
+     * ------------------------------------------------------------------
+     * 
+     * *Note: promas_chronicdisease_adu_q_01_b (results/2b_q_1_results.csv) not described on 
+     *  the Lifelines wiki, only shown on the catalog 
+     *  (cardiovascular disease / do you have one or more of the chronic conditions below?)
+     * 
+     * Clinical status: 
+     *      If there is 'yes' at any of the related variables assessment:
+     *          active (SNOMED Code 55561003) if:
+     *      Otherwise:
+     *          undefined
+     * 
+     */    
+    clinicalStatus: function (): CodeProperties | undefined {
+        throw new Error('Function not implemented.');
+    },
+
+
+    /**
+     * Related variables:
+     * ------------------------------------------------------------------
+     *                                  [1A][1B][1C][2A][3A][3B][GL]
+     * date_of_birth                                            [X ] YYYY-MM
+     * date                             [X ][X ][X ][X ][X ][X ]
+     * promas_chronicdisease_adu_q_01_b [  ][  ][  ][  ][X ][  ]
+     * heartfailure_presence_adu_q_2_a  [X ][  ][  ][  ][  ][  ] *Proxy 
+     * heartfailure_presence_adu_q_2    [X ][  ][  ][  ][  ][  ] *Proxy 
+     * heartfailure_presence_adu_q_1    [X ][  ][  ][  ][  ][  ]
+     * heartfailure_startage_adu_q_1    [X ][  ][  ][  ][  ][  ]
+     * heartfailure_followup_adu_q_1    [  ][X ][X ][X ][X ][X ]
+     * cvd_followup_adu_q_1             [  ][  ][  ][X ][X ][X ]
+     * ------------------------------------------------------------------
+     * 
+     * *Proxy interview: was performed between a participant and the research assistant on the location of 1A Visit 1
+     * 
+     * If there is 'yes' in heartfailure_presence_adu_q_2_a, heartfailure_presence_adu_q_2, heartfailure_presence_adu_q_1:
+     *      onsetDate = date_of_birth + heartfailure_startage_adu_q_1
+     * If there is 'yes' in heartfailure_followup_adu_q_1 or cvd_followup_adu_q_1
+     *      -> mean date between the (earliest) date of the assessment where one of these variables is 'yes', and the date of the preceding one.
+     *       
+     */    
+    onsetDateTime: function (): string | undefined {
+        throw new Error('Function not implemented.');
+    },
+    verificationStatus: function (): CodeProperties {
+        throw new Error('Function not implemented.');
+    },
+
+    /**
+     * SNOMED code for cardio vascular disease
+     */
+    code: function (): CodeProperties {
+        throw new Error('Function not implemented.');
+    }
+}
+
