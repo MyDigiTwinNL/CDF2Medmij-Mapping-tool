@@ -20,13 +20,13 @@ export const cvd:Condition = {
     /**
      * Related variables:
      * ------------------------------------------------------------------
-     *                                  [1A][1B][1C][2A][3A][3B][GL]
-     * promas_chronicdisease_adu_q_01_b [  ][  ][  ][  ][X ][  ] *Note
-     * heartfailure_presence_adu_q_2_a  [X ][  ][  ][  ][  ][  ] *Proxy 
-     * heartfailure_presence_adu_q_2    [X ][  ][  ][  ][  ][  ] *Proxy 
-     * heartfailure_presence_adu_q_1    [X ][  ][  ][  ][  ][  ]
-     * heartfailure_followup_adu_q_1    [  ][X ][X ][X ][X ][X ]
-     * cvd_followup_adu_q_1             [  ][  ][  ][X ][X ][X ]
+     *                                  [1A][1B][1C][2A][2B][3A][3B][GL]
+     * promas_chronicdisease_adu_q_01_b [  ][  ][  ][  ][X ][  ][  ] *Note
+     * heartfailure_presence_adu_q_2_a  [X ][  ][  ][  ][  ][  ][  ] *Proxy 
+     * heartfailure_presence_adu_q_2    [X ][  ][  ][  ][  ][  ][  ] *Proxy 
+     * heartfailure_presence_adu_q_1    [X ][  ][  ][  ][  ][  ][  ]
+     * heartfailure_followup_adu_q_1    [  ][X ][X ][X ][  ][X ][X ]
+     * cvd_followup_adu_q_1             [  ][  ][  ][X ][  ][X ][X ]
      * ------------------------------------------------------------------
      * 
      * *Note: promas_chronicdisease_adu_q_01_b (results/2b_q_1_results.csv) not described on 
@@ -48,16 +48,16 @@ export const cvd:Condition = {
     /**
      * Related variables:
      * ------------------------------------------------------------------
-     *                                  [1A][1B][1C][2A][3A][3B][GL]
+     *                                  [1A][1B][1C][2A][2B][3A][3B][GL]
      * date_of_birth                                            [X ] YYYY-MM
-     * date                             [X ][X ][X ][X ][X ][X ]
-     * promas_chronicdisease_adu_q_01_b [  ][  ][  ][  ][X ][  ]
-     * heartfailure_presence_adu_q_2_a  [X ][  ][  ][  ][  ][  ] *Proxy 
-     * heartfailure_presence_adu_q_2    [X ][  ][  ][  ][  ][  ] *Proxy 
-     * heartfailure_presence_adu_q_1    [X ][  ][  ][  ][  ][  ]
-     * heartfailure_startage_adu_q_1    [X ][  ][  ][  ][  ][  ]
-     * heartfailure_followup_adu_q_1    [  ][X ][X ][X ][X ][X ]
-     * cvd_followup_adu_q_1             [  ][  ][  ][X ][X ][X ]
+     * date                             [X ][X ][X ][X ][X ][X ][X ]
+     * promas_chronicdisease_adu_q_01_b [  ][  ][  ][  ][X ][  ][  ]
+     * heartfailure_presence_adu_q_2_a  [X ][  ][  ][  ][  ][  ][  ] *Proxy 
+     * heartfailure_presence_adu_q_2    [X ][  ][  ][  ][  ][  ][  ] *Proxy 
+     * heartfailure_presence_adu_q_1    [X ][  ][  ][  ][  ][  ][  ]
+     * heartfailure_startage_adu_q_1    [X ][  ][  ][  ][  ][  ][  ]
+     * heartfailure_followup_adu_q_1    [  ][X ][X ][X ][  ][X ][X ]
+     * cvd_followup_adu_q_1             [  ][  ][  ][X ][  ][X ][X ]
      * ------------------------------------------------------------------
      * 
      * *Proxy interview: was performed between a participant and the research assistant on the location of 1A Visit 1
@@ -69,6 +69,8 @@ export const cvd:Condition = {
      *                  and the date of the preceding one. 
      *                  [For example, if there is a 'yes' in assessment 2A of heartfailure_followup_adu_q_1, the reported date
      *                   will be the mean date between 1C and 2A assessment dates.
+     * If there is a 'yes' on promas_chronicdisease_adu_q_01_b:
+     *      TBD
      *       
      */    
     onsetDateTime: function (): string | undefined {
