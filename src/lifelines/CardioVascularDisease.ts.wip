@@ -62,10 +62,13 @@ export const cvd:Condition = {
      * 
      * *Proxy interview: was performed between a participant and the research assistant on the location of 1A Visit 1
      * 
-     * If there is 'yes' in heartfailure_presence_adu_q_2_a, heartfailure_presence_adu_q_2, heartfailure_presence_adu_q_1:
+     * If there is 'yes' in heartfailure_presence_adu_q_2_a, heartfailure_presence_adu_q_2 or heartfailure_presence_adu_q_1:
      *      onsetDate = date_of_birth + heartfailure_startage_adu_q_1
-     * If there is 'yes' in heartfailure_followup_adu_q_1 or cvd_followup_adu_q_1
-     *      -> mean date between the (earliest) date of the assessment where one of these variables is 'yes', and the date of the preceding one.
+     * If there is 'yes' in any of the assessments of heartfailure_followup_adu_q_1 or cvd_followup_adu_q_1:
+     *      onsetDate = mean date between the (earliest) date of the assessment where one of these variables is 'yes', 
+     *                  and the date of the preceding one. 
+     *                  [For example, if there is a 'yes' in assessment 2A of heartfailure_followup_adu_q_1, the reported date
+     *                   will be the mean date between 1C and 2A assessment dates.
      *       
      */    
     onsetDateTime: function (): string | undefined {
