@@ -56,8 +56,11 @@
     "smoking_endage_adu_c_2": { "1a": "", "1b": "", "1c": "", "2a": "", "2b": "", "3a": ""},
     "ever_smoker_adu_c_2": { "1a": "0", "1b": "0", "1c": "0", "2a": "0", "2b": "0", "3a": "0"},
     "total_frequency_adu_c_1": { "1a": "8", "1b": "12", "1c": "13", "2a": "33", "2b": "232", "3a": "423"},
-    "packyears_cumulative_adu_c_2": { "1a": "", "1b": "", "1c": "", "2a": "", "2b": "", "3a": ""}
+    "packyears_cumulative_adu_c_2": { "1a": "", "1b": "", "1c": "", "2a": "", "2b": "", "3a": ""},
 
+    "heartfailure_startage_adu_q_1":{ "1a": "" },
+    "heartfailure_presence_adu_q_1": { "1a": "2" },
+    "heartfailure_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"}
 
 
 

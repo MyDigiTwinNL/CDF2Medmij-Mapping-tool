@@ -24,7 +24,7 @@ test('heartattack, when reported positive in 1A', () => {
 });
 
 
-test('stroke, when reported in 2A', () => {
+test('heart attack, when reported in 2A', () => {
 
   const input = {
     "heartattack_startage_adu_q_1":{ "1a": "" },
@@ -43,7 +43,7 @@ test('stroke, when reported in 2A', () => {
 });
 
 
-test('stroke, when reported right after baseline (1B)', () => {
+test('heart attack, when reported right after baseline (1B)', () => {
 
   const input = {
     "heartattack_startage_adu_q_1":{ "1a": "" },
@@ -62,7 +62,7 @@ test('stroke, when reported right after baseline (1B)', () => {
 });
 
 
-test('stroke, when reported in 2A, after skipping one assessment', () => {
+test('heart attack, when reported in 2A, after skipping one assessment', () => {
 
   const input = {
     "heartattack_startage_adu_q_1":{ "1a": "" },
@@ -81,7 +81,7 @@ test('stroke, when reported in 2A, after skipping one assessment', () => {
 });
 
 
-test('stroke, when reported in 2A, after skipping multiple assessments', () => {
+test('heart attack, when reported in 2A, after skipping multiple assessments', () => {
 
   const input = {
     "heartattack_startage_adu_q_1":{ "1a": "" },
@@ -101,7 +101,7 @@ test('stroke, when reported in 2A, after skipping multiple assessments', () => {
 
 
 
-test('stroke, when no reported', () => {
+test('heart attack, when no reported', () => {
 
   const input = {
     "heartattack_startage_adu_q_1":{ "1a": "" },
@@ -121,7 +121,7 @@ test('stroke, when no reported', () => {
 
 
 
-test('Stroke resource generation when not reported', () => {
+test('heart attack resource generation when not reported', () => {
 
   const input = {
     "project_pseudo_id": {"1a":"520681571"},
@@ -150,7 +150,7 @@ test('Stroke resource generation when not reported', () => {
  * output are performed through the HL7 validator.
  * 
  */
-test('Stroke resource generation when reported', () => {
+test('heart attack resource generation when reported', () => {
 
   const input = {
     "project_pseudo_id": {"1a":"520681571"},

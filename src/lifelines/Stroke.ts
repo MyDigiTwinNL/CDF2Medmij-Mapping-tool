@@ -66,12 +66,6 @@ export const stroke:Condition = {
      *          else
      *              error/precondition violated ('stroke' is not 'active' if the execution reached this point)
      *
-     * @notes
-     *
-     *      - Given the question stroke_followup_adu_q_1: "did the health problems listed below start since the last time you filled
-     *          in the lifelines questionnaire?", and considering that this variable was collected only in 2A, 3A and 3B, when a 'yes'
-     *          is reported in 2A, should this 'mean date' be calculated between the date of 1A and 2A, or between 1C and 2A?
-     *          For the time being, 1A date will be used.
      *
      */
     onsetDateTime: function (): string | undefined {

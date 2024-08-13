@@ -20,6 +20,7 @@ UNK,Unknown,http://hl7.org/fhir/v3/NullFlavor
 400047006,Peripheral vascular disease (disorder),http://snomed.info/sct
 230690007,Cerebrovascular accident (disorder),http://snomed.info/sct
 22298006,Myocardial infarction (disorder),http://snomed.info/sct
+84114007,Heart failure (disorder),http://snomed.info/sct
 415684004,Suspected,http://snomed.info/sct
 410590009,Known possible,http://snomed.info/sct
 410605003,Confirmed present,http://snomed.info/sct
