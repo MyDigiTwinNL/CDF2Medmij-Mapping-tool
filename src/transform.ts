@@ -20,6 +20,7 @@ const targets: MappingTarget[] = [
   { "template": '../zib-2017-mappings/generic/LabTestResult_Specimen.jsonata', "module": './lifelines/HDLCholesterol' },
 
   { "template": '../zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/Stroke' },
+  { "template": '../zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/MyocardialInfarction' },
 
   { "module": './lifelines/eGFR', "template": '../zib-2017-mappings/generic/LabTestResult_Diagnostic_Report.jsonata' },
   { "module": './lifelines/eGFR', "template": '../zib-2017-mappings/generic/LabTestResult_Observation.jsonata' },
