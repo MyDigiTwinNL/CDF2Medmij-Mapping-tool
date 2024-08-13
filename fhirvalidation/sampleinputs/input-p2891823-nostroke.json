@@ -1,5 +1,5 @@
 {
-    "project_pseudo_id": {"1a":"9999"},
+    "project_pseudo_id": {"1a":"2891823"},
     "variant_id": {},
 
     "date": {"1a":"1990-1","1b":"1995-5","1c":"1997-5","2a":"2000-1","2b":"2001-1","3a":"2003-5","3b":"2005-5"},
@@ -20,8 +20,8 @@
     "hypertension_presence_adu_q_1":{"1a":"2","3a":"1","3b":"1"},
 
     "stroke_startage_adu_q_1":{ "1a": "" },
-    "stroke_presence_adu_q_1": { "1a": "" },
-    "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"1"},
+    "stroke_presence_adu_q_1": { "1a": "2" },
+    "stroke_followup_adu_q_1":{"2a":"2","3a":"2","3b":"2"},
 
 
     "diabetes_presence_adu_q_1":    {"1a":"1"},
