@@ -11,9 +11,15 @@ import {getSNOMEDCode,CodeProperties} from '../codes/codesCollection'
 import {assertIsDefined} from '../unexpectedInputException'
 
 
+export const anotherStuff = {
+    a1: function(): string{
+        return "aaa";
+    }
+}
+
 export const cardioVascularDisease:Condition = {
     conditionName: function (): string {
-        return 'cardio-vascular-disease';
+        throw new Error('cardio-vascular-disease');
     },
 
     isPresent: function (): boolean {

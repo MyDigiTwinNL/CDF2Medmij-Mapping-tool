@@ -134,7 +134,8 @@ test('CVD resource generation when reported', () => {
     "heartattack_presence_adu_q_1": { "1a": "2" },
     "heartattack_followup_adu_q_1":{"1b":"2","1c":"2",/*->*/"2a":"1","3a":"2","3b":"2"},
     "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","2b":"2002-5","3a":"2003-5","3b":"2005-5"},
-    "age": { "1a": "40" }
+    "age": { "1a": "40" },
+    "project_pseudo_id": { "1a": "520681571" }
   }
 
   const targets: MappingTarget[] = [
