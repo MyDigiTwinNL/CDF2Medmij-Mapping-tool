@@ -22,6 +22,7 @@ const targets: MappingTarget[] = [
   { "template": '../zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/Stroke' },
   { "template": '../zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/MyocardialInfarction' },
   { "template": '../zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/HeartFailure' },  
+  { "template": '../zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/CardioVascularDisease' },  
 
   { "module": './lifelines/eGFR', "template": '../zib-2017-mappings/generic/LabTestResult_Diagnostic_Report.jsonata' },
   { "module": './lifelines/eGFR', "template": '../zib-2017-mappings/generic/LabTestResult_Observation.jsonata' },
