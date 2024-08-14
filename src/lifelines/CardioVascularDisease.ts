@@ -91,7 +91,9 @@ export const cardioVascularDisease:Condition = {
         return getSNOMEDCode("UNK")
     },
     /**
-     * @returns SNOMED code for Disorder of the circulatory system / CVD - cardiovascular disease - 49601007
+     * @returns SNOMED code for 
+     *      Disorder of the circulatory system 
+     *      CVD - cardiovascular disease        - 49601007
      */
     code: function (): CodeProperties {
         return getSNOMEDCode("49601007")
