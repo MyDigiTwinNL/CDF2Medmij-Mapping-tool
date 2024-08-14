@@ -65,7 +65,7 @@ export const stroke:Condition = {
      *              where stroke_followup_adu_q_1 = yes, and the date of the preceding one.
      *          else
      *              error/precondition violated ('stroke' is not 'active' if the execution reached this point)
-     *
+     *              (this would be due to a programing error, not data-related one, this is why this causes program abortion)
      *
      */
     onsetDateTime: function (): string | undefined {
@@ -96,7 +96,7 @@ export const stroke:Condition = {
                 const [date1, date2] = timeInterval;
                 return lifelinesDateToISO(lifelinesMeanDate(date1, date2));
             }
-            else {
+            else {            
                 throw Error("Unexpected input (precondition violated): no 'yes' values in stroke_followup_adu_q_1");
             }
 
