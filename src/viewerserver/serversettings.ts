@@ -19,6 +19,6 @@ export const targets:MappingTarget[] = [
     //{ "module": './lifelines/HaemoglobinConcentration', "template": '../../zib-2017-mappings/generic/LabTestResult_Diagnostic_Report.jsonata' },
     //{ "module": './lifelines/HaemoglobinConcentration', "template": '../../zib-2017-mappings/generic/LabTestResult_Observation.jsonata' },
     //{ "module": './lifelines/HaemoglobinConcentration', "template": '../../zib-2017-mappings/generic/LabTestResult_Specimen.jsonata' },
-    { "template": '../../zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/HeartFailure' },  
+    { "template": '../../zib-2017-mappings/Diabetes.jsonata', "module": './lifelines/Diabetes' },  
     
   ]
