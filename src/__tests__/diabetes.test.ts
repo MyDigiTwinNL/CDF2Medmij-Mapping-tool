@@ -53,6 +53,38 @@ test('diabetes clinical status, when reported positive in a follow-up, diabetes 
 
 
 
+test('assertion test: diabetes clinical status, when reported positive in a follow-up, but no diabetes type is defined', () => {
+
+  const input = {
+    "diabetes_presence_adu_q_1": { "1a": "2" },
+    "diabetes_followup_adu_q_1": { "1b": "2", "1c": "2", "2a": "2", "3a": "1", "3b": "2" },
+    "diabetes_startage_adu_q_1": { "1a": "" },
+    "diabetes_type_adu_q_1":     { "1a": "2" },
+    "diabetes_type_adu_q_1_a":   { "1a": "" },
+    "t1d_followup_adu_q_1":                            { "2a": "2", "3a": "2", "3b": "2" },
+    "t2d_followup_adu_q_1":                            { "2a": "2", "3a": "2", "3b": "2" },    
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5",/*date1*/"2a":"2001-5",/*date2*/"3a":"2003-5","3b":"2005-5"},
+    "age": { "1a": "22" },
+  }
+
+  try{
+    InputSingleton.getInstance().setInput(input);
+    expect(diabetesmf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
+    expect(diabetesmf.isPresent()).toBe(true);
+    expect(diabetesmf.code()).toBe(conditionsSNOMEDCodeList.diabetes_mellitus_type_1);
+    expect(diabetesmf.onsetDateTime()).toBe("2002-05");
+    //execution shouldn't reach this point
+    throw new Error('Transformation should have failed with an UnexpectedInputException');
+  }
+  catch(error){
+    if (!(error instanceof UnexpectedInputException)) throw new Error('Transformation should have failed with an UnexpectedInputException');
+  }
+
+});
+
+
+
+
 test('diabetes clinical status, when reported positive in a follow-up after multiple skipped assessments, diabetes type 1', () => {
 
   const input = {
@@ -75,11 +107,11 @@ test('diabetes clinical status, when reported positive in a follow-up after mult
   
 });
 
-test('diabetes clinical status, with inconsistencies, missing date on the assessment where diabetes is reported', () => {
+test('diabetes clinical status (T1D) reported on a follow up, with missing date on the assessment where was reported', () => {
 
   const input = {
     "diabetes_presence_adu_q_1": { "1a": "2" },
-    "diabetes_followup_adu_q_1": { "1b": "2", "1c": "2", "2a": "2", "3a": "", "3b": "1" },
+    "diabetes_followup_adu_q_1": { "1b": "2", "1c": "2", "2a": "2", "3a": "1", "3b": "2" },
     "diabetes_startage_adu_q_1": { "1a": "" },
     "diabetes_type_adu_q_1":     { "1a": "2" },
     "diabetes_type_adu_q_1_a":   { "1a": "" },
@@ -89,16 +121,13 @@ test('diabetes clinical status, with inconsistencies, missing date on the assess
     "age": { "1a": "22" },
   }
 
-  try{
-    InputSingleton.getInstance().setInput(input);
-    expect(diabetesmf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-    expect(diabetesmf.isPresent()).toBe(true);
-    expect(diabetesmf.code()).toBe(conditionsSNOMEDCodeList.diabetes_mellitus_type_1);
-    expect(diabetesmf.onsetDateTime()).toBe("2003-05");
-  }
-  catch(error){
-    if (!(error instanceof UnexpectedInputException)) fail('Expected exception')
-  }
+  
+  InputSingleton.getInstance().setInput(input);
+  expect(diabetesmf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
+  expect(diabetesmf.isPresent()).toBe(true);
+  expect(diabetesmf.code()).toBe(conditionsSNOMEDCodeList.diabetes_mellitus_type_1);
+  expect(diabetesmf.onsetDateTime()).toBe(undefined);
+  
   
   
 });

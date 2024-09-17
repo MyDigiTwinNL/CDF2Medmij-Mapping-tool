@@ -154,6 +154,7 @@ const _clinicalStatus = moize((heartfailure_presence:string|undefined,followup_a
  * 
  * 
  * @precondition: there is at least one 'yes'/1 on heartfailure_followup_adu_q_1
+ * @precondition there is always a date on one of the assessment prior to the one where diabetes_followup_adu_q_1 was 'yes'
  * 
  * If the date of the assessment where heartfailure_followup_adu_q_1 = yes is available =>
  *      mean date between that particular date (when heartfailure_followup_adu_q_1 = yes), and the date of the preceding assessment.

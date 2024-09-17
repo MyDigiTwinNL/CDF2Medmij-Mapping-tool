@@ -90,18 +90,23 @@ const _clinicalStatus = moize((diab_presence:string|undefined,followup_assessmen
  * ------------------------------------------------------------------
  * 
  * @precondition
- *      - date is never a missing value (is a default variable)
  *      - the problem is 'active' (see clinicalStatus function)
  *      - if there is a diabetes report on a follow-up 'diabetes_followup_adu_q_1', there should be a 'yes' value
  *        in either t2d_followup_adu_q_1 or t2d_followup_adu_q_1 (diabetes type)
  * 
  * 
  * @pairingrule
- *      if diabetes_presence_adu_q_1 = yes in 1A => approximate year on which the participant given the age reported  by diabetes_startage_adu_q_1
- *          (undefined if diabetes_startage_adu_q_1 has a missing value)
+ *      if diabetes_presence_adu_q_1 = yes in 1A => 
+ *              if start_age was reported, approximate year of the event given start_age reported (diabetes_startage_adu_q_1) 
+ *                  and the year of the year of the assessment.
+ *              else
+ *                  undefined onset date
  *      else
- *          if there is a 'yes' in any diabetes_followup_adu_q_1 => mean date between the date of the assessment 
- *              where diabetes_followup_adu_q_1 = yes, and the date of the preceding one.
+ *          if there is a 'yes' in any diabetes_followup_adu_q_1 => 
+ *              If the date of the assessment where diabetes_followup_adu_q_1 = yes is available =>
+ *                  mean date between that particular date (when diabetes_followup_adu_q_1 = yes), and the date of the preceding assessment.
+ *              Else
+ *                  return undefined onset date
  *          else
  *              error/precondition violated ('diabetes' is not 'active' if the execution reached this point)
  *              
@@ -135,7 +140,7 @@ export const onsetDateTime = ():string|undefined => {
             return lifelinesDateToISO(lifelinesMeanDate(date1,date2))
         }
         else{
-            throw Error("Unexpected input (precondition violated): no 'yes' values in neither t2d_followup_adu_q_1 nor t2d_followup_adu_q_1")
+            return undefined;            
         }
 
 
@@ -143,11 +148,21 @@ export const onsetDateTime = ():string|undefined => {
 
 }
     
-/**
+
+ /* 
+ * 
+ * Helper function for 'onsetDateTime'
  * 
  * @param diabFollowUp 
- * @returns 
- * @precondition there is always a date on the assessment prior to the one where diabetes_followup_adu_q_1 was 'yes'
+ * 
+ * @return
+ *      If the date of the assessment where diabetes_followup_adu_q_1 = yes is available =>
+ *          mean date between that particular date (when diabetes_followup_adu_q_1 = yes), and the date of the preceding assessment.
+ *      Else
+ *          return undefined date
+ * 
+ * @precondition: there is at least one 'yes'/1 on diabetes_followup_adu_q_1
+ * @precondition there is always a date on one of the assessment prior to the one where diabetes_followup_adu_q_1 was 'yes'
  * 
  */
 function findDatesBetweenDiabetesPresenceReport(): [string,string]|undefined{
@@ -160,18 +175,23 @@ function findDatesBetweenDiabetesPresenceReport(): [string,string]|undefined{
     assertIsDefined(diabetesRepWave,`A 'yes' value on diabetes_followup_adu_q_1 was expected`)    
 
     const diabetesRepWaveDate = inputValue("date",diabetesRepWave)
-    assertIsDefined(diabetesRepWaveDate,`A non-null date is expected in the assessment where diabetes_followup_adu_q_1 is reported`)
+    if (diabetesRepWaveDate === undefined){
+        return undefined
+    } 
+    else{
+        //find the previous non-undefined assessment date
+        const assessmentDates:variableAssessments = inputValues('date')            
+        const waves = ['1a','1b','1c','2a','3a','3b'];    
+        const previousWaves = waves.slice(0,waves.indexOf(diabetesRepWave))
+        const previousAssessmentWave = previousWaves.reverse().find((pwave)=>assessmentDates[pwave]!==undefined)
+        
+        assertIsDefined(previousAssessmentWave,`Assessment (with a defined date) expected to exist previous to the one where diabetes_followup_adu_q_1 is reported`)
 
-    //find the previous non-undefined assessment date
-    const assessmentDates:variableAssessments = inputValues('date')            
-    const waves = ['1a','1b','1c','2a','3a','3b'];    
-    const previousWaves = waves.slice(0,waves.indexOf(diabetesRepWave))
-    const previousAssessmentWave = previousWaves.reverse().find((pwave)=>assessmentDates[pwave]!==undefined)
-    
-    assertIsDefined(previousAssessmentWave,`Assessment (with a defined date) expected to exist previous to the one where diabetes_followup_adu_q_1 is reported`)
+        const previousAssessmentDate:string = assessmentDates[previousAssessmentWave]!;
+        return [previousAssessmentDate,diabetesRepWaveDate]
+    }
 
-    const previousAssessmentDate:string = assessmentDates[previousAssessmentWave]!;
-    return [previousAssessmentDate,diabetesRepWaveDate]
+
 
 
   }
