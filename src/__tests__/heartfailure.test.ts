@@ -3,6 +3,7 @@ import { heartFailure } from '../lifelines/HeartFailure';
 import { MappingTarget, processInput } from '../mapper'
 import {getSNOMEDCode} from '../codes/codesCollection'
 
+
 test('heartfailure, when reported positive in 1A', () => {
 
   const input = {
@@ -24,6 +25,27 @@ test('heartfailure, when reported positive in 1A', () => {
 });
 
 
+test('heartfailure, when reported positive in 1A, but no start_age was reported', () => {
+
+  const input = {
+    "heartfailure_startage_adu_q_1":{ "1a": "" },
+    "heartfailure_presence_adu_q_1": { "1a": "1" },
+    "heartfailure_followup_adu_q_1":{"1b":"2","1c":"2","2a":"2","3a":"2","3b":"2"},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5","2a":"2001-5","2b":"2002-5","3a":"2003-5","3b":"2005-5"},
+    "age": { "1a": "22" }
+  }
+
+  InputSingleton.getInstance().setInput(input);
+  
+
+  expect(heartFailure.clinicalStatus()?.display).toBe("Active");
+  expect(heartFailure.isPresent()).toBe(true);
+  expect(heartFailure.code().display).toBe("Heart failure (disorder)");
+  expect(heartFailure.onsetDateTime()).toBe(undefined);
+  
+});
+
+
 test('heart failure, when reported in 2A', () => {
 
   const input = {
@@ -41,6 +63,26 @@ test('heart failure, when reported in 2A', () => {
   expect(heartFailure.onsetDateTime()).toBe("1999-05");
   
 });
+
+
+test('heart failure, when reported in 2A, but there is no assessment date available for 2A', () => {
+
+  const input = {
+    "heartfailure_startage_adu_q_1":{ "1a": "" },
+    "heartfailure_presence_adu_q_1": { "1a": "2" },
+    "heartfailure_followup_adu_q_1":{"1b":"2","1c":"2","2a":"1","3a":"2","3b":"2"},    
+    "date": {"1a":"1992-5","1b":"","1c":"","2a":"","3a":"","3b":""},
+    "age": { "1a": "22" }
+  }
+
+  InputSingleton.getInstance().setInput(input);
+  expect(heartFailure.clinicalStatus()?.display).toBe("Active");
+  expect(heartFailure.isPresent()).toBe(true);
+  expect(heartFailure.code().display).toBe("Heart failure (disorder)");
+  expect(heartFailure.onsetDateTime()).toBe(undefined);
+  
+});
+
 
 
 test('heart failure, when reported right after baseline (1B)', () => {
@@ -98,6 +140,26 @@ test('heart failure, when reported in 2A, after skipping multiple assessments', 
   expect(heartFailure.onsetDateTime()).toBe("1997-05");
   
 });
+
+
+test('heart failure, when reported in 2A, after skipping multiple assessments', () => {
+
+  const input = {
+    "heartfailure_startage_adu_q_1":{ "1a": "" },
+    "heartfailure_presence_adu_q_1": { "1a": "2" },
+    "heartfailure_followup_adu_q_1":{"1b":undefined,"1c":undefined,"2a":"1","3a":"2","3b":"2"},    
+    "date": {"1a":"1992-5","1b":undefined,"1c":undefined,"2a":"2002-5","3a":"2003-5","3b":"2005-5"},
+    "age": { "1a": "22" }
+  }
+
+  InputSingleton.getInstance().setInput(input);
+  expect(heartFailure.clinicalStatus()?.display).toBe("Active");
+  expect(heartFailure.isPresent()).toBe(true);
+  expect(heartFailure.code().display).toBe("Heart failure (disorder)");
+  expect(heartFailure.onsetDateTime()).toBe("1997-05");
+  
+});
+
 
 
 

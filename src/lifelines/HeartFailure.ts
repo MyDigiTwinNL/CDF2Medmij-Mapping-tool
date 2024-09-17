@@ -54,14 +54,20 @@ export const heartFailure:Condition = {
      * ------------------------------------------------------------------
      *
      * @precondition
-     *      - date and age are not missing values (undefined)
      *      - the problem is 'active' (see clinicalStatus function)
      *
      * @pairingrule
-     *      if heartfailure_presence_adu_q_1 = yes in 1A => approximate year on which the participant given the age reported  by heartfailure_startage_adu_q_1
+     *      if heartfailure_presence_adu_q_1 = yes in 1A => 
+     *              if start_age was reported, approximate year of the event given start_age reported (heartfailure_startage_adu_q_1) 
+     *                  and the year of the year of the assessment.
+     *              else
+     *                  undefined onset date
      *      else
-     *          if there is a 'yes' in any heartfailure_followup_adu_q_1 => mean date between the date of the assessment
-     *              where heartfailure_followup_adu_q_1 = yes, and the date of the preceding one.
+     *          if there is a 'yes' in any heartfailure_followup_adu_q_1 => 
+     *              If the date of the assessment where heartfailure_followup_adu_q_1 = yes is available =>
+     *                  mean date between that particular date (when heartfailure_followup_adu_q_1 = yes), and the date of the preceding assessment.
+     *              Else
+     *                  return undefined date
      *          else
      *              error/precondition violated ('heartfailure' is not 'active' if the execution reached this point)
      *
@@ -95,7 +101,7 @@ export const heartFailure:Condition = {
                 return lifelinesDateToISO(lifelinesMeanDate(date1, date2));
             }
             else {
-                throw Error("Unexpected input (precondition violated): no 'yes' values in heartfailure_followup_adu_q_1");
+                return undefined;                
             }
 
 
@@ -147,8 +153,13 @@ const _clinicalStatus = moize((heartfailure_presence:string|undefined,followup_a
  * date                           [X ][X ][X ][X ][X ][X ]
  * 
  * 
- * mean date between the date of the assessment 
- *              where heartfailure_followup_adu_q_1 = yes, and the date of the preceding one.
+ * @precondition: there is at least one 'yes'/1 on heartfailure_followup_adu_q_1
+ * 
+ * If the date of the assessment where heartfailure_followup_adu_q_1 = yes is available =>
+ *      mean date between that particular date (when heartfailure_followup_adu_q_1 = yes), and the date of the preceding assessment.
+ * Else
+ *      return undefined date
+ *
  * 
  * 
  * @param diabFollowUp 
@@ -164,16 +175,22 @@ function findDatesBetweenheartfailurePresenceReport(): [string,string]|undefined
     assertIsDefined(heartfailureWave,`A 'yes' value on heartfailure_followup_adu_q_1 was expected`)
 
     const heartfailureWaveDate = inputValue("date",heartfailureWave)
-    assertIsDefined(heartfailureWaveDate,`A non-null date is expected in the assessment where heartfailure_followup_adu_q_1 is reported`)
 
-    //find the previous non-undefined assessment date
-    const assessmentDates:variableAssessments = inputValues('date')            
-    const waves = ['1a','1b','1c','2a','3a','3b'];    
-    const previousWaves = waves.slice(0,waves.indexOf(heartfailureWave))
-    const previousAssessmentWave = previousWaves.reverse().find((pwave)=>assessmentDates[pwave]!==undefined)
-    
-    assertIsDefined(previousAssessmentWave,`Assessment (with a non-null date) expected to exist previous to the one where heartfailure_followup_adu_q_1 is reported`)
+    //If the date of the assessment where the episode was reported is not available, return undefined date
+    if (heartfailureWaveDate === undefined){
+        return undefined
+    }
+    else{
+        //find the previous non-undefined assessment date
+        const assessmentDates:variableAssessments = inputValues('date')            
+        const waves = ['1a','1b','1c','2a','3a','3b'];    
+        const previousWaves = waves.slice(0,waves.indexOf(heartfailureWave))
+        const previousAssessmentWave = previousWaves.reverse().find((pwave)=>assessmentDates[pwave]!==undefined)
+        
+        assertIsDefined(previousAssessmentWave,`Assessment (with a non-null date) expected to exist previous to the one where heartfailure_followup_adu_q_1 is reported`)
 
-    const previousAssessmentDate:string = assessmentDates[previousAssessmentWave!]!;
-    return [previousAssessmentDate,heartfailureWaveDate]
+        const previousAssessmentDate:string = assessmentDates[previousAssessmentWave!]!;
+        return [previousAssessmentDate,heartfailureWaveDate]
+    }
+
   }
