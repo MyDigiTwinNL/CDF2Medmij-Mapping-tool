@@ -13,9 +13,77 @@ export const diabetes:Condition = {
     isPresent: function (): boolean {        
         return _clinicalStatus(inputValue("diabetes_presence_adu_q_1", "1a"), inputValues("diabetes_followup_adu_q_1")) === getSNOMEDCode("55561003")
     },
+
+
+
+    /**
+     * The problem status describes the condition of the problem: Active problems are problems of which the patient experiences 
+     * symptoms or for which evidence exists. Problems with the status 'Inactive' refer to problems that don't affect the patient 
+     * anymore or that of which there is no evidence of existence anymore.
+     * 
+     * Related variables:
+     * ------------------------------------------------------------------
+     *                                [1A][1B][1C][2A][3A][3B]
+     * diabetes_presence_adu_q_1      [X ][  ][  ][  ][  ][  ]
+     * diabetes_followup_adu_q_1      [  ][X ][X ][X ][X ][X ]
+     * ------------------------------------------------------------------
+     * 
+     * @precondition
+     *      - no missing values
+     * 
+     * @pairingrule 
+     *      if diabetes_presence_adu_q_1 = yes in 1A => SNOMED code for active. 
+     *      else
+     *          if diabetes_presence_adu_q_1 = no, and there is a 'yes' on diabetes_followup_adu_q_1 in any of the 
+     *          follow-up assessments => active. 
+     *          else 
+     *              an empty object is returned, as there is no such a thing as 'inactive' diabetes given the
+     *              definition used by the profile: Problems with the status 'Inactive' refer to problems that don't 
+     *              affect the patient anymore or that of which there is no evidence of existence anymore.
+     * 
+     */    
     clinicalStatus: function (): CodeProperties | undefined {
         return _clinicalStatus(inputValue("diabetes_presence_adu_q_1", "1a"), inputValues("diabetes_followup_adu_q_1"))
     },
+
+
+    /**
+     * Start of the disorder to which the problem applies. Especially in symptoms in which it takes 
+     * longer for the final diagnosis, it is important to know not only the date of the diagnosis, 
+     * but also how long the patient has had the disorder. A ‘vague’ date, such as only the year or 
+     * the month and the year, is permitted.
+     * 
+     * Related variables:
+     * ------------------------------------------------------------------
+     *                                [1A][1B][1C][2A][3A][3B]
+     * diabetes_startage_adu_q_1      [X ][  ][  ][  ][  ][  ]
+     * diabetes_presence_adu_q_1      [X ][  ][  ][  ][  ][  ]
+     * diabetes_followup_adu_q_1      [  ][X ][X ][X ][X ][X ] 
+     * date                           [X ][X ][X ][X ][X ][X ]
+     * ------------------------------------------------------------------
+     * 
+     * @precondition
+     *      - the problem is 'active' (see clinicalStatus function)
+     *      - if there is a diabetes report on a follow-up 'diabetes_followup_adu_q_1', there should be a 'yes' value
+     *        in either t2d_followup_adu_q_1 or t2d_followup_adu_q_1 (diabetes type)
+     * 
+     * 
+     * @pairingrule
+     *      if diabetes_presence_adu_q_1 = yes in 1A => 
+     *              if start_age was reported, approximate year of the event given start_age reported (diabetes_startage_adu_q_1) 
+     *                  and the year of the year of the assessment.
+     *              else
+     *                  undefined onset date
+     *      else
+     *          if there is a 'yes' in any diabetes_followup_adu_q_1 => 
+     *              If the date of the assessment where diabetes_followup_adu_q_1 = yes is available =>
+     *                  mean date between that particular date (when diabetes_followup_adu_q_1 = yes), and the date of the preceding assessment.
+     *              Else
+     *                  return undefined onset date
+     *          else
+     *              error/precondition violated ('diabetes' is not 'active' if the execution reached this point)
+     *              
+     */    
     onsetDateTime: function (): string | undefined {
         assertIsDefined(inputValue("date","1a"),'failed precondition: non-null date is expected (Diabetes)')
 
@@ -54,7 +122,7 @@ export const diabetes:Condition = {
         return getSNOMEDCode("UNK");
     },
     code: function (): CodeProperties {
-        return determineCode();
+        return determineDiabetesTypeCode();
     }
 }
 
@@ -134,7 +202,6 @@ function findDatesBetweenDiabetesPresenceReport(): [string,string]|undefined{
  * @precondition
  *      - the problem is 'active' (see clinicalStatus function)
  *      - there are no 'yes' values in both t1d_followup_adu_q_1 and t1d_followup_adu_q_2 (the two types of diabetes are mutually exclusive)
- *      - when there is a yes in diabetes_followup_adu_q_1, there should be a yes in either t1d_followup_adu_q_1 and t2d_followup_adu_q_1 
  *      - if there is a yes in 'diabetes_presence_adu_q_1', there should be a value in 'diabetes_type_adu_q_1'
  *      
  * @pairingrule 
@@ -143,10 +210,11 @@ function findDatesBetweenDiabetesPresenceReport(): [string,string]|undefined{
  *      else
  *          if there is a 'yes' in t1d_followup_adu_q_1 => SNOMED code for diabates type 1
  *          else if there is a 'yes' in t2d_followup_adu_q_1 or  => SNOMED-diabates type 2
- *           else - error/precondition #3 violated
-
+ *          else (there is a yes in diabetes_followup_adu_q_1, but not on neither t1d_followup_adu_q_1 nor t2d_followup_adu_q_1)
+ *              We assign the parent code for Diabetes Mellitus (73211009) as a sort of Diabetes, unspecified.
+ * 
  */
-export const determineCode = ():CodeProperties => {
+export const determineDiabetesTypeCode = ():CodeProperties => {
     
     if (inputValue('diabetes_presence_adu_q_1',"1a")==='1'){
 

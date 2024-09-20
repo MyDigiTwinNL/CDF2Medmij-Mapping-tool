@@ -1,8 +1,6 @@
 import { InputSingleton } from '../inputSingleton';
-import * as diabetesmf from '../lifelines/Diabetes'
-import { clinicalStatusSNOMEDCodeList, conditionsSNOMEDCodeList, verificationStatusSNOMEDCodeList } from '../codes/snomedCodeLists';
+import {diabetes} from '../lifelines/Diabetes'
 import { MappingTarget, processInput } from '../mapper'
-import {UnexpectedInputException} from '../unexpectedInputException'
 
 test('diabetes clinical status, when reported positive in 1A, diabetes type 2', () => {
 
@@ -19,10 +17,10 @@ test('diabetes clinical status, when reported positive in 1A, diabetes type 2', 
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(diabetesmf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-  expect(diabetesmf.isPresent()).toBe(true);
-  expect(diabetesmf.code()).toBe(conditionsSNOMEDCodeList.diabetes_mellitus_type_2);
-  expect(diabetesmf.onsetDateTime()).toBe("1982");
+  expect(diabetes.clinicalStatus()?.display).toBe("Active");
+  expect(diabetes.isPresent()).toBe(true);
+  expect(diabetes.code().display).toBe("Diabetes mellitus type 2 (disorder)");
+  expect(diabetes.onsetDateTime()).toBe("1982");
   
 
 });
@@ -43,10 +41,10 @@ test('diabetes clinical status, when reported positive in a follow-up, diabetes 
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(diabetesmf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-  expect(diabetesmf.isPresent()).toBe(true);
-  expect(diabetesmf.code()).toBe(conditionsSNOMEDCodeList.diabetes_mellitus_type_1);
-  expect(diabetesmf.onsetDateTime()).toBe("2002-05");
+  expect(diabetes.clinicalStatus()?.display).toBe("Active");
+  expect(diabetes.isPresent()).toBe(true);
+  expect(diabetes.code().display).toBe("Diabetes mellitus type 1 (disorder)");
+  expect(diabetes.onsetDateTime()).toBe("2002-05");
   
 
 });
@@ -67,18 +65,15 @@ test('assertion test: diabetes clinical status, when reported positive in a foll
     "age": { "1a": "22" },
   }
 
-  try{
-    InputSingleton.getInstance().setInput(input);
-    expect(diabetesmf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-    expect(diabetesmf.isPresent()).toBe(true);
-    expect(diabetesmf.code()).toBe(conditionsSNOMEDCodeList.diabetes_mellitus_type_1);
-    expect(diabetesmf.onsetDateTime()).toBe("2002-05");
-    //execution shouldn't reach this point
-    throw new Error('Transformation should have failed with an UnexpectedInputException');
-  }
-  catch(error){
-    if (!(error instanceof UnexpectedInputException)) throw new Error('Transformation should have failed with an UnexpectedInputException');
-  }
+
+  InputSingleton.getInstance().setInput(input);
+  expect(diabetes.clinicalStatus()?.display).toBe("Active");
+  expect(diabetes.isPresent()).toBe(true);
+
+  //Since we cannot be sure about the type of diabetes, we assign the parent code for Diabetes Mellitus as a sort of Diabetes, unspecified.
+  expect(diabetes.code().display).toBe("Diabetes mellitus (disorder)");
+  expect(diabetes.onsetDateTime()).toBe("2002-05");
+
 
 });
 
@@ -100,10 +95,10 @@ test('diabetes clinical status, when reported positive in a follow-up after mult
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(diabetesmf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-  expect(diabetesmf.isPresent()).toBe(true);
-  expect(diabetesmf.code()).toBe(conditionsSNOMEDCodeList.diabetes_mellitus_type_1);
-  expect(diabetesmf.onsetDateTime()).toBe("2003-05");
+  expect(diabetes.clinicalStatus()?.display).toBe("Active");
+  expect(diabetes.isPresent()).toBe(true);
+  expect(diabetes.code().display).toBe("Diabetes mellitus type 1 (disorder)");
+  expect(diabetes.onsetDateTime()).toBe("2003-05");
   
 });
 
@@ -123,10 +118,10 @@ test('diabetes clinical status (T1D) reported on a follow up, with missing date 
 
   
   InputSingleton.getInstance().setInput(input);
-  expect(diabetesmf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-  expect(diabetesmf.isPresent()).toBe(true);
-  expect(diabetesmf.code()).toBe(conditionsSNOMEDCodeList.diabetes_mellitus_type_1);
-  expect(diabetesmf.onsetDateTime()).toBe(undefined);
+  expect(diabetes.clinicalStatus()?.display).toBe("Active");
+  expect(diabetes.isPresent()).toBe(true);
+  expect(diabetes.code().display).toBe("Diabetes mellitus type 1 (disorder)");
+  expect(diabetes.onsetDateTime()).toBe(undefined);
   
   
   
@@ -142,8 +137,8 @@ test('diabetes clinical status, when reported after assessment 1A', () => {
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(diabetesmf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-  expect(diabetesmf.isPresent()).toBe(true);
+  expect(diabetes.clinicalStatus()?.display).toBe("Active");
+  expect(diabetes.isPresent()).toBe(true);
 });
 
 test('diabetes clinical status, when never reported', () => {
@@ -154,8 +149,8 @@ test('diabetes clinical status, when never reported', () => {
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(diabetesmf.clinicalStatus()).toStrictEqual({});
-  expect(diabetesmf.isPresent()).toBe(false);
+  expect(diabetes.clinicalStatus()).toStrictEqual(undefined);
+  expect(diabetes.isPresent()).toBe(false);
 
 });
 
@@ -196,8 +191,8 @@ test('diabetes clinical status, when reported in assessments 1B or 1C, where t1d
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(diabetesmf.clinicalStatus()).toBe(clinicalStatusSNOMEDCodeList.active);
-  expect(diabetesmf.isPresent()).toBe(true);
+  expect(diabetes.clinicalStatus()?.display).toBe("Active");
+  expect(diabetes.isPresent()).toBe(true);
 });
 
 test('diabetes clinical status, when never reported', () => {
@@ -208,8 +203,8 @@ test('diabetes clinical status, when never reported', () => {
   }
 
   InputSingleton.getInstance().setInput(input);
-  expect(diabetesmf.clinicalStatus()).toStrictEqual({});
-  expect(diabetesmf.isPresent()).toBe(false);
+  expect(diabetes.clinicalStatus()).toStrictEqual(undefined);
+  expect(diabetes.isPresent()).toBe(false);
 
 });
 
@@ -228,7 +223,7 @@ test('Diabates resource generation when not reported', () => {
   }
 
   const targets: MappingTarget[] = [
-    { "template": './zib-2017-mappings/Diabetes.jsonata', "module": './lifelines/Diabetes' },
+    { "template": './zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/Diabetes' },
   ]
 
   processInput(input, targets).then((output: object[]) => {
