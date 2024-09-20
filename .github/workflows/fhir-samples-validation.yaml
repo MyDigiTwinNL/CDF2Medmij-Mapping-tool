@@ -29,7 +29,7 @@ jobs:
         run: npm ci
       
       - name: Download FHIR Validator
-        run: curl -o validator_cli.jar https://github.com/hapifhir/org.hl7.fhir.core/releases/download/6.0.10/validator_cli.jar
+        run: wget https://github.com/hapifhir/org.hl7.fhir.core/releases/download/6.0.10/validator_cli.jar
       
       - name: Set FHIR Validator Path
         run: echo "FHIR_VALIDATOR_PATH=$(pwd)/validator_cli.jar" >> $GITHUB_ENV
