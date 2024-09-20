@@ -8,7 +8,7 @@ import { type } from 'os';
 
 
 const targets: MappingTarget[] = [
-  { "template": '../zib-2017-mappings/Diabetes.jsonata', "module": './lifelines/Diabetes' },
+  
   { "template": '../zib-2017-mappings/BloodPressure.jsonata', "module": './lifelines/BloodPressure' },
   { "template": '../zib-2017-mappings/LDLCholesterol_Diagnostic_Report.jsonata', "module": './lifelines/LDLCholesterol' },
   { "template": '../zib-2017-mappings/LDLCholesterol_Observation.jsonata', "module": './lifelines/LDLCholesterol' },
@@ -19,6 +19,7 @@ const targets: MappingTarget[] = [
   { "template": '../zib-2017-mappings/generic/LabTestResult_Observation.jsonata', "module": './lifelines/HDLCholesterol' },
   { "template": '../zib-2017-mappings/generic/LabTestResult_Specimen.jsonata', "module": './lifelines/HDLCholesterol' },
 
+  { "template": '../zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/Diabetes' },
   { "template": '../zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/Stroke' },
   { "template": '../zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/MyocardialInfarction' },
   { "template": '../zib-2017-mappings/generic/Condition.jsonata', "module": './lifelines/HeartFailure' },  

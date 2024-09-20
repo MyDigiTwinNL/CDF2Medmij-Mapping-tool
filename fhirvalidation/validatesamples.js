@@ -13,21 +13,20 @@ const logsTempFolder = fs.mkdtempSync(path.join(os.tmpdir(), Math.random().toStr
 
 execSync('tsc');
 
-const fhirvpath = process.env.fhirvpath;
-if (!fhirvpath) {
+const FHIR_VALIDATOR_PATH = process.env.FHIR_VALIDATOR_PATH;
+if (!FHIR_VALIDATOR_PATH) {
 
 
-  let errorMsg = `ERROR: The environment variable [fhirvpath] is not defined. 
-  This variable should have the path where the HL7 FHIR validator (validator_cli.jar) is located. 
+  let errorMsg = `ERROR: The environment variable [FHIR_VALIDATOR_PATH] is not defined. 
+  This variable should have the absolute path of the HL7 FHIR validator (validator_cli.jar file). 
   The validator can be downloaded at https://github.com/hapifhir/org.hl7.fhir.core/releases/download/6.0.10/validator_cli.jar
   `
   console.error(errorMsg);
   process.exit(1);
 }
 
-const validatorCliPath = path.join(fhirvpath, 'validator_cli.jar');
-if (!fs.existsSync(validatorCliPath)) {
-  console.error('ERROR: The fhirvpath does not contain the validator_cli.jar file');
+if (!fs.existsSync(FHIR_VALIDATOR_PATH)) {
+  console.error('ERROR: The FHIR_VALIDATOR_PATH does not exist (validator_cli.jar file is expected)');
   process.exit(1);
 }
 
@@ -49,7 +48,7 @@ const tempInputFiles = files.map((file) => {
 
 // Execute the JAR command with the path to temporary input files
 const jarOutputFile = path.join(logsTempFolder, 'output.log.txt');
-const jarCommand = `java -jar ${process.env.fhirvpath}/validator_cli.jar ${outputTempFolder} -version 3.0.2 -ig nictiz.fhir.nl.stu3.zib2017#2.2.8 -sct nl  -level error  -output-style compact > ${jarOutputFile}`;
+const jarCommand = `java -jar ${process.env.FHIR_VALIDATOR_PATH} ${outputTempFolder} -version 3.0.2 -ig nictiz.fhir.nl.stu3.zib2017#2.2.8 -sct nl  -level error  -output-style compact > ${jarOutputFile}`;
 let output = ""
 try {
   output = execSync(jarCommand);
