@@ -4,7 +4,7 @@
     "csv-parse": "^5.5.2",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
-    "jsonata": "^2.0.2",
+    "jsonata": "2.0.4",
     "moize": "^6.1.6",
     "object-hash": "^3.0.0",
     "uuid": "^9.0.0",
