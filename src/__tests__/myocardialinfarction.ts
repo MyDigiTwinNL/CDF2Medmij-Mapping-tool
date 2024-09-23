@@ -62,6 +62,25 @@ test('heart attack, when reported right after baseline (1B)', () => {
 });
 
 
+test('heart attack, when reported on a follow-up assessment, without prividing the date of such assessment', () => {
+
+  const input = {
+    "heartattack_startage_adu_q_1":{ "1a": "" },
+    "heartattack_presence_adu_q_1": { "1a": "2" },
+    "heartattack_followup_adu_q_1":{"1b":"2","1c":"",/*reported*/"2a":"1","3a":"2","3b":"2"},    
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"",/*no date provided*/"2a":"","3a":"","3b":"2005-5"},
+    "age": { "1a": "22" }
+  }
+
+  InputSingleton.getInstance().setInput(input);
+  expect(myocardialInfarction.clinicalStatus()?.display).toBe("Active");
+  expect(myocardialInfarction.isPresent()).toBe(true);
+  expect(myocardialInfarction.code().display).toBe("Myocardial infarction (disorder)");
+  expect(myocardialInfarction.onsetDateTime()).toBe(undefined);
+  
+});
+
+
 test('heart attack, when reported in 2A, after skipping one assessment', () => {
 
   const input = {
