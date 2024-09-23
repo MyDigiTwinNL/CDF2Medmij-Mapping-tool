@@ -81,6 +81,27 @@ test('stroke, when reported in 2A, after skipping one assessment', () => {
 });
 
 
+test('stroke, when reported on a follow-up assessment, but with no dates provided', () => {
+
+  const input = {
+    "stroke_startage_adu_q_1":{ "1a": "" },
+    "stroke_presence_adu_q_1": { "1a": "2" },
+    "stroke_followup_adu_q_1":{"1b":"2","1c":"",/*yes*/"2a":"1","3a":"2","3b":"2"},    
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"",/*no date provided*/"2a":"","3a":"","3b":""},
+    "age": { "1a": "22" }
+  }
+
+  InputSingleton.getInstance().setInput(input);
+  expect(strokemf.stroke.clinicalStatus()?.display).toBe("Active");
+  expect(strokemf.stroke.isPresent()).toBe(true);
+  expect(strokemf.stroke.code().display).toBe("Cerebrovascular accident (disorder)");
+  expect(strokemf.stroke.onsetDateTime()).toBe(undefined);
+  
+});
+
+
+
+
 test('stroke, when reported in 2A, after skipping multiple assessments', () => {
 
   const input = {
