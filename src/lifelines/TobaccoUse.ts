@@ -116,28 +116,36 @@ const exSmoker = function(wave:string):boolean{
  * 
  * @pairingrule 
  *      - the approximate year the participant had the age reported in A1 baseline assessment, 
- *        given the date such baseline assessment was performed
+ *        given the date such baseline assessment was performed. An 'undefined' starting date is
+ *        given when there is no date for the baseline assessment, or when the age on the
+ *        baseline assessment or the smoking_startage were no reported.
+ *        
+ *      
  */
 const  smokingStart = (wave:string):string|undefined => {
     const assessmentDate = inputValue("date","1a");   
         
-    assertIsDefined(assessmentDate,'non-null date expected for assessment 1a (TobaccoUse/smokingStart)')
-    
-    const partAge = inputValue("age","1a");    
-    
-    const smokingStartAge = inputValue("smoking_startage_adu_c_2",wave)
-
-    if (smokingStartAge!=undefined && partAge!=undefined){
-        const surveyDateParts = assessmentDate!.split("-");        
-        const surveyYear= Number(surveyDateParts[0]);
-        const startAge = Number(smokingStartAge);
-        //Age is only on baseline assessment 1A
-        const surveyAge = Number(partAge);   
-        return (surveyYear - surveyAge + startAge).toString()
-    }
-    else{
+    if (assessmentDate === undefined){
         return undefined
     }
+    else{
+        const partAge = inputValue("age","1a");    
+    
+        const smokingStartAge = inputValue("smoking_startage_adu_c_2",wave)
+    
+        if (smokingStartAge!=undefined && partAge!=undefined){
+            const surveyDateParts = assessmentDate!.split("-");        
+            const surveyYear= Number(surveyDateParts[0]);
+            const startAge = Number(smokingStartAge);
+            //Age is only on baseline assessment 1A
+            const surveyAge = Number(partAge);   
+            return (surveyYear - surveyAge + startAge).toString()
+        }
+        else{
+            return undefined
+        }
+    }
+
 };
 
 /**
@@ -152,21 +160,26 @@ const  smokingEnd = (wave:string):string|undefined => {
 
     const assessmentDate = inputValue("date","1a");
     
-    assertIsDefined(assessmentDate,'non-null date expected for assessment 1a (TobaccoUse/smokingEnd)')
-
-    const partAge = inputValue("age","1a");
-    const smokingEndAge = inputValue("smoking_endage_adu_c_2",wave);
-
-    if (smokingEndAge!==undefined && partAge!==undefined){
-        const surveyDateParts = assessmentDate!.split("-");        
-        const surveyYear= Number(surveyDateParts[0]);
-        const endAge = Number(smokingEndAge);
-        const surveyAge = Number(partAge);                
-        return (surveyYear - surveyAge + endAge).toString()
-    }
-    else{
+    if (assessmentDate === undefined){
         return undefined
     }
+    else{
+        const partAge = inputValue("age","1a");
+        const smokingEndAge = inputValue("smoking_endage_adu_c_2",wave);
+    
+        if (smokingEndAge!==undefined && partAge!==undefined){
+            const surveyDateParts = assessmentDate!.split("-");        
+            const surveyYear= Number(surveyDateParts[0]);
+            const endAge = Number(smokingEndAge);
+            const surveyAge = Number(partAge);                
+            return (surveyYear - surveyAge + endAge).toString()
+        }
+        else{
+            return undefined
+        }
+    
+    }
+
     
 };
 

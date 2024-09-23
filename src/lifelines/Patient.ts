@@ -14,27 +14,32 @@ gender, age (See Lifelines data manual)
 
 /**
  * 
- * @precondition assessment date is not null
  * @precondition in reported age is defined, it is a number
  * 
- * @returns 
+ * @returns approximate birthdate given the baseline assessment date and the reported age. Undefined
+ *          if there is no reported age or undefined assessment date.
  */
 export const birthDate = ():string|undefined => {   
         const assessmetDate:string|undefined = inputValue("date","1a")
 
-        assertIsDefined(assessmetDate,'failed precondition: non-null assessment date is expected (Patient)')            
-        const surveyDateParts = assessmetDate.split("-");
-        
-        const reportedAge:string|undefined = inputValue("age","1a")
-
-        if (reportedAge!=undefined){
-            const surveyAge = Number(reportedAge);      
-            const surveyYear = Number(surveyDateParts[0]);
-            return (surveyYear-surveyAge).toString()
+        if (assessmetDate === undefined){
+            return undefined
         }
         else{
-            return undefined;
+            const surveyDateParts = assessmetDate.split("-");
+        
+            const reportedAge:string|undefined = inputValue("age","1a")
+    
+            if (reportedAge!=undefined){
+                const surveyAge = Number(reportedAge);      
+                const surveyYear = Number(surveyDateParts[0]);
+                return (surveyYear-surveyAge).toString()
+            }
+            else{
+                return undefined;
+            }    
         }
+
         
 }
 
