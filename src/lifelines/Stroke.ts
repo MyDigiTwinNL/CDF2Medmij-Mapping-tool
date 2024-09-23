@@ -59,13 +59,19 @@ export const stroke:Condition = {
      *      - the problem is 'active' (see clinicalStatus function)
      *
      * @pairingrule
-     *      if stroke_presence_adu_q_1 = yes in 1A => approximate year on which the participant given the age reported  by stroke_startage_adu_q_1
+     *      if stroke_presence_adu_q_1 = yes in 1A => 
+     *              if start_age was reported, approximate year of the event given start_age reported (stroke_startage_adu_q_1) 
+     *                  and the year of the year of the assessment.
+     *              else
+     *                  undefined onset date
      *      else
-     *          if there is a 'yes' in any stroke_followup_adu_q_1 => mean date between the date of the assessment
-     *              where stroke_followup_adu_q_1 = yes, and the date of the preceding one.
+     *          if there is a 'yes' in any stroke_followup_adu_q_1 => 
+     *              If the date of the assessment where stroke_followup_adu_q_1 = yes is available =>
+     *                  mean date between that particular date (when stroke_followup_adu_q_1 = yes), and the date of the preceding assessment.
+     *              Else
+     *                  return undefined date
      *          else
      *              error/precondition violated ('stroke' is not 'active' if the execution reached this point)
-     *              (this would be due to a programing error, not data-related one, this is why this causes program abortion)
      *
      */
     onsetDateTime: function (): string | undefined {
@@ -97,7 +103,7 @@ export const stroke:Condition = {
                 return lifelinesDateToISO(lifelinesMeanDate(date1, date2));
             }
             else {            
-                throw Error("Unexpected input (precondition violated): no 'yes' values in stroke_followup_adu_q_1");
+                return undefined
             }
 
 
@@ -154,6 +160,11 @@ const _clinicalStatus = moize((stroke_presence:string|undefined,followup_assessm
  *              where stroke_followup_adu_q_1 = yes, and the date of the preceding one.
  * 
  * 
+ * If the date of the assessment where stroke_followup_adu_q_1 = yes is available =>
+ *      mean date between that particular date (when stroke_followup_adu_q_1 = yes), and the date of the preceding assessment.
+ * Else
+ *      return undefined date
+ * 
  * @param diabFollowUp 
  * @returns 
  */
@@ -167,16 +178,21 @@ function findDatesBetweenStrokePresenceReport(): [string,string]|undefined{
     assertIsDefined(strokeWave,`A 'yes' value on stroke_followup_adu_q_1 was expected`)
 
     const strokeWaveDate = inputValue("date",strokeWave)
-    assertIsDefined(strokeWaveDate,`A non-null date is expected in the assessment where stroke_followup_adu_q_1 is reported`)
 
-    //find the previous non-undefined assessment date
-    const assessmentDates:variableAssessments = inputValues('date')            
-    const waves = ['1a','1b','1c','2a','3a','3b'];    
-    const previousWaves = waves.slice(0,waves.indexOf(strokeWave))
-    const previousAssessmentWave = previousWaves.reverse().find((pwave)=>assessmentDates[pwave]!==undefined)
+    if (strokeWaveDate === undefined){
+        return undefined
+    }
+    else {
+        //find the previous non-undefined assessment date
+        const assessmentDates:variableAssessments = inputValues('date')            
+        const waves = ['1a','1b','1c','2a','3a','3b'];    
+        const previousWaves = waves.slice(0,waves.indexOf(strokeWave))
+        const previousAssessmentWave = previousWaves.reverse().find((pwave)=>assessmentDates[pwave]!==undefined)
+        
+        assertIsDefined(previousAssessmentWave,`Assessment (with a non-null date) expected to exist previous to the one where stroke_followup_adu_q_1 is reported`)
     
-    assertIsDefined(previousAssessmentWave,`Assessment (with a non-null date) expected to exist previous to the one where stroke_followup_adu_q_1 is reported`)
+        const previousAssessmentDate:string = assessmentDates[previousAssessmentWave!]!;
+        return [previousAssessmentDate,strokeWaveDate]    
+    }
 
-    const previousAssessmentDate:string = assessmentDates[previousAssessmentWave!]!;
-    return [previousAssessmentDate,strokeWaveDate]
   }

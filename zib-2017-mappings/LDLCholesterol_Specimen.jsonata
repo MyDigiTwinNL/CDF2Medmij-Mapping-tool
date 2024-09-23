@@ -5,7 +5,7 @@ $map($results(), function($result) {
     ($isDefined($result.ldlResults))?{
         "resourceType": "Specimen",
         
-        "id": $waveSpecificResourceId('zib-laboratorytestresult-specimen-ldl',$result.assessment),
+        "id": $waveSpecificResourceId('zib-ltr-sp-ldl',$result.assessment),
         "meta": {
             "profile": [
                 "http://nictiz.nl/fhir/StructureDefinition/zib-LaboratoryTestResult-Specimen"

@@ -95,7 +95,7 @@ export const haemoglobinConcentration:LaboratoryTestResult = {
 
     },
     labTestName: function (): string {
-        return "Haemoglobin"
+        return "Haemoglob"
     }
 }
 

@@ -115,6 +115,39 @@ test('CVD , when only one of the conditions (MI, HF, Stroke) is present on a fol
 });
 
 
+
+test('CVD , when the three related conditions are present, but none provide an onsetDate', () => {
+
+  const input = {
+
+    "heartfailure_startage_adu_q_1":{ "1a": "" },
+    "heartfailure_presence_adu_q_1": { "1a": "2" },
+    "heartfailure_followup_adu_q_1":{"1b":"2","1c":"2",/**/"2a":"1","3a":"2","3b":"2"},
+    "stroke_startage_adu_q_1":{ "1a": "" },
+    "stroke_presence_adu_q_1": { "1a": "2" },
+    "stroke_followup_adu_q_1":{"1b":"2","1c":"2","2a":"2",/**/"3a":"1","3b":"2"},
+    "heartattack_startage_adu_q_1":{ "1a": "" },
+    "heartattack_presence_adu_q_1": { "1a": "2" },
+    "heartattack_followup_adu_q_1":{"1b":"2","1c":"2","2a":"2","3a":"2",/**/"3b":"1"},
+    "date": {"1a":"1992-5","1b":"1995-5","1c":"1997-5",/**/"2a":"","2b":"2002-5",/**/"3a":"",/**/"3b":""},
+    "age": { "1a": "40" }
+
+  }
+
+  InputSingleton.getInstance().setInput(input);
+  expect(cardioVascularDisease.clinicalStatus()?.display).toBe("Active");
+  expect(cardioVascularDisease.isPresent()).toBe(true);
+  expect(cardioVascularDisease.code().display).toBe("CVD - cardiovascular disease");
+  //Expected to use the 'onset' date of HF, the earliest condition to happen
+  expect(cardioVascularDisease.onsetDateTime()).toBe(undefined);
+
+
+});
+
+
+
+
+
 /**
  * Case intended only for testing that the template and the module, together, do not fail
  * when generating a FHIR resource with a given input. More specific validations on this
