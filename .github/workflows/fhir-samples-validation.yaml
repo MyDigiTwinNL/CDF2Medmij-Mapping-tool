@@ -28,6 +28,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
+      - name: Create a .fhir for the chached resources of the FHIR profile
+        run: mkdir -p ~/.fhir
+      
+      - name: Download the cache content of the FHIR Validator
+        run: wget https://figshare.com/ndownloader/files/49362157?private_link=93fbd16af86c3f01a68a -O fhirvalidatorcache.zip
+      
+      - name: Decompress FHIR Validator Cache
+        run: unzip fhirvalidatorcache.zip -d ~/.fhir
+      
       - name: Download FHIR Validator
         run: wget https://github.com/hapifhir/org.hl7.fhir.core/releases/download/6.0.10/validator_cli.jar
       
