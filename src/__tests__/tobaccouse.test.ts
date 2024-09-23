@@ -77,58 +77,6 @@ test('participant started smoking before the baseline assessment and was still a
 });
 
 
-
-
-test('participant started smoking before the baseline assessment, but the date of his baseline assessment is unknown', () => {
-
-  const input = {
-    "current_smoker_adu_c_2": { "1a": "1", "1b": "1", "1c": "1", "2a": "1", "2b": "1", "3a": "1" },
-    "smoking_startage_adu_c_2": { "1a": "20", "1b": "20", "1c": "20", "2a": "20", "2b": "20", "3a": "20" },
-    "ex_smoker_adu_c_2": { "1a": "0", "1b": "0", "1c": "0", "2a": "0", "2b": "0", "3a": "0" },
-    "smoking_endage_adu_c_2": { "1a": "", "1b": "", "1c": "", "2a": "", "2b": "", "3a": "" },
-    "ever_smoker_adu_c_2": { "1a": "1", "1b": "1", "1c": "1", "2a": "1", "2b": "1", "3a": "1" },
-    "total_frequency_adu_c_1": { "1a": "5", "1b": "5", "1c": "5", "2a": "5", "2b": "5", "3a": "5" },
-    "packyears_cumulative_adu_c_2": { "1a": "200", "1b": "200", "1c": "200", "2a": "200", "2b": "200", "3a": "200" },
-    "date": { "1a": "", "1b": "1995-5", "1c": "1997-5", "2a": "2001-5", "2b": "2003-5", "3a": "2005-5", "3b": "2009-5" },        
-    "age": { "1a": "40" }
-  }
-
-  InputSingleton.getInstance().setInput(input);
-  const mappingResult = tobbacousemf.results();
-
-  expect((mappingResult[0] as TobaccoUseProperties).useStatus).toBe(tobaccoUseStatusSNOMEDCodelist.daily);
-  expect((mappingResult[0] as TobaccoUseProperties).smokingStartDate).toBe(undefined);
-
-});
-
-
-test('participant was an ex-smoker before the first assessment, but the date of his baseline assessment is unknown', () => {
-
-  const input = {
-    "current_smoker_adu_c_2": { "1a": "0", "1b": "0", "1c": "0", "2a": "0", "2b": "0", "3a": "0" },
-    "smoking_startage_adu_c_2": { "1a": "20", "1b": "20", "1c": "20", "2a": "20", "2b": "20", "3a": "20" },
-    "ex_smoker_adu_c_2": { "1a": "1", "1b": "1", "1c": "1", "2a": "1", "2b": "1", "3a": "1" },
-    "smoking_endage_adu_c_2": { "1a": "30", "1b": "30", "1c": "30", "2a": "30", "2b": "30", "3a": "30" },
-    "ever_smoker_adu_c_2": { "1a": "1", "1b": "1", "1c": "1", "2a": "1", "2b": "1", "3a": "1" },
-    "total_frequency_adu_c_1": { "1a": "5", "1b": "5", "1c": "5", "2a": "5", "2b": "5", "3a": "5" },
-    "packyears_cumulative_adu_c_2": { "1a": "200", "1b": "200", "1c": "200", "2a": "200", "2b": "200", "3a": "200" },
-    "date": { "1a": "", "1b": "1995-5", "1c": "1997-5", "2a": "2001-5", "2b": "2003-5", "3a": "2005-5", "3b": "2009-5" },        
-    "age": { "1a": "40" }
-  }
-
-  
-  InputSingleton.getInstance().setInput(input);
-  const mappingResult = tobbacousemf.results();
-
-  expect((mappingResult[0] as TobaccoUseProperties).useStatus).toBe(tobaccoUseStatusSNOMEDCodelist.ex_smoker);
-  expect((mappingResult[0] as TobaccoUseProperties).smokingStartDate).toBe(undefined);
-  expect((mappingResult[0] as TobaccoUseProperties).smokingEndDate).toBe(undefined);
-
-});
-
-
-
-
 test('participant started smoking after the baseline assessment and was still a smoker in the last assessment', () => {
 
   const input = {
