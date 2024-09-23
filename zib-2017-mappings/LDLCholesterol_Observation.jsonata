@@ -5,7 +5,7 @@ $map($results(), function($result) {
 
     ($isDefined($result.ldlResults))?{
         "resourceType": "Observation",        
-        "id": $waveSpecificResourceId('zib-laboratorytestresult-observation-ldl',$result.assessment),    
+        "id": $waveSpecificResourceId('zib-ltr-ob-ldl',$result.assessment),    
         "meta": {
             "profile": [
                 "http://nictiz.nl/fhir/StructureDefinition/zib-LaboratoryTestResult-Observation"
@@ -70,7 +70,7 @@ $map($results(), function($result) {
         },
         
         "specimen": {
-            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-ldl',$result.assessment)),
+            "reference": $idToUUID($waveSpecificResourceId('zib-ltr-sp-ldl',$result.assessment)),
             "display": "Blood (substance)"
         },
         "referenceRange": [

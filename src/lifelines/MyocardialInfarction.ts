@@ -8,7 +8,7 @@ import {assertIsDefined} from '../unexpectedInputException'
 export const myocardialInfarction:Condition = {
 
     conditionName: function (): string {
-        return 'myocardial-infarction';
+        return 'MI';
     },
 
     isPresent: function (): boolean {

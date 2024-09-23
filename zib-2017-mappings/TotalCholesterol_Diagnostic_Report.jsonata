@@ -7,7 +7,7 @@ $map($results(), function($result) {
         
     ($isDefined($result.totalCholResults))?{
     "resourceType": "DiagnosticReport",
-    "id": $waveSpecificResourceId('zib-laboratorytestresult-diagnosticreport-total-chol',$result.assessment),
+    "id": $waveSpecificResourceId('zib-ltr-dg-total-chol',$result.assessment),
     "meta": {
         "profile": [
             "http://nictiz.nl/fhir/StructureDefinition/zib-LaboratoryTestResult-DiagnosticReport"
@@ -65,13 +65,13 @@ $map($results(), function($result) {
     "effectiveDateTime": $result.collectedDateTime,
     "specimen": [
         {
-            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-specimen-total-chol',$result.assessment)),
+            "reference": $idToUUID($waveSpecificResourceId('zib-ltr-sp-total-chol',$result.assessment)),
             "display": "Blood"
         }
     ],
     "result": [
         {        
-            "reference": $idToUUID($waveSpecificResourceId('zib-laboratorytestresult-observation-total-chol',$result.assessment)),
+            "reference": $idToUUID($waveSpecificResourceId('zib-ltr-ob-total-chol',$result.assessment)),
             "display": "Laboratory test finding"
         }
     ]

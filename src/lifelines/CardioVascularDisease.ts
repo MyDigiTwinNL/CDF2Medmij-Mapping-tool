@@ -13,7 +13,7 @@ import {assertIsDefined} from '../unexpectedInputException'
 
 export const cardioVascularDisease:Condition = {
     conditionName: function (): string {
-        return 'cardio-vascular-disease';
+        return 'CVD';
     },
 
     isPresent: function (): boolean {

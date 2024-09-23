@@ -48,7 +48,7 @@ https://www.umcg.nl/bw/503e8554-bf74-47c9-b175-9fc3792ba9b4
 
 export const plasmaAlbumin:LaboratoryTestResult = {
     labTestName: function (): string {
-        return "plasma-albumin"
+        return "plasma-alb"
     },
     referenceRangeUpperLimit: function (): number | undefined {
         return PLASMA_ALBUMIN_REFERENCE_RANGE_UPPER_LIMIT
