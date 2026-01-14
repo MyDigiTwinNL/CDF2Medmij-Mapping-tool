@@ -1,4 +1,4 @@
-name: Validate Samples on Merge
+name: Validate Samples on Merge 
 
 
 on:
